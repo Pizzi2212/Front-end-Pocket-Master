@@ -1,25 +1,24 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react'
+import { Container, Button, Form } from 'react-bootstrap'
+import PokemonInfo from './PokemonInfo' // Importa il componente PokemonInfo
 
 function App() {
+  const [pokemonName, setPokemonName] = useState('pikachu')
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <Container className="mt-5">
+      <h1>Pokédex</h1>
+      <Form.Control
+        type="text"
+        value={pokemonName}
+        onChange={(e) => setPokemonName(e.target.value.toLowerCase())} // Cambia il nome del Pokémon
+        placeholder="Inserisci il nome di un Pokémon"
+        className="mb-3"
+      />
+      <Button variant="primary">Cerca Pokémon</Button>
+      <PokemonInfo pokemonName={pokemonName} />
+    </Container>
+  )
 }
 
-export default App;
+export default App
