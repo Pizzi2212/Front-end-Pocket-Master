@@ -1,24 +1,60 @@
-import React, { useState } from 'react'
-import { Container, Button, Form } from 'react-bootstrap'
-import PokemonInfo from './PokemonInfo' // Importa il componente PokemonInfo
+import React, { useEffect, useState } from 'react'
+import 'bootstrap/dist/css/bootstrap.min.css'
+import MyNav from './components/MyNavComponent'
+import Pokemon from './components/PokemonInfo'
+import { Container, Row, Col } from 'react-bootstrap'
 
-function App() {
-  const [pokemonName, setPokemonName] = useState('pikachu')
+export default function App() {
+  const [pokemon, setPokemon] = useState(null)
+
+  const fetchPokemon = async (id) => {
+    try {
+      const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}`)
+      const json = await response.json()
+      const parsedData = parsePokeAPIResponse(json)
+      setPokemon(parsedData)
+    } catch (error) {
+      console.error('Errore durante il fetch:', error)
+    }
+  }
+
+  const parsePokeAPIResponse = (json) => ({
+    name: json.name,
+    weight: json.weight,
+    height: json.height,
+    sprite: json.sprites.front_default,
+    abilities: json.abilities.map((e) => e.ability.name),
+    stats: json.stats.map((e) => ({
+      name: e.stat.name,
+      value: e.base_stat,
+    })),
+  })
+
+  useEffect(() => {
+    fetchPokemon(25)
+  }, [])
+
+  const handleRandomClick = () => {
+    const randomId = Math.floor(Math.random() * 1010) + 1
+    fetchPokemon(randomId)
+  }
 
   return (
-    <Container className="mt-5">
-      <h1>Pokédex</h1>
-      <Form.Control
-        type="text"
-        value={pokemonName}
-        onChange={(e) => setPokemonName(e.target.value.toLowerCase())} // Cambia il nome del Pokémon
-        placeholder="Inserisci il nome di un Pokémon"
-        className="mb-3"
-      />
-      <Button variant="primary">Cerca Pokémon</Button>
-      <PokemonInfo pokemonName={pokemonName} />
-    </Container>
+    <>
+      <header>
+        <MyNav />
+      </header>
+      <main>
+        <Container>
+          <Row>
+            <Col xs={12}>
+              {pokemon && (
+                <Pokemon data={pokemon} onRandomClick={handleRandomClick} />
+              )}
+            </Col>
+          </Row>
+        </Container>
+      </main>
+    </>
   )
 }
-
-export default App
