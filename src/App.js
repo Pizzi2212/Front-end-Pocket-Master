@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import MyNav from './components/MyNavComponent'
-import Pokemon from './components/PokemonInfo'
+import Pokemon1 from './components/PokemonInfo1'
 import { Container, Row, Col } from 'react-bootstrap'
 import './App.css'
 
@@ -24,6 +24,7 @@ export default function App() {
     weight: json.weight,
     height: json.height,
     sprite: json.sprites.front_default,
+    spriteShiny: json.sprites.front_shiny,
     abilities: json.abilities.map((e) => e.ability.name),
     stats: json.stats.map((e) => ({
       name: e.stat.name,
@@ -49,7 +50,7 @@ export default function App() {
         <Container>
           <Row>
             {pokemon && (
-              <Pokemon data={pokemon} onRandomClick={handleRandomClick} />
+              <Pokemon1 data={pokemon} onRandomClick={handleRandomClick} />
             )}
           </Row>
         </Container>

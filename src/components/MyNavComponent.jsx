@@ -6,7 +6,7 @@ import logo from '../pokemon.jpg'
 
 function MyNav() {
   return (
-    <Navbar expand="lg" className="bg-primary fixed-top">
+    <Navbar expand="lg" className="nav fixed-top">
       <Container fluid>
         <img src={logo} width="150px" className="me-3" alt="Logo" />
         <Navbar.Brand href="#home">PokèTeam</Navbar.Brand>
