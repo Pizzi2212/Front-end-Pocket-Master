@@ -1,6 +1,7 @@
 import { Button, Card, Col } from 'react-bootstrap'
 import Dropdown from 'react-bootstrap/Dropdown'
 import DropdownButton from 'react-bootstrap/DropdownButton'
+import Stats from './Stats'
 
 const Pokemon = ({ data, onRandomClick }) => {
   return (
@@ -25,8 +26,7 @@ const Pokemon = ({ data, onRandomClick }) => {
               {data.name.toUpperCase()}
             </Card.Title>
             <Card.Text>
-              <strong>Height:</strong> {data.height / 10} m <br />
-              <strong>Weight:</strong> {data.weight / 10} kg
+              <Stats data={data} />
             </Card.Text>
             <Card.Text>
               <strong className="">Abilities:</strong>{' '}
