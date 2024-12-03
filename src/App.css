@@ -1,1 +1,15 @@
+body {
+  background-image: url(../public/bg.png);
+}
 
+.random {
+  width: 85px;
+}
+
+#dropdown-basic-button {
+  width: 100px;
+}
+
+.mt-5 {
+  margin-top: 5em !important;
+}

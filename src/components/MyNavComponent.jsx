@@ -2,12 +2,14 @@ import Container from 'react-bootstrap/Container'
 import Nav from 'react-bootstrap/Nav'
 import Navbar from 'react-bootstrap/Navbar'
 import NavDropdown from 'react-bootstrap/NavDropdown'
+import logo from '../pokemon.jpg'
 
 function MyNav() {
   return (
-    <Navbar expand="lg" className="bg-primary">
-      <Container>
-        <Navbar.Brand href="#home">Pokè-Enciclopedia</Navbar.Brand>
+    <Navbar expand="lg" className="bg-primary fixed-top">
+      <Container fluid>
+        <img src={logo} width="150px" className="me-3" alt="Logo" />
+        <Navbar.Brand href="#home">PokèTeam</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">

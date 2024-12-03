@@ -3,6 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import MyNav from './components/MyNavComponent'
 import Pokemon from './components/PokemonInfo'
 import { Container, Row, Col } from 'react-bootstrap'
+import './App.css'
 
 export default function App() {
   const [pokemon, setPokemon] = useState(null)
@@ -47,11 +48,9 @@ export default function App() {
       <main>
         <Container>
           <Row>
-            <Col xs={12}>
-              {pokemon && (
-                <Pokemon data={pokemon} onRandomClick={handleRandomClick} />
-              )}
-            </Col>
+            {pokemon && (
+              <Pokemon data={pokemon} onRandomClick={handleRandomClick} />
+            )}
           </Row>
         </Container>
       </main>
