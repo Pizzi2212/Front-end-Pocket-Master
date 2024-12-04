@@ -8,26 +8,25 @@ const Pokemon = ({ data, onRandomClick }) => {
     <>
       <Card
         style={{
-          width: '18rem',
+          width: '25rem',
           height: '35rem',
-          border: '2px solid black',
         }}
         className="m-3"
       >
+        {' '}
+        <Card.Title className="text-center mt-2 ms-5 pe-5  fs-1">
+          {' '}
+          {data.name.toUpperCase()}
+        </Card.Title>
         <Card.Img
           style={{ height: '12rem', objectFit: 'contain' }}
           variant="top"
           src={data.sprite}
         />
         <Card.Body>
-          <Card.Title className="text-center">
-            {' '}
-            {data.name.toUpperCase()}
-          </Card.Title>
           <Card.Text className="text-center mt-3">
             <Stats data={data} />
           </Card.Text>
-          <hr />
           <div className="d-flex">
             <Button
               className="mt-4 random"
