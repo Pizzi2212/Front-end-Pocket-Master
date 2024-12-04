@@ -8,10 +8,6 @@ body {
   width: 85px;
 }
 
-.card {
-  background-image: url(../public/card.png);
-  background-size: cover;
-}
 .nav {
   background-color: #494949;
 }
@@ -22,4 +18,13 @@ body {
 
 .mt-5 {
   margin-top: 5em !important;
+}
+
+.card {
+  border-radius: 25px;
+}
+
+.cardBody {
+  position: relative;
+  bottom: 0.8em;
 }

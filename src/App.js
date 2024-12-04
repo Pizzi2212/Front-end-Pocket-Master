@@ -23,17 +23,19 @@ export default function App() {
     name: json.name,
     weight: json.weight,
     height: json.height,
-    sprite: json.sprites.front_default,
+    spriteStat: json.sprites.other?.home?.front_default,
+    sprite: json.sprites.other?.['official-artwork']?.front_default,
     spriteShiny: json.sprites.front_shiny,
     abilities: json.abilities.map((e) => e.ability.name),
     stats: json.stats.map((e) => ({
       name: e.stat.name,
       value: e.base_stat,
     })),
+    types: json.types.map((e) => e.type.name),
   })
 
   useEffect(() => {
-    fetchPokemon(25)
+    fetchPokemon('1010')
   }, [])
 
   const handleRandomClick = () => {
