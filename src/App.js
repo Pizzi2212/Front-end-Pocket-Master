@@ -35,7 +35,7 @@ export default function App() {
   })
 
   useEffect(() => {
-    fetchPokemon('1010')
+    fetchPokemon('darkrai')
   }, [])
 
   const handleRandomClick = () => {

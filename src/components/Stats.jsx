@@ -52,12 +52,19 @@ const Stats = ({ data }) => {
     : normal
     ? 'lightgray'
     : dragon
-    ? 'gold'
+    ? '#486FCB'
     : 'white'
 
   return (
     <>
-      <Button className="btn btn-outline-light " onClick={handleShow}>
+      <Button
+        style={{
+          backgroundColor: modalBackgroundColor,
+          color: modalBackgroundColor === 'black' ? 'white' : 'dark',
+          border: '1px solid black',
+        }}
+        onClick={handleShow}
+      >
         Show Stats
       </Button>
 

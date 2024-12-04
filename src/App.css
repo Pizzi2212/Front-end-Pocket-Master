@@ -28,3 +28,57 @@ body {
   position: relative;
   bottom: 0.8em;
 }
+
+.input-pokemon {
+  width: 75%;
+  margin-top: 1rem;
+  margin-left: 0.5rem;
+  padding: 15px 25px;
+  font-size: 18px;
+  font-family: 'Press Start 2P', cursive; /* Un font che ricorda quello dei videogiochi retro */
+  border: 3px solid #ffcc00; /* Un giallo simile al colore delle Pokéball */
+  border-radius: 50px;
+  background-color: #fff3e0; /* Colore pastello, morbido e accattivante */
+  box-shadow: 0 4px 10px rgba(255, 105, 0, 0.3), 0 0 15px rgba(255, 0, 0, 0.2); /* Ombra vivace */
+  transition: all 0.3s ease;
+}
+
+.input-pokemon {
+  width: 100%;
+  padding: 16px 24px;
+  font-size: 16px;
+  font-family: 'Poppins', sans-serif;
+  border: 2px solid gray;
+  border-radius: 50px;
+  background-color: #fff;
+  color: #333;
+  box-shadow: 0 4px 10px rgba(255, 87, 34, 0.2);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.input-pokemon::placeholder {
+  color: black;
+  font-weight: bold;
+  font-size: 16px;
+  opacity: 0.6;
+  transition: opacity 0.3s ease;
+}
+
+.input-pokemon:focus {
+  outline: none;
+
+  background-color: white;
+}
+
+.input-pokemon:focus::placeholder {
+  opacity: 0;
+}
+
+.input-pokemon:active {
+  transform: scale(0.98);
+}
+
+.input-pokemon:focus + .icon {
+  opacity: 1;
+  transition: opacity 0.3s ease;
+}

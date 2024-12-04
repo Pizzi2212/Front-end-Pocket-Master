@@ -106,11 +106,12 @@ const Pokemon = ({ data, onRandomClick }) => {
               random
             </Button>
             <input
-              placeholder="Cerca il tuo pokèmon"
-              className="w-75 mt-4 ms-2"
+              placeholder="Cerca il tuo pokèmon "
+              class="input-pokemon"
               type="text"
-            ></input>
+            />
           </div>
+
           <Card.Text className="text-center  mt-4">
             <Stats data={data} />
           </Card.Text>
