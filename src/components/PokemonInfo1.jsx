@@ -115,31 +115,6 @@ const Pokemon = ({ data, onRandomClick }) => {
           <Card.Text className="text-center  mt-4">
             <Stats data={data} />
           </Card.Text>
-
-          <div className="d-flex mt-4 justify-content-around">
-            <DropdownButton id="dropdown-basic-button" title="Mossa 1">
-              <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
-              <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
-              <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
-            </DropdownButton>
-            <DropdownButton id="dropdown-basic-button" title="Mossa 2">
-              <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
-              <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
-              <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
-            </DropdownButton>
-          </div>
-          <div className="d-flex mt-3 justify-content-around">
-            <DropdownButton id="dropdown-basic-button" title="Mossa 3">
-              <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
-              <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
-              <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
-            </DropdownButton>
-            <DropdownButton id="dropdown-basic-button" title="Mossa 4">
-              <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
-              <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
-              <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
-            </DropdownButton>
-          </div>
         </Card.Body>
       </Card>
     </>
