@@ -105,11 +105,11 @@ const Stats = ({ data }) => {
 
           {data.stats && data.stats.length > 0 ? (
             data.stats.map((stat, index) => (
-              <>
-                <p key={index}>
+              <div key={index}>
+                <p>
                   <strong>{stat.name}:</strong> {stat.value}
                 </p>
-              </>
+              </div>
             ))
           ) : (
             <p>No stats available</p>

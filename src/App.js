@@ -27,6 +27,7 @@ export default function App() {
     sprite: json.sprites.other?.['official-artwork']?.front_default,
     spriteShiny: json.sprites.front_shiny,
     abilities: json.abilities.map((e) => e.ability.name),
+    moves: json.moves.map((e) => e.move.name),
     stats: json.stats.map((e) => ({
       name: e.stat.name,
       value: e.base_stat,

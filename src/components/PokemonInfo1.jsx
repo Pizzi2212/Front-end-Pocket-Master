@@ -18,6 +18,7 @@ import rockCard from '../card-rock.png'
 import steelCard from '../card-steel.png'
 import waterCard from '../card-water.png'
 import fireCard from '../card-fire.png'
+import MoveSelect from './Moves'
 
 const Pokemon = ({ data, onRandomClick }) => {
   const includesType = (types, targetTypes) =>
@@ -73,6 +74,36 @@ const Pokemon = ({ data, onRandomClick }) => {
     : dragon
     ? `url(${dragonCard})`
     : 'white'
+
+  const randomBackgroundColor = psychic
+    ? '#C81250'
+    : fire
+    ? 'red'
+    : water
+    ? '#0094D9'
+    : bug
+    ? '#545500'
+    : ghost
+    ? '#4E2093'
+    : electric
+    ? '#EABD00'
+    : poison
+    ? '#5B0B63'
+    : fight
+    ? '#C2590F'
+    : grass
+    ? 'green'
+    : dark
+    ? 'black'
+    : steel
+    ? 'gray'
+    : fairy
+    ? 'pink'
+    : normal
+    ? 'lightgray'
+    : dragon
+    ? '#486FCB'
+    : 'white'
   return (
     <>
       <Card
@@ -86,7 +117,7 @@ const Pokemon = ({ data, onRandomClick }) => {
       >
         {' '}
         <Card.Title
-          className="text-center mt-3 ms-5 pe-5  fs-5"
+          className="text-center mt-4 ms-5 pe-5  fs-5"
           style={{
             color:
               data.types && data.types.includes('dark') ? 'white' : 'black',
@@ -102,12 +133,20 @@ const Pokemon = ({ data, onRandomClick }) => {
         />
         <Card.Body className="cardBody">
           <div className="d-flex">
-            <Button className="mt-4" onClick={onRandomClick}>
+            <Button
+              style={{
+                backgroundColor: randomBackgroundColor,
+
+                border: '1px solid black',
+              }}
+              className="mt-4"
+              onClick={onRandomClick}
+            >
               random
             </Button>
             <input
               placeholder="Cerca il tuo pokèmon "
-              class="input-pokemon"
+              className="input-pokemon"
               type="text"
             />
           </div>
@@ -115,6 +154,7 @@ const Pokemon = ({ data, onRandomClick }) => {
           <Card.Text className="text-center  mt-4">
             <Stats data={data} />
           </Card.Text>
+          <MoveSelect data={data} />
         </Card.Body>
       </Card>
     </>

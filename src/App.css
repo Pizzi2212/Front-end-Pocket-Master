@@ -35,11 +35,11 @@ body {
   margin-left: 0.5rem;
   padding: 15px 25px;
   font-size: 18px;
-  font-family: 'Press Start 2P', cursive; /* Un font che ricorda quello dei videogiochi retro */
-  border: 3px solid #ffcc00; /* Un giallo simile al colore delle Pokéball */
+  font-family: 'Press Start 2P', cursive;
+  border: 3px solid #ffcc00;
   border-radius: 50px;
-  background-color: #fff3e0; /* Colore pastello, morbido e accattivante */
-  box-shadow: 0 4px 10px rgba(255, 105, 0, 0.3), 0 0 15px rgba(255, 0, 0, 0.2); /* Ombra vivace */
+  background-color: #fff3e0;
+  box-shadow: 0 4px 10px rgba(255, 105, 0, 0.3), 0 0 15px rgba(255, 0, 0, 0.2);
   transition: all 0.3s ease;
 }
 
