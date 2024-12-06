@@ -13,7 +13,8 @@ const Stats = ({ data }) => {
   const psychic = includesType(data.types, ['psychic'])
   const ghost = includesType(data.types, ['ghost'])
   const fire = includesType(data.types, ['fire'])
-  const water = includesType(data.types, ['water', 'ice'])
+  const water = includesType(data.types, ['water'])
+  const ice = includesType(data.types, ['ice'])
   const electric = includesType(data.types, ['electric'])
   const fight = includesType(data.types, ['fighting', 'ground', 'rock'])
   const grass = includesType(data.types, ['grass'])
@@ -23,9 +24,12 @@ const Stats = ({ data }) => {
   const steel = includesType(data.types, ['steel'])
   const fairy = includesType(data.types, ['fairy'])
   const normal = includesType(data.types, ['normal'])
+  const flying = includesType(data.types, ['flying'])
   const dragon = includesType(data.types, ['dragon'])
 
-  const modalBackgroundColor = psychic
+  const modalBackgroundColor = steel
+    ? 'gray'
+    : psychic
     ? '#C81250'
     : fire
     ? 'red'
@@ -35,6 +39,8 @@ const Stats = ({ data }) => {
     ? '#545500'
     : ghost
     ? '#4E2093'
+    : ice
+    ? '#70A8AF'
     : electric
     ? '#EABD00'
     : poison
@@ -53,6 +59,8 @@ const Stats = ({ data }) => {
     ? 'lightgray'
     : dragon
     ? '#486FCB'
+    : flying
+    ? '#B2BBD1'
     : 'white'
 
   return (
@@ -78,9 +86,9 @@ const Stats = ({ data }) => {
         >
           <Modal.Title>
             {' '}
-            <img src={data.spriteStat} className="w-25" alt="" />
-            {data.name.toUpperCase()} Stats
+            <img src={data.spriteStat} alt="" />
           </Modal.Title>
+          <Modal.Title className="ms-5">{data.name.toUpperCase()}</Modal.Title>
         </Modal.Header>
         <Modal.Body
           style={{

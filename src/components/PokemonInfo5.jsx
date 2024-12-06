@@ -19,12 +19,12 @@ import fireCard from '../card-fire.png'
 import flyCard from '../card-fly.png'
 import MoveSelect from './Moves'
 
-const Pokemon1 = ({ data, onRandomClick, onSearchPokèmon, searchValue }) => {
+const Pokemon5 = ({ data, onRandomClick5, onSearchPokèmon5, searchValue5 }) => {
   const includesType = (types, targetTypes) =>
     Array.isArray(types) && types.some((type) => targetTypes.includes(type))
+  console.log(data.types)
 
   const psychic = includesType(data.types, ['psychic'])
-
   const ghost = includesType(data.types, ['ghost'])
   const fire = includesType(data.types, ['fire'])
   const water = includesType(data.types, ['water'])
@@ -111,6 +111,7 @@ const Pokemon1 = ({ data, onRandomClick, onSearchPokèmon, searchValue }) => {
     : flying
     ? '#B2BBD1'
     : 'white'
+
   return (
     <>
       <Card
@@ -122,15 +123,13 @@ const Pokemon1 = ({ data, onRandomClick, onSearchPokèmon, searchValue }) => {
         }}
         className="m-3"
       >
-        {' '}
         <Card.Title
-          className="text-center mt-4 ms-5 pe-5  fs-5"
+          className="text-center mt-4 ms-5 pe-5 fs-5"
           style={{
             color:
               data.types && data.types.includes('dark') ? 'white' : 'black',
           }}
         >
-          {' '}
           {data.name.toUpperCase()}
         </Card.Title>
         <Card.Img
@@ -146,20 +145,19 @@ const Pokemon1 = ({ data, onRandomClick, onSearchPokèmon, searchValue }) => {
                 border: '1px solid black',
               }}
               className="mt-4"
-              onClick={onRandomClick}
+              onClick={onRandomClick5}
             >
-              random
+              Random
             </Button>
             <input
-              placeholder="Cerca il tuo pokèmon "
+              placeholder="Cerca il tuo pokèmon"
               className="input-pokemon"
               type="text"
-              onChange={(e) => onSearchPokèmon(e.target.value)}
-              value={searchValue}
+              onChange={(e) => onSearchPokèmon5(e.target.value)}
+              value={searchValue5}
             />
           </div>
-
-          <Card.Text className="text-center  mt-4">
+          <Card.Text className="text-center mt-4">
             <Stats data={data} />
           </Card.Text>
           <MoveSelect data={data} />
@@ -169,4 +167,4 @@ const Pokemon1 = ({ data, onRandomClick, onSearchPokèmon, searchValue }) => {
   )
 }
 
-export default Pokemon1
+export default Pokemon5

@@ -19,12 +19,11 @@ import fireCard from '../card-fire.png'
 import flyCard from '../card-fly.png'
 import MoveSelect from './Moves'
 
-const Pokemon1 = ({ data, onRandomClick, onSearchPokèmon, searchValue }) => {
+const Pokemon2 = ({ data, onRandomClick2, onSearchPokèmon2, searchValue2 }) => {
   const includesType = (types, targetTypes) =>
     Array.isArray(types) && types.some((type) => targetTypes.includes(type))
 
   const psychic = includesType(data.types, ['psychic'])
-
   const ghost = includesType(data.types, ['ghost'])
   const fire = includesType(data.types, ['fire'])
   const water = includesType(data.types, ['water'])
@@ -146,7 +145,7 @@ const Pokemon1 = ({ data, onRandomClick, onSearchPokèmon, searchValue }) => {
                 border: '1px solid black',
               }}
               className="mt-4"
-              onClick={onRandomClick}
+              onClick={onRandomClick2}
             >
               random
             </Button>
@@ -154,8 +153,8 @@ const Pokemon1 = ({ data, onRandomClick, onSearchPokèmon, searchValue }) => {
               placeholder="Cerca il tuo pokèmon "
               className="input-pokemon"
               type="text"
-              onChange={(e) => onSearchPokèmon(e.target.value)}
-              value={searchValue}
+              onChange={(e) => onSearchPokèmon2(e.target.value)}
+              value={searchValue2}
             />
           </div>
 
@@ -169,4 +168,4 @@ const Pokemon1 = ({ data, onRandomClick, onSearchPokèmon, searchValue }) => {
   )
 }
 
-export default Pokemon1
+export default Pokemon2
