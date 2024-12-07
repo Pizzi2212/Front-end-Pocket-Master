@@ -18,13 +18,16 @@ import waterCard from '../card-water.png'
 import fireCard from '../card-fire.png'
 import flyCard from '../card-fly.png'
 import MoveSelect from './Moves'
+import { GoStarFill } from 'react-icons/go'
+import { useState, useEffect } from 'react'
 
 const Pokemon1 = ({ data, onRandomClick, onSearchPokèmon, searchValue }) => {
   const includesType = (types, targetTypes) =>
     Array.isArray(types) && types.some((type) => targetTypes.includes(type))
 
-  const psychic = includesType(data.types, ['psychic'])
+  const [currrentSprite, setCurrentSprite] = useState(data.sprite)
 
+  const psychic = includesType(data.types, ['psychic'])
   const ghost = includesType(data.types, ['ghost'])
   const fire = includesType(data.types, ['fire'])
   const water = includesType(data.types, ['water'])
@@ -111,6 +114,16 @@ const Pokemon1 = ({ data, onRandomClick, onSearchPokèmon, searchValue }) => {
     : flying
     ? '#B2BBD1'
     : 'white'
+
+  const shiny = () => {
+    setCurrentSprite((prevSprite) => {
+      return prevSprite === data.sprite ? data.spriteShiny : data.sprite
+    })
+  }
+  useEffect(() => {
+    setCurrentSprite(data.sprite)
+  }, [data.sprite])
+
   return (
     <>
       <Card
@@ -131,12 +144,18 @@ const Pokemon1 = ({ data, onRandomClick, onSearchPokèmon, searchValue }) => {
           }}
         >
           {' '}
+          <div className="position-relative">
+            <GoStarFill
+              className="shiny-star text-primary star"
+              onClick={shiny}
+            />
+          </div>
           {data.name.toUpperCase()}
         </Card.Title>
         <Card.Img
           style={{ height: '14rem', objectFit: 'contain' }}
           variant="top"
-          src={data.sprite}
+          src={currrentSprite}
         />
         <Card.Body className="cardBody">
           <div className="d-flex">

@@ -22,7 +22,6 @@ import MoveSelect from './Moves'
 const Pokemon5 = ({ data, onRandomClick5, onSearchPokèmon5, searchValue5 }) => {
   const includesType = (types, targetTypes) =>
     Array.isArray(types) && types.some((type) => targetTypes.includes(type))
-  console.log(data.types)
 
   const psychic = includesType(data.types, ['psychic'])
   const ghost = includesType(data.types, ['ghost'])
