@@ -16,7 +16,8 @@ const Stats = ({ data }) => {
   const water = includesType(data.types, ['water'])
   const ice = includesType(data.types, ['ice'])
   const electric = includesType(data.types, ['electric'])
-  const fight = includesType(data.types, ['fighting', 'ground', 'rock'])
+  const fight = includesType(data.types, ['fighting', 'ground'])
+  const rock = includesType(data.types, ['rock'])
   const grass = includesType(data.types, ['grass'])
   const bug = includesType(data.types, ['bug'])
   const dark = includesType(data.types, ['dark'])
@@ -31,28 +32,28 @@ const Stats = ({ data }) => {
     ? 'gray'
     : psychic
     ? '#C81250'
-    : fire
-    ? 'red'
-    : water
-    ? '#0094D9'
-    : bug
-    ? '#545500'
     : ghost
     ? '#4E2093'
+    : fire
+    ? 'red'
     : ice
-    ? '#70A8AF'
+    ? '#A4D8D8'
+    : water
+    ? '#0094D9'
     : electric
     ? '#EABD00'
-    : poison
-    ? '#5B0B63'
     : fight
     ? '#C2590F'
+    : poison
+    ? '#5B0B63'
     : grass
     ? 'green'
+    : rock
+    ? '#C2590F'
+    : bug
+    ? '#545500'
     : dark
     ? 'black'
-    : steel
-    ? 'gray'
     : fairy
     ? 'pink'
     : normal

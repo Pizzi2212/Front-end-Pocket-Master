@@ -17,11 +17,15 @@ import steelCard from '../card-steel.png'
 import waterCard from '../card-water.png'
 import fireCard from '../card-fire.png'
 import flyCard from '../card-fly.png'
+import { useState, useEffect } from 'react'
+import { GoStarFill } from 'react-icons/go'
 import MoveSelect from './Moves'
 
 const Pokemon3 = ({ data, onRandomClick3, onSearchPokèmon3, searchValue3 }) => {
   const includesType = (types, targetTypes) =>
     Array.isArray(types) && types.some((type) => targetTypes.includes(type))
+
+  const [currrentSprite, setCurrentSprite] = useState(data.sprite)
 
   const psychic = includesType(data.types, ['psychic'])
   const ghost = includesType(data.types, ['ghost'])
@@ -40,7 +44,6 @@ const Pokemon3 = ({ data, onRandomClick3, onSearchPokèmon3, searchValue3 }) => 
   const normal = includesType(data.types, ['normal'])
   const flying = includesType(data.types, ['flying'])
   const dragon = includesType(data.types, ['dragon'])
-
   const modalBackgroundImage = steel
     ? `url(${steelCard})`
     : psychic
@@ -81,24 +84,26 @@ const Pokemon3 = ({ data, onRandomClick3, onSearchPokèmon3, searchValue3 }) => 
     ? 'gray'
     : psychic
     ? '#C81250'
-    : fire
-    ? 'red'
-    : water
-    ? '#0094D9'
-    : bug
-    ? '#545500'
     : ghost
     ? '#4E2093'
+    : fire
+    ? 'red'
+    : ice
+    ? '#A4D8D8'
+    : water
+    ? '#0094D9'
     : electric
     ? '#EABD00'
-    : poison
-    ? '#5B0B63'
     : fight
     ? '#C2590F'
-    : rock
-    ? '#C2590F'
+    : poison
+    ? '#5B0B63'
     : grass
     ? 'green'
+    : rock
+    ? '#C2590F'
+    : bug
+    ? '#545500'
     : dark
     ? 'black'
     : fairy
@@ -110,6 +115,15 @@ const Pokemon3 = ({ data, onRandomClick3, onSearchPokèmon3, searchValue3 }) => 
     : flying
     ? '#B2BBD1'
     : 'white'
+
+  const shiny = () => {
+    setCurrentSprite((prevSprite) => {
+      return prevSprite === data.sprite ? data.spriteShiny : data.sprite
+    })
+  }
+  useEffect(() => {
+    setCurrentSprite(data.sprite)
+  }, [data.sprite])
   return (
     <>
       <Card
@@ -130,12 +144,18 @@ const Pokemon3 = ({ data, onRandomClick3, onSearchPokèmon3, searchValue3 }) => 
           }}
         >
           {' '}
+          <div className="position-relative">
+            <GoStarFill
+              className="shiny-star text-primary star"
+              onClick={shiny}
+            />
+          </div>
           {data.name.toUpperCase()}
         </Card.Title>
         <Card.Img
           style={{ height: '14rem', objectFit: 'contain' }}
           variant="top"
-          src={data.sprite}
+          src={currrentSprite}
         />
         <Card.Body className="cardBody">
           <div className="d-flex">
@@ -150,7 +170,7 @@ const Pokemon3 = ({ data, onRandomClick3, onSearchPokèmon3, searchValue3 }) => 
               random
             </Button>
             <input
-              placeholder="Cerca il tuo pokèmon "
+              placeholder="Search  Pokémon"
               className="input-pokemon"
               type="text"
               onChange={(e) => onSearchPokèmon3(e.target.value)}

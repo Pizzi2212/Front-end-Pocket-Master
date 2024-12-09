@@ -18,6 +18,7 @@ import waterCard from '../card-water.png'
 import fireCard from '../card-fire.png'
 import flyCard from '../card-fly.png'
 import MoveSelect from './Moves'
+import { Form } from 'react-bootstrap'
 import { GoStarFill } from 'react-icons/go'
 import { useState, useEffect } from 'react'
 
@@ -44,7 +45,6 @@ const Pokemon1 = ({ data, onRandomClick, onSearchPokèmon, searchValue }) => {
   const normal = includesType(data.types, ['normal'])
   const flying = includesType(data.types, ['flying'])
   const dragon = includesType(data.types, ['dragon'])
-
   const modalBackgroundImage = steel
     ? `url(${steelCard})`
     : psychic
@@ -85,24 +85,26 @@ const Pokemon1 = ({ data, onRandomClick, onSearchPokèmon, searchValue }) => {
     ? 'gray'
     : psychic
     ? '#C81250'
-    : fire
-    ? 'red'
-    : water
-    ? '#0094D9'
-    : bug
-    ? '#545500'
     : ghost
     ? '#4E2093'
+    : fire
+    ? 'red'
+    : ice
+    ? '#A4D8D8'
+    : water
+    ? '#0094D9'
     : electric
     ? '#EABD00'
-    : poison
-    ? '#5B0B63'
     : fight
     ? '#C2590F'
-    : rock
-    ? '#C2590F'
+    : poison
+    ? '#5B0B63'
     : grass
     ? 'green'
+    : rock
+    ? '#C2590F'
+    : bug
+    ? '#545500'
     : dark
     ? 'black'
     : fairy
@@ -170,7 +172,7 @@ const Pokemon1 = ({ data, onRandomClick, onSearchPokèmon, searchValue }) => {
               random
             </Button>
             <input
-              placeholder="Cerca il tuo pokèmon "
+              placeholder="Search  Pokémon"
               className="input-pokemon"
               type="text"
               onChange={(e) => onSearchPokèmon(e.target.value)}

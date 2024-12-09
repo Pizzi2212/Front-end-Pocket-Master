@@ -17,11 +17,15 @@ import steelCard from '../card-steel.png'
 import waterCard from '../card-water.png'
 import fireCard from '../card-fire.png'
 import flyCard from '../card-fly.png'
+import { useState, useEffect } from 'react'
+import { GoStarFill } from 'react-icons/go'
 import MoveSelect from './Moves'
 
 const Pokemon5 = ({ data, onRandomClick5, onSearchPokèmon5, searchValue5 }) => {
   const includesType = (types, targetTypes) =>
     Array.isArray(types) && types.some((type) => targetTypes.includes(type))
+
+  const [currrentSprite, setCurrentSprite] = useState(data.sprite)
 
   const psychic = includesType(data.types, ['psychic'])
   const ghost = includesType(data.types, ['ghost'])
@@ -81,24 +85,26 @@ const Pokemon5 = ({ data, onRandomClick5, onSearchPokèmon5, searchValue5 }) => 
     ? 'gray'
     : psychic
     ? '#C81250'
-    : fire
-    ? 'red'
-    : water
-    ? '#0094D9'
-    : bug
-    ? '#545500'
     : ghost
     ? '#4E2093'
+    : fire
+    ? 'red'
+    : ice
+    ? '#A4D8D8'
+    : water
+    ? '#0094D9'
     : electric
     ? '#EABD00'
-    : poison
-    ? '#5B0B63'
     : fight
     ? '#C2590F'
-    : rock
-    ? '#C2590F'
+    : poison
+    ? '#5B0B63'
     : grass
     ? 'green'
+    : rock
+    ? '#C2590F'
+    : bug
+    ? '#545500'
     : dark
     ? 'black'
     : fairy
@@ -111,6 +117,14 @@ const Pokemon5 = ({ data, onRandomClick5, onSearchPokèmon5, searchValue5 }) => 
     ? '#B2BBD1'
     : 'white'
 
+  const shiny = () => {
+    setCurrentSprite((prevSprite) => {
+      return prevSprite === data.sprite ? data.spriteShiny : data.sprite
+    })
+  }
+  useEffect(() => {
+    setCurrentSprite(data.sprite)
+  }, [data.sprite])
   return (
     <>
       <Card
@@ -122,19 +136,27 @@ const Pokemon5 = ({ data, onRandomClick5, onSearchPokèmon5, searchValue5 }) => 
         }}
         className="m-3"
       >
+        {' '}
         <Card.Title
-          className="text-center mt-4 ms-5 pe-5 fs-5"
+          className="text-center mt-4 ms-5 pe-5  fs-5"
           style={{
             color:
               data.types && data.types.includes('dark') ? 'white' : 'black',
           }}
         >
+          {' '}
+          <div className="position-relative">
+            <GoStarFill
+              className="shiny-star text-primary star"
+              onClick={shiny}
+            />
+          </div>
           {data.name.toUpperCase()}
         </Card.Title>
         <Card.Img
           style={{ height: '14rem', objectFit: 'contain' }}
           variant="top"
-          src={data.sprite}
+          src={currrentSprite}
         />
         <Card.Body className="cardBody">
           <div className="d-flex">
@@ -149,7 +171,7 @@ const Pokemon5 = ({ data, onRandomClick5, onSearchPokèmon5, searchValue5 }) => 
               Random
             </Button>
             <input
-              placeholder="Cerca il tuo pokèmon"
+              placeholder="Search  Pokémon"
               className="input-pokemon"
               type="text"
               onChange={(e) => onSearchPokèmon5(e.target.value)}
