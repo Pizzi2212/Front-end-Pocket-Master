@@ -152,6 +152,16 @@ const Pokemon1 = ({ data, onRandomClick, onSearchPokèmon, searchValue }) => {
               onClick={shiny}
             />
           </div>
+          <div className="position-relative">
+            <Form.Select
+              className="tera"
+              style={{ width: '5em', borderRadius: '20px' }}
+            >
+              <option value="">ghost</option>
+              <option value="">2</option>
+              <option value="">2</option>
+            </Form.Select>
+          </div>
           {data.name.toUpperCase()}
         </Card.Title>
         <Card.Img

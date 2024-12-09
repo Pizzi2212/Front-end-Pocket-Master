@@ -94,3 +94,20 @@ body {
   bottom: -0.6em;
   left: -0.7em;
 }
+
+.tera {
+  margin-top: 1vh;
+  position: absolute;
+  top: 2em;
+  left: -4em;
+  background: linear-gradient(
+    90deg,
+    red 0%,
+    orange 16.6%,
+    yellow 33.3%,
+    green 50%,
+    cyan 66.6%,
+    blue 83.3%,
+    violet 100%
+  );
+}
