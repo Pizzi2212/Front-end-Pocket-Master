@@ -1,4 +1,4 @@
-import { Button, Card, Col } from 'react-bootstrap'
+import { Button, Card, Form } from 'react-bootstrap'
 import Stats from './Stats'
 import normalCard from '../card-normal.png'
 import bugCard from '../card-bug.png'
@@ -16,16 +16,19 @@ import rockCard from '../card-rock.png'
 import steelCard from '../card-steel.png'
 import waterCard from '../card-water.png'
 import fireCard from '../card-fire.png'
+import groundCard from '../card-ground.png'
 import flyCard from '../card-fly.png'
-import { useState, useEffect } from 'react'
-import { GoStarFill } from 'react-icons/go'
 import MoveSelect from './Moves'
+import { GoStarFill } from 'react-icons/go'
+import { useState, useEffect } from 'react'
 
 const Pokemon4 = ({ data, onRandomClick4, onSearchPokèmon4, searchValue4 }) => {
   const includesType = (types, targetTypes) =>
     Array.isArray(types) && types.some((type) => targetTypes.includes(type))
 
   const [currrentSprite, setCurrentSprite] = useState(data.sprite)
+  const [teraType, setTeraType] = useState('')
+  const [currentTypes, setCurrentTypes] = useState(data.types)
 
   const psychic = includesType(data.types, ['psychic'])
   const ghost = includesType(data.types, ['ghost'])
@@ -35,7 +38,8 @@ const Pokemon4 = ({ data, onRandomClick4, onSearchPokèmon4, searchValue4 }) => 
   const poison = includesType(data.types, ['poison'])
   const electric = includesType(data.types, ['electric'])
   const fight = includesType(data.types, ['fighting'])
-  const rock = includesType(data.types, ['ground', 'rock'])
+  const rock = includesType(data.types, ['rock'])
+  const ground = includesType(data.types, ['ground'])
   const grass = includesType(data.types, ['grass'])
   const bug = includesType(data.types, ['bug'])
   const dark = includesType(data.types, ['dark'])
@@ -45,43 +49,70 @@ const Pokemon4 = ({ data, onRandomClick4, onSearchPokèmon4, searchValue4 }) => 
   const flying = includesType(data.types, ['flying'])
   const dragon = includesType(data.types, ['dragon'])
 
-  const modalBackgroundImage = steel
-    ? `url(${steelCard})`
-    : psychic
-    ? `url(${psychicCard})`
-    : ghost
-    ? `url(${ghostCard})`
-    : fire
-    ? `url(${fireCard})`
-    : ice
-    ? `url(${iceCard})`
-    : water
-    ? `url(${waterCard})`
-    : electric
-    ? `url(${electricCard})`
-    : fight
-    ? `url(${fightCard})`
-    : poison
-    ? `url(${poisonCard})`
-    : grass
-    ? `url(${grassCard})`
-    : rock
-    ? `url(${rockCard})`
-    : bug
-    ? `url(${bugCard})`
-    : dark
-    ? `url(${darkCard})`
-    : fairy
-    ? `url(${fairyCard})`
-    : normal
-    ? `url(${normalCard})`
-    : dragon
-    ? `url(${dragonCard})`
-    : flying
-    ? `url(${flyCard})`
-    : ''
+  const typeToBackground = {
+    steel: steelCard,
+    psychic: psychicCard,
+    ghost: ghostCard,
+    fire: fireCard,
+    ice: iceCard,
+    water: waterCard,
+    electric: electricCard,
+    fighting: fightCard,
+    ground: groundCard,
+    poison: poisonCard,
+    grass: grassCard,
+    rock: rockCard,
+    bug: bugCard,
+    dark: darkCard,
+    fairy: fairyCard,
+    normal: normalCard,
+    dragon: dragonCard,
+    flying: flyCard,
+  }
 
-  const randomBackgroundColor = steel
+  const defaultBackground = teraType
+    ? typeToBackground[teraType]
+    : typeToBackground[data.types[0]] || ''
+
+  const randomBackgroundColor = teraType
+    ? teraType === 'steel'
+      ? 'gray'
+      : teraType === 'psychic'
+      ? '#C81250'
+      : teraType === 'ghost'
+      ? '#4E2093'
+      : teraType === 'fire'
+      ? 'red'
+      : teraType === 'ice'
+      ? '#A4D8D8'
+      : teraType === 'water'
+      ? '#0094D9'
+      : teraType === 'electric'
+      ? '#EABD00'
+      : teraType === 'fighting'
+      ? '#C2590F'
+      : teraType === 'ground'
+      ? '#A26D00'
+      : teraType === 'poison'
+      ? '#5B0B63'
+      : teraType === 'grass'
+      ? 'green'
+      : teraType === 'rock'
+      ? '#C2590F'
+      : teraType === 'bug'
+      ? '#545500'
+      : teraType === 'dark'
+      ? 'black'
+      : teraType === 'fairy'
+      ? 'pink'
+      : teraType === 'normal'
+      ? 'lightgray'
+      : teraType === 'dragon'
+      ? '#486FCB'
+      : teraType === 'flying'
+      ? '#B2BBD1'
+      : 'white'
+    : steel
     ? 'gray'
     : psychic
     ? '#C81250'
@@ -97,6 +128,8 @@ const Pokemon4 = ({ data, onRandomClick4, onSearchPokèmon4, searchValue4 }) => 
     ? '#EABD00'
     : fight
     ? '#C2590F'
+    : ground
+    ? '#A26D00'
     : poison
     ? '#5B0B63'
     : grass
@@ -118,38 +151,72 @@ const Pokemon4 = ({ data, onRandomClick4, onSearchPokèmon4, searchValue4 }) => 
     : 'white'
 
   const shiny = () => {
-    setCurrentSprite((prevSprite) => {
-      return prevSprite === data.sprite ? data.spriteShiny : data.sprite
-    })
+    setCurrentSprite((prevSprite) =>
+      prevSprite === data.sprite ? data.spriteShiny : data.sprite
+    )
   }
+
   useEffect(() => {
     setCurrentSprite(data.sprite)
-  }, [data.sprite])
+    setCurrentTypes(data.types)
+    setTeraType('')
+  }, [data])
+
+  const teraChange = (e) => {
+    setTeraType(e.target.value)
+  }
+
   return (
     <>
       <Card
         style={{
           width: '25rem',
           height: '35rem',
-          backgroundImage: modalBackgroundImage,
+          backgroundImage: `url(${defaultBackground})`,
           backgroundSize: 'cover',
         }}
         className="m-3"
       >
-        {' '}
         <Card.Title
-          className="text-center mt-4 ms-5 pe-5  fs-5"
+          className="text-center mt-4 ms-5 pe-5 fs-5"
           style={{
             color:
               data.types && data.types.includes('dark') ? 'white' : 'black',
           }}
         >
-          {' '}
           <div className="position-relative">
             <GoStarFill
               className="shiny-star text-primary star"
               onClick={shiny}
             />
+          </div>
+          <div className="position-relative">
+            <Form.Select
+              onChange={teraChange}
+              value={teraType}
+              className="tera"
+              style={{ width: '5em', borderRadius: '20px' }}
+            >
+              <option value="">Tera</option>
+              <option value="grass">Grass</option>
+              <option value="fire">Fire</option>
+              <option value="water">Water</option>
+              <option value="electric">Electric</option>
+              <option value="ground">Ground</option>
+              <option value="fighting">Fight</option>
+              <option value="rock">Rock</option>
+              <option value="dark">Dark</option>
+              <option value="psychic">Psychic</option>
+              <option value="ghost">Ghost</option>
+              <option value="fairy">Fairy</option>
+              <option value="steel">Steel</option>
+              <option value="dragon">Dragon</option>
+              <option value="normal">Normal</option>
+              <option value="flying">Flying</option>
+              <option value="bug">Bug</option>
+              <option value="ice">Ice</option>
+              <option value="poison">Poison</option>
+            </Form.Select>
           </div>
           {data.name.toUpperCase()}
         </Card.Title>
@@ -168,16 +235,17 @@ const Pokemon4 = ({ data, onRandomClick4, onSearchPokèmon4, searchValue4 }) => 
               className="mt-4"
               onClick={onRandomClick4}
             >
-              Random
+              random
             </Button>
             <input
-              placeholder="Search  Pokémon"
+              placeholder="Search Pokémon"
               className="input-pokemon"
               type="text"
               onChange={(e) => onSearchPokèmon4(e.target.value)}
               value={searchValue4}
             />
           </div>
+
           <Card.Text className="text-center mt-4">
             <Stats data={data} />
           </Card.Text>

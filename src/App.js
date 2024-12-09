@@ -110,7 +110,7 @@ export default function App() {
   useEffect(() => {
     fetchPokemon('arceus')
     fetchPokemon2('mewtwo')
-    fetchPokemon3('zacian-crowned')
+    fetchPokemon3('meowscarada')
     fetchPokemon4('giratina-origin')
     fetchPokemon5('darkrai')
     fetchPokemon6('metagross')
