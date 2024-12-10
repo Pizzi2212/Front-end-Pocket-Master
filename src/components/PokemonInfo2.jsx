@@ -194,7 +194,7 @@ const Pokemon2 = ({ data, onRandomClick2, onSearchPokèmon2, searchValue2 }) => 
             <Form.Select
               onChange={teraChange}
               value={teraType}
-              className="tera"
+              className="tera dropend"
               style={{ width: '5em', borderRadius: '20px' }}
             >
               <option value="">Tera</option>

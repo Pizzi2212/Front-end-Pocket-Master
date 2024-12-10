@@ -2,6 +2,88 @@ body {
   background-image: url(../public/bg.png);
   background-repeat: repeat;
   background-size: cover;
+  overflow-y: auto;
+}
+
+.navbar {
+  background: linear-gradient(135deg, #4e73df, #2c3e91);
+  padding: 1rem 2rem;
+  border-radius: 0px 0px 30px 30px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease-in-out;
+}
+
+.navbar:hover {
+  background: linear-gradient(135deg, #2c3e91, #4e73df);
+}
+
+.navbar .navbar-brand {
+  font-family: 'Pokemon', sans-serif;
+  font-size: 1.8rem;
+  color: white;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  transition: color 0.3s ease;
+}
+
+.navbar .navbar-brand:hover {
+  color: #a1c6f1;
+}
+
+.navbar-nav .nav-link {
+  font-size: 1.1rem;
+  color: #ecf0f1;
+  font-weight: 500;
+  margin: 0 15px;
+  transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.navbar-nav .nav-link:hover {
+  color: #a1c6f1;
+  transform: translateY(-2px);
+}
+
+.navbar-nav .nav-link.active {
+  color: #a1c6f1;
+  font-weight: 600;
+}
+
+.navbar .nav-dropdown-toggle {
+  font-size: 1.1rem;
+  color: #ecf0f1;
+  font-weight: 500;
+}
+
+.navbar .nav-dropdown-toggle:hover {
+  color: #a1c6f1;
+}
+
+.navbar .nav-dropdown-item {
+  background-color: transparent;
+  color: #ecf0f1;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.navbar .nav-dropdown-item:hover {
+  background-color: rgba(161, 198, 241, 0.1);
+  color: #3f4faf;
+}
+
+.navbar .nav-dropdown-divider {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.navbar img {
+  width: 140px;
+  height: auto;
+  border-radius: 50%;
+  border: 2px solid #3f4faf;
+  transition: transform 0.3s ease;
+}
+
+.navbar img:hover {
+  transform: scale(1.1);
 }
 
 .random {
@@ -96,6 +178,9 @@ body {
 }
 
 .tera {
+  overflow: visible;
+  position: relative;
+  cursor: pointer;
   margin-top: 1vh;
   position: absolute;
   top: 2em;

@@ -245,7 +245,6 @@ const Pokemon1 = ({ data, onRandomClick, onSearchPokèmon, searchValue }) => {
               value={searchValue}
             />
           </div>
-
           <Card.Text className="text-center mt-4">
             <Stats data={data} />
           </Card.Text>
