@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
 import { Button, Modal } from 'react-bootstrap'
+import { IoDiamondOutline } from 'react-icons/io5'
 
-const Stats = ({ data }) => {
+const Stats = ({ data, teraType, currentTypes }) => {
   const [show, setShow] = useState(false)
 
   const handleClose = () => setShow(false)
@@ -17,6 +18,7 @@ const Stats = ({ data }) => {
   const ice = includesType(data.types, ['ice'])
   const electric = includesType(data.types, ['electric'])
   const fight = includesType(data.types, ['fighting', 'ground'])
+  const ground = includesType(data.types, ['ground'])
   const rock = includesType(data.types, ['rock'])
   const grass = includesType(data.types, ['grass'])
   const bug = includesType(data.types, ['bug'])
@@ -28,7 +30,45 @@ const Stats = ({ data }) => {
   const flying = includesType(data.types, ['flying'])
   const dragon = includesType(data.types, ['dragon'])
 
-  const modalBackgroundColor = steel
+  const modalBackgroundColor = teraType
+    ? teraType === 'steel'
+      ? 'gray'
+      : teraType === 'psychic'
+      ? '#C81250'
+      : teraType === 'ghost'
+      ? '#4E2093'
+      : teraType === 'fire'
+      ? 'red'
+      : teraType === 'ice'
+      ? '#A4D8D8'
+      : teraType === 'water'
+      ? '#0094D9'
+      : teraType === 'electric'
+      ? '#EABD00'
+      : teraType === 'fighting'
+      ? '#C2590F'
+      : teraType === 'ground'
+      ? '#A26D00'
+      : teraType === 'poison'
+      ? '#5B0B63'
+      : teraType === 'grass'
+      ? 'green'
+      : teraType === 'rock'
+      ? '#C2590F'
+      : teraType === 'bug'
+      ? '#545500'
+      : teraType === 'dark'
+      ? 'black'
+      : teraType === 'fairy'
+      ? 'pink'
+      : teraType === 'normal'
+      ? 'lightgray'
+      : teraType === 'dragon'
+      ? '#486FCB'
+      : teraType === 'flying'
+      ? '#B2BBD1'
+      : 'white'
+    : steel
     ? 'gray'
     : psychic
     ? '#C81250'
@@ -44,6 +84,8 @@ const Stats = ({ data }) => {
     ? '#EABD00'
     : fight
     ? '#C2590F'
+    : ground
+    ? '#A26D00'
     : poison
     ? '#5B0B63'
     : grass
@@ -99,9 +141,11 @@ const Stats = ({ data }) => {
         >
           <strong>
             Type:{' '}
-            {data.types && data.types.length > 0
-              ? data.types.join(' ').toUpperCase()
-              : 'N/A'}
+            {data.types.join(', ').toUpperCase() +
+              ' ' +
+              'Teratype:' +
+              (currentTypes[0] ? currentTypes[0].toUpperCase() : '')}
+            <IoDiamondOutline />
           </strong>
           <p>
             <strong>Height:</strong> {data.height / 10} m

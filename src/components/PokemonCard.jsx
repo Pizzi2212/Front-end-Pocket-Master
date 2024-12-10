@@ -22,11 +22,11 @@ import MoveSelect from './Moves'
 import { GoStarFill } from 'react-icons/go'
 import { useState, useEffect } from 'react'
 
-const Pokemon6 = ({ data, onRandomClick6, onSearchPokèmon6, searchValue6 }) => {
+const PokemonCard = ({ data, onRandomClick, onSearchPokemon, searchValue }) => {
   const includesType = (types, targetTypes) =>
     Array.isArray(types) && types.some((type) => targetTypes.includes(type))
 
-  const [currrentSprite, setCurrentSprite] = useState(data.sprite)
+  const [currentSprite, setCurrentSprite] = useState(data.sprite)
   const [teraType, setTeraType] = useState('')
   const [currentTypes, setCurrentTypes] = useState(data.types)
 
@@ -48,6 +48,7 @@ const Pokemon6 = ({ data, onRandomClick6, onSearchPokèmon6, searchValue6 }) => 
   const normal = includesType(data.types, ['normal'])
   const flying = includesType(data.types, ['flying'])
   const dragon = includesType(data.types, ['dragon'])
+
   const typeToBackground = {
     steel: steelCard,
     psychic: psychicCard,
@@ -68,10 +69,6 @@ const Pokemon6 = ({ data, onRandomClick6, onSearchPokèmon6, searchValue6 }) => 
     dragon: dragonCard,
     flying: flyCard,
   }
-
-  const defaultBackground = teraType
-    ? typeToBackground[teraType]
-    : typeToBackground[data.types[0]] || ''
 
   const randomBackgroundColor = teraType
     ? teraType === 'steel'
@@ -149,6 +146,10 @@ const Pokemon6 = ({ data, onRandomClick6, onSearchPokèmon6, searchValue6 }) => 
     ? '#B2BBD1'
     : 'white'
 
+  const defaultBackground = teraType
+    ? typeToBackground[teraType]
+    : typeToBackground[data.types[0]] || ''
+
   const shiny = () => {
     setCurrentSprite((prevSprite) =>
       prevSprite === data.sprite ? data.spriteShiny : data.sprite
@@ -162,97 +163,87 @@ const Pokemon6 = ({ data, onRandomClick6, onSearchPokèmon6, searchValue6 }) => 
   }, [data])
 
   const teraChange = (e) => {
-    setTeraType(e.target.value)
+    const selectedType = e.target.value
+    setTeraType(selectedType)
+
+    if (selectedType) {
+      setCurrentTypes([selectedType])
+    } else {
+      setCurrentTypes(data.types)
+    }
   }
 
   return (
-    <>
-      <Card
+    <Card
+      style={{
+        width: '25rem',
+        height: '35rem',
+        backgroundImage: `url(${defaultBackground})`,
+        backgroundSize: 'cover',
+      }}
+      className="m-3"
+    >
+      <Card.Title
+        className="text-center mt-4 ms-5 pe-5 fs-5"
         style={{
-          width: '25rem',
-          height: '35rem',
-          backgroundImage: `url(${defaultBackground})`,
-          backgroundSize: 'cover',
+          color: data.types && data.types.includes('dark') ? 'white' : 'black',
         }}
-        className="m-3"
       >
-        <Card.Title
-          className="text-center mt-4 ms-5 pe-5 fs-5"
-          style={{
-            color:
-              data.types && data.types.includes('dark') ? 'white' : 'black',
-          }}
-        >
-          <div className="position-relative">
-            <GoStarFill
-              className="shiny-star text-primary star"
-              onClick={shiny}
-            />
-          </div>
-          <div className="position-relative">
-            <Form.Select
-              onChange={teraChange}
-              value={teraType}
-              className="tera"
-              style={{ width: '5em', borderRadius: '20px' }}
-            >
-              <option value="">Tera</option>
-              <option value="grass">Grass</option>
-              <option value="fire">Fire</option>
-              <option value="water">Water</option>
-              <option value="electric">Electric</option>
-              <option value="ground">Ground</option>
-              <option value="fighting">Fight</option>
-              <option value="rock">Rock</option>
-              <option value="dark">Dark</option>
-              <option value="psychic">Psychic</option>
-              <option value="ghost">Ghost</option>
-              <option value="fairy">Fairy</option>
-              <option value="steel">Steel</option>
-              <option value="dragon">Dragon</option>
-              <option value="normal">Normal</option>
-              <option value="flying">Flying</option>
-              <option value="bug">Bug</option>
-              <option value="ice">Ice</option>
-              <option value="poison">Poison</option>
-            </Form.Select>
-          </div>
-          {data.name.toUpperCase()}
-        </Card.Title>
-        <Card.Img
-          style={{ height: '14rem', objectFit: 'contain' }}
-          variant="top"
-          src={currrentSprite}
-        />
-        <Card.Body className="cardBody">
-          <div className="d-flex">
-            <Button
-              style={{
-                backgroundColor: randomBackgroundColor,
-                border: '1px solid black',
-              }}
-              className="mt-4"
-              onClick={onRandomClick6}
-            >
-              random
-            </Button>
-            <input
-              placeholder="Search Pokémon"
-              className="input-pokemon"
-              type="text"
-              onChange={(e) => onSearchPokèmon6(e.target.value)}
-              value={searchValue6}
-            />
-          </div>
-
-          <Card.Text className="text-center mt-4">
-            <Stats data={data} />
-          </Card.Text>
-          <MoveSelect data={data} />
-        </Card.Body>
-      </Card>
-    </>
+        <div className="position-relative">
+          <GoStarFill
+            className="shiny-star text-primary star"
+            onClick={shiny}
+          />
+        </div>
+        <div className="position-relative">
+          <Form.Select
+            onChange={teraChange}
+            value={teraType}
+            className="tera"
+            style={{ width: '5em', borderRadius: '20px' }}
+          >
+            <option value="">Tera</option>
+            {Object.keys(typeToBackground).map((type) => (
+              <option key={type} value={type}>
+                {type.charAt(0).toUpperCase() + type.slice(1)}
+              </option>
+            ))}
+          </Form.Select>
+        </div>
+        {data.name.toUpperCase()}
+      </Card.Title>
+      <Card.Img
+        style={{ height: '14rem', objectFit: 'contain' }}
+        variant="top"
+        src={currentSprite}
+      />
+      <Card.Body className="cardBody">
+        <div className="d-flex">
+          <Button
+            style={{
+              backgroundColor: randomBackgroundColor,
+              border: '1px solid black',
+            }}
+            className="mt-4"
+            onClick={onRandomClick}
+          >
+            Random
+          </Button>
+          <input
+            placeholder="Search Pokémon"
+            className="input-pokemon"
+            type="text"
+            onChange={(e) => onSearchPokemon(e.target.value)}
+            value={searchValue}
+          />
+        </div>
+        <Card.Text className="text-center mt-4">
+          <Stats data={data} teraType={teraType} currentTypes={currentTypes} />
+        </Card.Text>
+        <MoveSelect data={data} />
+      </Card.Body>
+    </Card>
   )
 }
 
-export default Pokemon6
+export default PokemonCard
