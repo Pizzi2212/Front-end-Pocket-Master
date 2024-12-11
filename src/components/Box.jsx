@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import { Card, Container, Row, Col } from 'react-bootstrap'
-
 import normalCard from '../card-normal.png'
 import bugCard from '../card-bug.png'
 import darkCard from '../card-dark.png'
@@ -22,6 +21,7 @@ import flyCard from '../card-fly.png'
 
 function Box({ data }) {
   const [detailedPokemons, setDetailedPokemons] = useState([])
+  const [searchQuery, setSearchQuery] = useState('')
 
   const typeToBackground = {
     steel: steelCard,
@@ -60,10 +60,23 @@ function Box({ data }) {
     }
   }, [data])
 
+  // Funzione per filtrare i Pokémon in base al nome
+  const filteredPokemons = detailedPokemons.filter((pokemon) =>
+    pokemon.name.toLowerCase().includes(searchQuery.toLowerCase())
+  )
+
   return (
     <Container>
+      <input
+        placeholder="Search Pokémon"
+        className="input-pokemon"
+        type="text"
+        value={searchQuery}
+        onChange={(e) => setSearchQuery(e.target.value)}
+      />
+
       <Row>
-        {detailedPokemons.map((pokemon, index) => {
+        {filteredPokemons.map((pokemon, index) => {
           const backgroundImage =
             typeToBackground[pokemon.types[0]?.type.name] || normalCard
 
@@ -84,10 +97,7 @@ function Box({ data }) {
                     color: pokemon.types.includes('dark') ? 'white' : 'black',
                   }}
                 >
-                  {pokemon.id}
-                  {pokemon.name
-                    ? pokemon.name.toUpperCase()
-                    : 'Unknown Pokémon'}
+                  #{pokemon.id} {pokemon.name.toUpperCase()}
                 </Card.Title>
                 <Card.Img
                   variant="top"
@@ -95,11 +105,7 @@ function Box({ data }) {
                   src={pokemon.sprites.other['official-artwork'].front_default}
                   alt={pokemon.name}
                 />
-                <Card.Body>
-                  <Card.Text>
-                    Tipi: {pokemon.types.map((t) => t.type.name).join(', ')}
-                  </Card.Text>
-                </Card.Body>
+                <Card.Body></Card.Body>
               </Card>
             </Col>
           )
