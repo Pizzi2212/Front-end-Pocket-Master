@@ -6,6 +6,7 @@ import Box from './components/Box'
 import { Container, Row, Col } from 'react-bootstrap'
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 import './App.css'
+import Pokedex from './components/Pokedex'
 
 export default function App() {
   const [pokemons, setPokemons] = useState(Array(6).fill(null))
@@ -61,9 +62,9 @@ export default function App() {
     try {
       const response = await fetch(
         'https://pokeapi.co/api/v2/pokemon?limit=1010'
-      ) // Ottieni tutti i Pokémon
+      )
       const data = await response.json()
-      setAllPokemons(data.results) // Salva tutti i Pokémon nello stato
+      setAllPokemons(data.results)
     } catch (error) {
       console.error('Errore durante il fetch di tutti i Pokémon:', error)
     }
@@ -115,6 +116,7 @@ export default function App() {
               }
             />
             <Route path="/box" element={<Box data={allPokemons} />} />{' '}
+            <Route path="/pokedex" element={<Pokedex />} />{' '}
           </Routes>
         </main>
       </>

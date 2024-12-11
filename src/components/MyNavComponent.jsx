@@ -27,6 +27,9 @@ function MyNav() {
             <Navbar.Brand as={Link} to="/masterTeams">
               Master Teams
             </Navbar.Brand>
+            <Navbar.Brand as={Link} to="/pokedex">
+              Pokedex
+            </Navbar.Brand>
           </Nav>
         </Navbar.Collapse>
       </Container>

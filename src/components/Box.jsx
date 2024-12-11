@@ -18,10 +18,13 @@ import waterCard from '../card-water.png'
 import fireCard from '../card-fire.png'
 import groundCard from '../card-ground.png'
 import flyCard from '../card-fly.png'
+import { Spinner } from 'react-bootstrap'
+import BoxStats from './BoxStats'
 
 function Box({ data }) {
   const [detailedPokemons, setDetailedPokemons] = useState([])
   const [searchQuery, setSearchQuery] = useState('')
+  const [loading, setLoading] = useState(true)
 
   const typeToBackground = {
     steel: steelCard,
@@ -43,24 +46,38 @@ function Box({ data }) {
     dragon: dragonCard,
     flying: flyCard,
   }
-
   useEffect(() => {
     const fetchDetails = async () => {
-      const details = await Promise.all(
-        data.map(async (pokemon) => {
-          const response = await fetch(pokemon.url)
-          return await response.json()
-        })
-      )
-      setDetailedPokemons(details)
+      try {
+        const details = await Promise.all(
+          data.map(async (pokemon) => {
+            const response = await fetch(pokemon.url)
+            if (!response.ok) throw new Error('Errore nel fetch')
+            return await response.json()
+          })
+        )
+        setDetailedPokemons(details)
+      } catch (error) {
+        console.error('Errore durante il fetch:', error.message)
+      } finally {
+        setLoading(false)
+      }
     }
 
     if (data.length > 0) {
       fetchDetails()
     }
   }, [data])
+  if (loading) {
+    return (
+      <div className="" style={{ height: '100vh' }}>
+        <Spinner animation="border" role="status" variant="danger">
+          <span>Loading...</span>
+        </Spinner>
+      </div>
+    )
+  }
 
-  // Funzione per filtrare i Pokémon in base al nome
   const filteredPokemons = detailedPokemons.filter((pokemon) =>
     pokemon.name.toLowerCase().includes(searchQuery.toLowerCase())
   )
@@ -105,7 +122,9 @@ function Box({ data }) {
                   src={pokemon.sprites.other['official-artwork'].front_default}
                   alt={pokemon.name}
                 />
-                <Card.Body></Card.Body>
+                <Card.Body>
+                  <BoxStats data={pokemon} />
+                </Card.Body>
               </Card>
             </Col>
           )

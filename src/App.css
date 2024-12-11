@@ -196,3 +196,7 @@ body {
     violet 100%
   );
 }
+
+.pokedex {
+  background-image: url(../public/pokedex.jpg);
+}
