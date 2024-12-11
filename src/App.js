@@ -2,11 +2,14 @@ import React, { useEffect, useState } from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import MyNav from './components/MyNavComponent'
 import PokemonCard from './components/PokemonCard'
+import Box from './components/Box'
 import { Container, Row, Col } from 'react-bootstrap'
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 import './App.css'
 
 export default function App() {
   const [pokemons, setPokemons] = useState(Array(6).fill(null))
+  const [allPokemons, setAllPokemons] = useState([]) // Stato per tutti i Pokémon
   const [searchValues, setSearchValues] = useState(Array(6).fill(''))
 
   const fetchPokemon = async (id, index) => {
@@ -39,6 +42,7 @@ export default function App() {
   })
 
   useEffect(() => {
+    // Recupero dei Pokémon predefiniti
     const defaultPokemons = [
       'arceus',
       'mewtwo',
@@ -48,7 +52,22 @@ export default function App() {
       'metagross',
     ]
     defaultPokemons.forEach((id, index) => fetchPokemon(id, index))
+
+    // Recupero di tutti i Pokémon
+    fetchAllPokemons()
   }, [])
+
+  const fetchAllPokemons = async () => {
+    try {
+      const response = await fetch(
+        'https://pokeapi.co/api/v2/pokemon?limit=1010'
+      ) // Ottieni tutti i Pokémon
+      const data = await response.json()
+      setAllPokemons(data.results) // Salva tutti i Pokémon nello stato
+    } catch (error) {
+      console.error('Errore durante il fetch di tutti i Pokémon:', error)
+    }
+  }
 
   const onRandomClick = (index) => {
     const randomId = Math.floor(Math.random() * 1010) + 1
@@ -63,28 +82,42 @@ export default function App() {
   }
 
   return (
-    <>
-      <header>
-        <MyNav />
-      </header>
-      <main>
-        <Container>
-          <Row>
-            {pokemons.map((pokemon, index) => (
-              <Col key={index} xs={12} md={6} lg={4}>
-                {pokemon && (
-                  <PokemonCard
-                    data={pokemon}
-                    onRandomClick={() => onRandomClick(index)}
-                    onSearchPokemon={(value) => onSearchPokemon(value, index)}
-                    searchValue={searchValues[index]}
-                  />
-                )}
-              </Col>
-            ))}
-          </Row>
-        </Container>
-      </main>
-    </>
+    <Router>
+      <>
+        <header>
+          <MyNav />
+        </header>
+        <main>
+          <Routes>
+            <Route
+              path="/"
+              element={
+                <>
+                  <Container>
+                    <Row>
+                      {pokemons.map((pokemon, index) => (
+                        <Col key={index} xs={12} md={6} lg={4}>
+                          {pokemon && (
+                            <PokemonCard
+                              data={pokemon}
+                              onRandomClick={() => onRandomClick(index)}
+                              onSearchPokemon={(value) =>
+                                onSearchPokemon(value, index)
+                              }
+                              searchValue={searchValues[index]}
+                            />
+                          )}
+                        </Col>
+                      ))}
+                    </Row>
+                  </Container>
+                </>
+              }
+            />
+            <Route path="/box" element={<Box data={allPokemons} />} />{' '}
+          </Routes>
+        </main>
+      </>
+    </Router>
   )
 }
