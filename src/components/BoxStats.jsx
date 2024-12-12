@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import { Button, Modal } from 'react-bootstrap'
-import { IoDiamondOutline } from 'react-icons/io5'
 
 const BoxStats = ({ data }) => {
   const [show, setShow] = useState(false)
@@ -10,7 +9,7 @@ const BoxStats = ({ data }) => {
 
   return (
     <>
-      <Button onClick={handleShow}>Show Stats</Button>
+      <Button onClick={handleShow}>Details</Button>
 
       <Modal className="my-modal" show={show} onHide={handleClose}>
         <Modal.Header closeButton>

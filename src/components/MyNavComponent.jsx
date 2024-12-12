@@ -12,9 +12,7 @@ function MyNav() {
         <Navbar.Brand as={Link} to="/">
           <img src={logo} width="150px" className="me-3" alt="Logo" />
         </Navbar.Brand>
-        <Navbar.Brand as={Link} to="/">
-          Pokèmon Mastermind
-        </Navbar.Brand>
+
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
