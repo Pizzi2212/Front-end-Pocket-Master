@@ -1,5 +1,7 @@
 import React, { useState } from 'react'
 import { Button, Modal } from 'react-bootstrap'
+import iconPokedex from '../iconPokedex.png'
+import caught from '../caught.png'
 
 const BoxStats = ({ data }) => {
   const [show, setShow] = useState(false)
@@ -9,7 +11,13 @@ const BoxStats = ({ data }) => {
 
   return (
     <>
-      <Button onClick={handleShow}>Details</Button>
+      <div
+        style={{ cursor: 'pointer' }}
+        className="d-flex justify-content-center"
+        onClick={handleShow}
+      >
+        <img width="80px" src={iconPokedex} alt="Pokedex" />
+      </div>
 
       <Modal className="my-modal" show={show} onHide={handleClose}>
         <Modal.Header closeButton>

@@ -7,10 +7,11 @@ import { Container, Row, Col } from 'react-bootstrap'
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 import './App.css'
 import Pokedex from './components/Pokedex'
+import Captured from './components/Captured'
 
 export default function App() {
   const [pokemons, setPokemons] = useState(Array(6).fill(null))
-  const [allPokemons, setAllPokemons] = useState([]) // Stato per tutti i Pokémon
+  const [allPokemons, setAllPokemons] = useState([])
   const [searchValues, setSearchValues] = useState(Array(6).fill(''))
 
   const fetchPokemon = async (id, index) => {
@@ -115,6 +116,7 @@ export default function App() {
             />
             <Route path="/box" element={<Box data={allPokemons} />} />{' '}
             <Route path="/pokedex" element={<Pokedex />} />{' '}
+            <Route path="/captured" element={<Captured data={allPokemons} />} />{' '}
           </Routes>
         </main>
       </>

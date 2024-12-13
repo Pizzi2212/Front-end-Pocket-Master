@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Card, Container, Row, Col, Spinner } from 'react-bootstrap'
+import { Card, Container, Row, Col } from 'react-bootstrap'
 import normalCard from '../card-normal.png'
 import bugCard from '../card-bug.png'
 import darkCard from '../card-dark.png'
@@ -19,11 +19,15 @@ import fireCard from '../card-fire.png'
 import groundCard from '../card-ground.png'
 import flyCard from '../card-fly.png'
 import BoxStats from './BoxStats'
+import caught from '../caught.png'
+import { useDispatch } from 'react-redux'
+import { addToCaptured } from '../redux/captured'
 
 function Box({ data }) {
   const [detailedPokemons, setDetailedPokemons] = useState([])
   const [searchQuery, setSearchQuery] = useState('')
   const [loading, setLoading] = useState(true)
+  const dispatch = useDispatch()
 
   const typeToBackground = {
     steel: steelCard,
@@ -46,7 +50,6 @@ function Box({ data }) {
     flying: flyCard,
   }
 
-  // Funzione di cache
   const fetchWithCache = (() => {
     const cache = new Map()
 
@@ -113,6 +116,10 @@ function Box({ data }) {
     pokemon.name.toLowerCase().includes(searchQuery.toLowerCase())
   )
 
+  const handleCapture = (pokemon) => {
+    dispatch(addToCaptured(pokemon))
+  }
+
   return (
     <Container>
       <input
@@ -152,7 +159,16 @@ function Box({ data }) {
                 className="m-3"
               >
                 <Card.Title className="text-center mt-4">
-                  #{pokemon.id} {pokemon.name.toUpperCase()}
+                  <div className="position-relative">
+                    <img
+                      width="70px"
+                      className="caught"
+                      src={caught}
+                      alt=""
+                      onClick={() => handleCapture(pokemon)}
+                    />
+                  </div>
+                  {pokemon.name.toUpperCase()}
                 </Card.Title>
                 <Card.Img
                   variant="top"

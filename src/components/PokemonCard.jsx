@@ -174,75 +174,82 @@ const PokemonCard = ({ data, onRandomClick, onSearchPokemon, searchValue }) => {
   }
 
   return (
-    <Card
-      style={{
-        width: '25rem',
-        height: '35rem',
-        backgroundImage: `url(${defaultBackground})`,
-        backgroundSize: 'cover',
-      }}
-      className="m-3"
-    >
-      <Card.Title
-        className="text-center mt-4 ms-5 pe-5 fs-5"
+    <div>
+      <Card
         style={{
-          color: data.types && data.types.includes('dark') ? 'white' : 'black',
+          width: '25rem',
+          height: '35rem',
+          backgroundImage: `url(${defaultBackground})`,
+          backgroundSize: 'cover',
         }}
+        className="m-3"
       >
-        <div className="position-relative">
-          <GoStarFill
-            className="shiny-star text-primary star"
-            onClick={shiny}
-          />
-        </div>
-        <div className="position-relative">
-          <Form.Select
-            onChange={teraChange}
-            value={teraType}
-            className="tera"
-            style={{ width: '5em', borderRadius: '20px' }}
-          >
-            <option value="">Tera</option>
-            {Object.keys(typeToBackground).map((type) => (
-              <option key={type} value={type}>
-                {type.charAt(0).toUpperCase() + type.slice(1)}
-              </option>
-            ))}
-          </Form.Select>
-        </div>
-        {data.name.toUpperCase()}
-      </Card.Title>
-      <Card.Img
-        style={{ height: '14rem', objectFit: 'contain' }}
-        variant="top"
-        src={currentSprite}
-      />
-      <Card.Body className="cardBody">
-        <div className="d-flex">
-          <Button
-            style={{
-              backgroundColor: randomBackgroundColor,
-              border: '1px solid black',
-            }}
-            className="mt-4"
-            onClick={onRandomClick}
-          >
-            Random
-          </Button>
-          <input
-            placeholder="Search Pokémon"
-            className="input-pokemon"
-            type="text"
-            onChange={(e) => onSearchPokemon(e.target.value)}
-            value={searchValue}
-          />
-        </div>
-        <Card.Text className="text-center mt-4">
-          <Stats data={data} teraType={teraType} currentTypes={currentTypes} />
-        </Card.Text>
-        <MoveSelect data={data} />
-      </Card.Body>
-    </Card>
+        <Card.Title
+          className="text-center mt-4 ms-5 pe-5 fs-5"
+          style={{
+            color:
+              data.types && data.types.includes('dark') ? 'white' : 'black',
+          }}
+        >
+          <div className="position-relative">
+            <GoStarFill
+              className="shiny-star text-primary star"
+              onClick={shiny}
+            />
+          </div>
+          <div className="position-relative">
+            <Form.Select
+              onChange={teraChange}
+              value={teraType}
+              className="tera"
+              style={{ width: '5em', borderRadius: '20px' }}
+            >
+              <option value="">Tera</option>
+              {Object.keys(typeToBackground).map((type) => (
+                <option key={type} value={type}>
+                  {type.charAt(0).toUpperCase() + type.slice(1)}
+                </option>
+              ))}
+            </Form.Select>
+          </div>
+          {data.name.toUpperCase()}
+        </Card.Title>
+        <Card.Img
+          style={{ height: '14rem', objectFit: 'contain' }}
+          variant="top"
+          src={currentSprite}
+        />
+        <Card.Body className="cardBody">
+          <div className="d-flex">
+            <Button
+              style={{
+                backgroundColor: randomBackgroundColor,
+                border: '1px solid black',
+              }}
+              className="mt-4"
+              onClick={onRandomClick}
+            >
+              Random
+            </Button>
+            <input
+              placeholder="Search Pokémon"
+              className="input-pokemon"
+              type="text"
+              onChange={(e) => onSearchPokemon(e.target.value)}
+              value={searchValue}
+            />
+          </div>
+          <Card.Text className="text-center mt-4">
+            <Stats
+              data={data}
+              teraType={teraType}
+              currentTypes={currentTypes}
+            />
+          </Card.Text>
+          <MoveSelect data={data} />
+        </Card.Body>
+      </Card>
+    </div>
   )
 }
 

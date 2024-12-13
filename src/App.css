@@ -1,8 +1,7 @@
 body {
-  background-image: url(../public/bg.png);
+  background-image: url(./bg.png);
   background-repeat: repeat;
   background-size: cover;
-  overflow-y: auto;
 }
 
 .navbar {
@@ -176,6 +175,18 @@ body {
   bottom: -0.6em;
   left: -0.7em;
 }
+.caught {
+  cursor: pointer;
+  position: absolute;
+  right: 6em;
+  top: -1.5em;
+  left: 0em;
+  transition: box-shadow 0.3s ease, transform 0.1s ease;
+}
+
+.caught:hover {
+  transform: scale(1.1);
+}
 
 .tera {
   overflow: visible;
@@ -215,7 +226,7 @@ body {
 .ball:after {
   content: '';
   position: absolute;
-  top: 47px; /* adattato alla nuova dimensione */
+  top: 47px;
   left: 0;
   width: 100px;
   height: 3px;
@@ -225,8 +236,8 @@ body {
 .ball:before {
   content: '';
   position: absolute;
-  top: 33px; /* adattato */
-  left: 33px; /* adattato */
+  top: 33px;
+  left: 33px;
   width: 27px;
   height: 27px;
   border: solid 3px #3f3f3f;

@@ -10,7 +10,9 @@ const Pokedex = () => {
         height: '100vh',
         width: '100vw',
       }}
-    ></div>
+    >
+      <p>ciaooo</p>
+    </div>
   )
 }
 export default Pokedex
