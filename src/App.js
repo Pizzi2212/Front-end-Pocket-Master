@@ -43,7 +43,6 @@ export default function App() {
   })
 
   useEffect(() => {
-    // Recupero dei Pokémon predefiniti
     const defaultPokemons = [
       'arceus',
       'mewtwo',
@@ -54,7 +53,6 @@ export default function App() {
     ]
     defaultPokemons.forEach((id, index) => fetchPokemon(id, index))
 
-    // Recupero di tutti i Pokémon
     fetchAllPokemons()
   }, [])
 

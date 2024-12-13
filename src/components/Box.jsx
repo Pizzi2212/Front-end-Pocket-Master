@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Card, Container, Row, Col } from 'react-bootstrap'
+import { Card, Container, Row, Col, Spinner } from 'react-bootstrap'
 import normalCard from '../card-normal.png'
 import bugCard from '../card-bug.png'
 import darkCard from '../card-dark.png'
@@ -18,7 +18,6 @@ import waterCard from '../card-water.png'
 import fireCard from '../card-fire.png'
 import groundCard from '../card-ground.png'
 import flyCard from '../card-fly.png'
-import { Spinner } from 'react-bootstrap'
 import BoxStats from './BoxStats'
 
 function Box({ data }) {
@@ -46,16 +45,46 @@ function Box({ data }) {
     dragon: dragonCard,
     flying: flyCard,
   }
+
+  // Funzione di cache
+  const fetchWithCache = (() => {
+    const cache = new Map()
+
+    return async (url) => {
+      if (cache.has(url)) {
+        return cache.get(url)
+      }
+      try {
+        const response = await fetch(url)
+        if (!response.ok) throw new Error('Errore nel fetch')
+        const data = await response.json()
+        cache.set(url, data)
+        return data
+      } catch (error) {
+        console.error(`Errore nel fetch per ${url}:`, error.message)
+        return null
+      }
+    }
+  })()
+
+  const fetchDetailsInBatches = async (data, batchSize) => {
+    const results = []
+    for (let i = 0; i < data.length; i += batchSize) {
+      const batch = data.slice(i, i + batchSize)
+      const batchResults = await Promise.all(
+        batch.map(async (pokemon) => {
+          return await fetchWithCache(pokemon.url)
+        })
+      )
+      results.push(...batchResults)
+    }
+    return results.filter((pokemon) => pokemon !== null)
+  }
+
   useEffect(() => {
     const fetchDetails = async () => {
       try {
-        const details = await Promise.all(
-          data.map(async (pokemon) => {
-            const response = await fetch(pokemon.url)
-            if (!response.ok) throw new Error('Errore nel fetch')
-            return await response.json()
-          })
-        )
+        const details = await fetchDetailsInBatches(data, 50)
         setDetailedPokemons(details)
       } catch (error) {
         console.error('Errore durante il fetch:', error.message)
@@ -68,12 +97,14 @@ function Box({ data }) {
       fetchDetails()
     }
   }, [data])
+
   if (loading) {
     return (
-      <div className="" style={{ height: '100vh' }}>
-        <Spinner animation="border" role="status" variant="danger">
-          <span>Loading...</span>
-        </Spinner>
+      <div
+        className="d-flex justify-content-center align-items-center"
+        style={{ height: '100vh' }}
+      >
+        <div className="ball"></div>
       </div>
     )
   }
@@ -94,9 +125,21 @@ function Box({ data }) {
 
       <Row>
         {filteredPokemons.map((pokemon, index) => {
+          if (!pokemon) {
+            return (
+              <Col key={index} xs={12} sm={6} md={4} lg={3}>
+                <Card className="m-3">
+                  <Card.Body>
+                    <Card.Text>
+                      Dettagli non disponibili per questo Pokémon
+                    </Card.Text>
+                  </Card.Body>
+                </Card>
+              </Col>
+            )
+          }
           const backgroundImage =
             typeToBackground[pokemon.types[0]?.type.name] || normalCard
-
           return (
             <Col key={index} xs={12} md={6} lg={4}>
               <Card
@@ -108,12 +151,7 @@ function Box({ data }) {
                 }}
                 className="m-3"
               >
-                <Card.Title
-                  className="text-center mt-4"
-                  style={{
-                    color: pokemon.types.includes('dark') ? 'white' : 'black',
-                  }}
-                >
+                <Card.Title className="text-center mt-4">
                   #{pokemon.id} {pokemon.name.toUpperCase()}
                 </Card.Title>
                 <Card.Img

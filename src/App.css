@@ -196,3 +196,65 @@ body {
     violet 100%
   );
 }
+.ball {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background: linear-gradient(
+    to bottom,
+    #e83e35 0%,
+    #e83e35 50.5%,
+    #ffffff 50.51%,
+    #ffffff 100%
+  );
+  position: relative;
+  box-shadow: -10px 0 rgba(0, 0, 0, 0.1) inset;
+  animation: roll 1s ease-in-out infinite;
+}
+
+.ball:after {
+  content: '';
+  position: absolute;
+  top: 47px; /* adattato alla nuova dimensione */
+  left: 0;
+  width: 100px;
+  height: 3px;
+  background: #3f3f3f;
+}
+
+.ball:before {
+  content: '';
+  position: absolute;
+  top: 33px; /* adattato */
+  left: 33px; /* adattato */
+  width: 27px;
+  height: 27px;
+  border: solid 3px #3f3f3f;
+  border-radius: 50%;
+  background: white;
+  z-index: 1;
+  box-shadow: 0 0 7px -1px #c62828 inset;
+  animation: button 3s ease infinite;
+}
+
+@keyframes roll {
+  from {
+    transform: rotate(0);
+  }
+  90%,
+  to {
+    transform: rotate(720deg);
+  }
+}
+
+@keyframes button {
+  from,
+  50%,
+  to {
+    box-shadow: 0 0 7px -1px #c62828 inset;
+  }
+  25%,
+  75% {
+    box-shadow: 0 0 5px -1px #1300ea inset;
+  }
+}
