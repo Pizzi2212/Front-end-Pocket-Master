@@ -1,6 +1,6 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
-import { Card, Row, Col, Container } from 'react-bootstrap'
+import { Card, Row, Col, Container, Button } from 'react-bootstrap'
 import normalCard from '../card-normal.png'
 import bugCard from '../card-bug.png'
 import darkCard from '../card-dark.png'
@@ -19,8 +19,9 @@ import waterCard from '../card-water.png'
 import fireCard from '../card-fire.png'
 import groundCard from '../card-ground.png'
 import flyCard from '../card-fly.png'
+import leave from '../leave.png'
 
-const Captured = ({ data }) => {
+const Captured = () => {
   const typeToBackground = {
     steel: steelCard,
     psychic: psychicCard,
@@ -46,6 +47,19 @@ const Captured = ({ data }) => {
     (state) => state.captured.capturedPokemons
   )
 
+  // const handleExport = () => {
+  //   const dataStr = JSON.stringify(capturedPokemons, null, 2)
+  //   const blob = new Blob([dataStr], { type: 'application/json' })
+  //   const url = URL.createObjectURL(blob)
+
+  //   const link = document.createElement('a')
+  //   link.href = url
+  //   link.download = 'capturedPokemons.json'
+  //   document.body.appendChild(link)
+  //   link.click()
+  //   document.body.removeChild(link)
+  // }
+
   return (
     <div>
       <Container>
@@ -66,6 +80,9 @@ const Captured = ({ data }) => {
                   className="m-3"
                 >
                   <Card.Title className="text-center mt-4">
+                    <div className="position-relative">
+                      <img width="90px" className="leave" src={leave} alt="" />
+                    </div>
                     {pokemon.name.toUpperCase()}
                   </Card.Title>
                   <Card.Img
@@ -82,6 +99,13 @@ const Captured = ({ data }) => {
             )
           })}
         </Row>
+        {/* <Row className="mt-4">
+          <Col className="text-center">
+            <Button variant="primary" onClick={handleExport}>
+              Esporta Pokémon
+            </Button>
+          </Col>
+        </Row> */}
       </Container>
     </div>
   )
