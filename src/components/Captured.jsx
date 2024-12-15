@@ -1,5 +1,6 @@
 import React from 'react'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
+import { useState } from 'react'
 import { Card, Row, Col, Container, Button } from 'react-bootstrap'
 import normalCard from '../card-normal.png'
 import bugCard from '../card-bug.png'
@@ -20,6 +21,9 @@ import fireCard from '../card-fire.png'
 import groundCard from '../card-ground.png'
 import flyCard from '../card-fly.png'
 import leave from '../leave.png'
+import { removeFromCaptured } from '../redux/captured'
+import Alert from 'react-bootstrap/Alert'
+import Ngif from '../Ngif.gif'
 
 const Captured = () => {
   const typeToBackground = {
@@ -47,6 +51,21 @@ const Captured = () => {
     (state) => state.captured.capturedPokemons
   )
 
+  const dispatch = useDispatch()
+  const [showAlert, setShowAlert] = useState(false)
+  const [removePokemonName, setRemovePokemonName] = useState('')
+  const [removePokemonSprite, setRemovePokemonSprite] = useState(null)
+
+  const removeCaptured = (pokemon) => {
+    dispatch(removeFromCaptured(pokemon.id))
+    setRemovePokemonName(pokemon.name)
+    setRemovePokemonSprite(pokemon.sprites.other?.showdown?.front_default)
+    setShowAlert(true)
+    setTimeout(() => {
+      setShowAlert(false)
+    }, 5000)
+  }
+
   // const handleExport = () => {
   //   const dataStr = JSON.stringify(capturedPokemons, null, 2)
   //   const blob = new Blob([dataStr], { type: 'application/json' })
@@ -63,6 +82,29 @@ const Captured = () => {
   return (
     <div>
       <Container>
+        {showAlert && (
+          <Alert
+            variant="success"
+            className="custom-alert"
+            onClose={() => setShowAlert(false)}
+            dismissible
+          >
+            <Alert.Heading>
+              <div className="d-flex flex-column">
+                <div>
+                  <img src={removePokemonSprite} alt="Removed Pokemon" />{' '}
+                  {removePokemonName.toUpperCase()} is now free
+                </div>
+                <div className="d-flex flex-column align-items-center ">
+                  <img style={{ width: '120px' }} src={Ngif} alt="N" />
+                  <div className="bg-light border border-2 border-dark rounded-3 p-2">
+                    <p>Im so proud of you..</p>
+                  </div>
+                </div>
+              </div>
+            </Alert.Heading>
+          </Alert>
+        )}
         <Row>
           {capturedPokemons.map((pokemon, index) => {
             const backgroundImage =
@@ -80,7 +122,12 @@ const Captured = () => {
                   className="m-3"
                 >
                   <Card.Title className="text-center mt-4">
-                    <div className="position-relative">
+                    <div
+                      onClick={() => {
+                        removeCaptured(pokemon)
+                      }}
+                      className="position-relative"
+                    >
                       <img width="90px" className="leave" src={leave} alt="" />
                     </div>
                     {pokemon.name.toUpperCase()}
