@@ -22,11 +22,13 @@ import BoxStats from './BoxStats'
 import caught from '../caught.png'
 import { useDispatch } from 'react-redux'
 import { addToCaptured } from '../redux/captured'
+import Ncatch from '../Ncatch.png'
 
 function Box({ data }) {
   const [detailedPokemons, setDetailedPokemons] = useState([])
   const [searchQuery, setSearchQuery] = useState('')
   const [loading, setLoading] = useState(true)
+  const [capturedPokemonIds, setCapturedPokemonIds] = useState(new Set())
   const dispatch = useDispatch()
 
   const typeToBackground = {
@@ -118,6 +120,7 @@ function Box({ data }) {
 
   const handleCapture = (pokemon) => {
     dispatch(addToCaptured(pokemon))
+    setCapturedPokemonIds((prev) => new Set([...prev, pokemon.id]))
   }
 
   return (
@@ -129,7 +132,6 @@ function Box({ data }) {
         value={searchQuery}
         onChange={(e) => setSearchQuery(e.target.value)}
       />
-
       <Row>
         {filteredPokemons.map((pokemon, index) => {
           if (!pokemon) {
@@ -137,9 +139,7 @@ function Box({ data }) {
               <Col key={index} xs={12} sm={6} md={4} lg={3}>
                 <Card className="m-3">
                   <Card.Body>
-                    <Card.Text>
-                      Dettagli non disponibili per questo Pokémon
-                    </Card.Text>
+                    <Card.Text>Deatils not found</Card.Text>
                   </Card.Body>
                 </Card>
               </Col>
@@ -147,6 +147,7 @@ function Box({ data }) {
           }
           const backgroundImage =
             typeToBackground[pokemon.types[0]?.type.name] || normalCard
+          const isCaptured = capturedPokemonIds.has(pokemon.id)
           return (
             <Col key={index} xs={12} md={6} lg={4}>
               <Card
@@ -178,6 +179,9 @@ function Box({ data }) {
                 />
                 <Card.Body>
                   <BoxStats data={pokemon} />
+                  <div className="d-flex justify-content-center">
+                    {isCaptured && <img src={Ncatch} width="80px" alt="" />}
+                  </div>
                 </Card.Body>
               </Card>
             </Col>
