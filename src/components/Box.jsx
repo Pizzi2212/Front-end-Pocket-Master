@@ -20,16 +20,22 @@ import groundCard from '../card-ground.png'
 import flyCard from '../card-fly.png'
 import BoxStats from './BoxStats'
 import caught from '../caught.png'
-import { useDispatch } from 'react-redux'
-import { addToCaptured } from '../redux/captured'
+import { useDispatch, useSelector } from 'react-redux'
+import { addToCaptured, removeFromCaptured } from '../redux/captured'
 import Ncatch from '../Ncatch.png'
 
 function Box({ data }) {
   const [detailedPokemons, setDetailedPokemons] = useState([])
   const [searchQuery, setSearchQuery] = useState('')
   const [loading, setLoading] = useState(true)
-  const [capturedPokemonIds, setCapturedPokemonIds] = useState(new Set())
   const dispatch = useDispatch()
+
+  const capturedPokemons = useSelector(
+    (state) => state.captured.capturedPokemons
+  )
+  const capturedPokemonIds = new Set(
+    capturedPokemons.map((pokemon) => pokemon.id)
+  )
 
   const typeToBackground = {
     steel: steelCard,
@@ -120,7 +126,6 @@ function Box({ data }) {
 
   const handleCapture = (pokemon) => {
     dispatch(addToCaptured(pokemon))
-    setCapturedPokemonIds((prev) => new Set([...prev, pokemon.id]))
   }
 
   return (
@@ -139,7 +144,7 @@ function Box({ data }) {
               <Col key={index} xs={12} sm={6} md={4} lg={3}>
                 <Card className="m-3">
                   <Card.Body>
-                    <Card.Text>Deatils not found</Card.Text>
+                    <Card.Text>Details not found</Card.Text>
                   </Card.Body>
                 </Card>
               </Col>
@@ -165,7 +170,7 @@ function Box({ data }) {
                       width="70px"
                       className="caught"
                       src={caught}
-                      alt=""
+                      alt="Catch Pokémon"
                       onClick={() => handleCapture(pokemon)}
                     />
                   </div>
@@ -180,7 +185,9 @@ function Box({ data }) {
                 <Card.Body>
                   <BoxStats data={pokemon} />
                   <div className="d-flex justify-content-center">
-                    {isCaptured && <img src={Ncatch} width="80px" alt="" />}
+                    {isCaptured && (
+                      <img src={Ncatch} width="80px" alt="Captured" />
+                    )}
                   </div>
                 </Card.Body>
               </Card>

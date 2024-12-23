@@ -1,3 +1,4 @@
+// capturedSlice.js
 import { createSlice } from '@reduxjs/toolkit'
 
 const loadCapturedFromLocalStorage = () => {
@@ -32,8 +33,14 @@ const capturedSlice = createSlice({
   },
   reducers: {
     addToCaptured(state, action) {
-      state.capturedPokemons.push(action.payload)
-      saveCapturedToLocalStorage(state.capturedPokemons)
+      if (
+        !state.capturedPokemons.some(
+          (pokemon) => pokemon.id === action.payload.id
+        )
+      ) {
+        state.capturedPokemons.push(action.payload)
+        saveCapturedToLocalStorage(state.capturedPokemons)
+      }
     },
     removeFromCaptured(state, action) {
       state.capturedPokemons = state.capturedPokemons.filter(
