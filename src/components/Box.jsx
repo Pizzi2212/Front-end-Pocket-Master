@@ -23,11 +23,13 @@ import caught from '../caught.png'
 import { useDispatch, useSelector } from 'react-redux'
 import { addToCaptured, removeFromCaptured } from '../redux/captured'
 import Ncatch from '../Ncatch.png'
+import { Form } from 'react-bootstrap'
 
 function Box({ data }) {
   const [detailedPokemons, setDetailedPokemons] = useState([])
   const [searchQuery, setSearchQuery] = useState('')
   const [loading, setLoading] = useState(true)
+  const [generation, setGeneration] = useState('1')
   const dispatch = useDispatch()
 
   const capturedPokemons = useSelector(
@@ -84,7 +86,19 @@ function Box({ data }) {
       const batch = data.slice(i, i + batchSize)
       const batchResults = await Promise.all(
         batch.map(async (pokemon) => {
-          return await fetchWithCache(pokemon.url)
+          try {
+            const details = await fetchWithCache(pokemon.url)
+
+            const species = await fetchWithCache(details.species.url)
+
+            return { ...details, species }
+          } catch (error) {
+            console.error(
+              `Errore nel fetch dei dettagli per ${pokemon.name}:`,
+              error.message
+            )
+            return null
+          }
         })
       )
       results.push(...batchResults)
@@ -120,9 +134,14 @@ function Box({ data }) {
     )
   }
 
-  const filteredPokemons = detailedPokemons.filter((pokemon) =>
-    pokemon.name.toLowerCase().includes(searchQuery.toLowerCase())
-  )
+  const filteredPokemons = detailedPokemons
+    .filter((pokemon) =>
+      pokemon.name.toLowerCase().includes(searchQuery.toLowerCase())
+    )
+    .filter((pokemon) => {
+      if (generation === '1') return true
+      return pokemon.species.generation.name === generation
+    })
 
   const handleCapture = (pokemon) => {
     dispatch(addToCaptured(pokemon))
@@ -130,6 +149,25 @@ function Box({ data }) {
 
   return (
     <Container>
+      <div className="d-flex mt-3">
+        <Form.Select
+          style={{ borderRadius: '20px' }}
+          value={generation}
+          onChange={(e) => setGeneration(e.target.value)}
+        >
+          <option value="1">All gen</option>
+          <option value="generation-i">First gen</option>
+          <option value="generation-ii">Second gen</option>
+          <option value="generation-iii">Third gen</option>
+          <option value="generation-iv">Fourth gen</option>
+          <option value="generation-v">Fifth gen</option>
+          <option value="generation-vi">Sixth gen</option>
+          <option value="generation-vii">Seventh gen</option>
+          <option value="generation-viii">Eigth gen</option>
+          <option value="generation-ix">Ninth gen</option>
+        </Form.Select>
+        <Form.Select style={{ borderRadius: '20px' }}></Form.Select>
+      </div>
       <input
         placeholder="Search Pokémon"
         className="input-pokemon"
@@ -137,6 +175,7 @@ function Box({ data }) {
         value={searchQuery}
         onChange={(e) => setSearchQuery(e.target.value)}
       />
+
       <Row>
         {filteredPokemons.map((pokemon, index) => {
           if (!pokemon) {
