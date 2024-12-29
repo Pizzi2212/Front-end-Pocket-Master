@@ -30,6 +30,7 @@ function Box({ data }) {
   const [searchQuery, setSearchQuery] = useState('')
   const [loading, setLoading] = useState(true)
   const [generation, setGeneration] = useState('1')
+  const [type, setType] = useState('all')
   const dispatch = useDispatch()
 
   const capturedPokemons = useSelector(
@@ -142,6 +143,10 @@ function Box({ data }) {
       if (generation === '1') return true
       return pokemon.species.generation.name === generation
     })
+    .filter((pokemon) => {
+      if (type === 'all') return true
+      return pokemon.types.some((t) => t.type.name === type)
+    })
 
   const handleCapture = (pokemon) => {
     dispatch(addToCaptured(pokemon))
@@ -151,7 +156,18 @@ function Box({ data }) {
     <Container>
       <div className="d-flex mt-3">
         <Form.Select
-          style={{ borderRadius: '20px' }}
+          style={{
+            borderRadius: '20px',
+            padding: '10px',
+            fontSize: '16px',
+            fontWeight: 'bold',
+            backgroundColor: '#f4f4f4',
+            border: '2px solid #ccc',
+            color: '#333',
+            boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.1)',
+            transition: 'all 0.3s ease',
+            cursor: 'pointer',
+          }}
           value={generation}
           onChange={(e) => setGeneration(e.target.value)}
         >
@@ -166,7 +182,42 @@ function Box({ data }) {
           <option value="generation-viii">Eigth gen</option>
           <option value="generation-ix">Ninth gen</option>
         </Form.Select>
-        <Form.Select style={{ borderRadius: '20px' }}></Form.Select>
+        <Form.Select
+          style={{
+            borderRadius: '20px',
+            padding: '10px',
+            fontSize: '16px',
+            fontWeight: 'bold',
+            backgroundColor: '#f4f4f4',
+            border: '2px solid #ccc',
+            color: '#333',
+            boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.1)',
+            transition: 'all 0.3s ease',
+            cursor: 'pointer',
+          }}
+          value={type}
+          onChange={(e) => setType(e.target.value)}
+        >
+          <option value="all">All types</option>
+          <option value="grass">Grass</option>
+          <option value="fire">Fire</option>
+          <option value="water">Water</option>
+          <option value="electric">Electric</option>
+          <option value="rock">Rock</option>
+          <option value="ground">Ground</option>
+          <option value="fighting">Fighting</option>
+          <option value="poison">Poison</option>
+          <option value="ghost">Ghost</option>
+          <option value="dark">Dark</option>
+          <option value="flying">Flying</option>
+          <option value="normal">Normal</option>
+          <option value="ice">Ice</option>
+          <option value="steel">Steel</option>
+          <option value="fairy">Fairy</option>
+          <option value="bug">Bug</option>
+          <option value="psychic">Psychic</option>
+          <option value="dragon">Dragon</option>
+        </Form.Select>
       </div>
       <input
         placeholder="Search Pokémon"
