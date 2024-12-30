@@ -18,12 +18,13 @@ import waterCard from '../card-water.png'
 import fireCard from '../card-fire.png'
 import groundCard from '../card-ground.png'
 import flyCard from '../card-fly.png'
-import BoxStats from './BoxStats'
+import iconPokedex from '../iconPokedex.png'
 import caught from '../caught.png'
 import { useDispatch, useSelector } from 'react-redux'
 import { addToCaptured, removeFromCaptured } from '../redux/captured'
 import Ncatch from '../Ncatch.png'
 import { Form } from 'react-bootstrap'
+import { useNavigate } from 'react-router-dom'
 
 function Box({ data }) {
   const [detailedPokemons, setDetailedPokemons] = useState([])
@@ -32,6 +33,7 @@ function Box({ data }) {
   const [generation, setGeneration] = useState('1')
   const [type, setType] = useState('all')
   const dispatch = useDispatch()
+  const navigate = useNavigate()
 
   const capturedPokemons = useSelector(
     (state) => state.captured.capturedPokemons
@@ -150,6 +152,10 @@ function Box({ data }) {
 
   const handleCapture = (pokemon) => {
     dispatch(addToCaptured(pokemon))
+  }
+
+  const pokedex = (pokemon) => {
+    navigate('/pokedex', { state: { pokemon } })
   }
 
   return (
@@ -272,8 +278,14 @@ function Box({ data }) {
                   src={pokemon.sprites.other['official-artwork'].front_default}
                   alt={pokemon.name}
                 />
+                <div
+                  style={{ cursor: 'pointer' }}
+                  className="d-flex justify-content-center mt-3"
+                  onClick={() => pokedex(pokemon)}
+                >
+                  <img width="80px" src={iconPokedex} alt="Pokedex" />
+                </div>
                 <Card.Body>
-                  <BoxStats data={pokemon} />
                   <div className="d-flex justify-content-center">
                     {isCaptured && (
                       <img src={Ncatch} width="80px" alt="Captured" />

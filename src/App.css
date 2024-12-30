@@ -293,3 +293,12 @@ body {
   max-width: 600px;
   z-index: 1050;
 }
+
+.sprite-pokedex {
+  position: relative;
+  top: 7em;
+}
+.title-pokedex {
+  position: relative;
+  top: 6em;
+}
