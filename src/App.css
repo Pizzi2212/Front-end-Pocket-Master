@@ -302,3 +302,10 @@ body {
   position: relative;
   top: 6em;
 }
+
+.star-pokedex {
+  font-size: 2em;
+  position: relative;
+  left: 3.3em;
+  cursor: pointer;
+}

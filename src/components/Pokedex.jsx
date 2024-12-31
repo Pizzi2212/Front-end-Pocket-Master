@@ -1,12 +1,28 @@
 import React from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
+import { useState, useEffect } from 'react'
 import pokedex from '../pokedexReal2.jpeg'
 import { Card, Button } from 'react-bootstrap'
+import { GoStarFill } from 'react-icons/go'
 
 function Pokedex() {
   const { state } = useLocation()
   const navigate = useNavigate()
+  const { pokemon } = state
+  const [currentSprite, setCurrentSprite] = useState(
+    pokemon.sprites.other?.['official-artwork']?.front_default
+  )
+  const shiny = () => {
+    setCurrentSprite((prevSprite) =>
+      prevSprite === pokemon.sprites.other?.['official-artwork']?.front_default
+        ? pokemon.sprites.other?.['official-artwork']?.front_shiny
+        : pokemon.sprites.other?.['official-artwork']?.front_default
+    )
+  }
 
+  useEffect(() => {
+    setCurrentSprite(pokemon.sprites.other?.['official-artwork']?.front_default)
+  }, [pokemon])
   if (!state || !state.pokemon) {
     return (
       <div>
@@ -15,8 +31,6 @@ function Pokedex() {
       </div>
     )
   }
-
-  const { pokemon } = state
 
   return (
     <div className=" d-flex justify-content-center mt-3">
@@ -33,12 +47,11 @@ function Pokedex() {
         <Card.Body>
           <Card.Title className="title-pokedex text-center mt-2">
             {pokemon.name.toUpperCase()}
+            <GoStarFill className="text-primary star-pokedex" onClick={shiny} />
           </Card.Title>
+
           <div className="sprite-pokedex d-flex justify-content-center">
-            <Card.Img
-              src={pokemon.sprites.other?.['official-artwork']?.front_default}
-              style={{ width: '200px' }}
-            />
+            <Card.Img src={currentSprite} style={{ width: '200px' }} />
           </div>
 
           <Card.Text>
