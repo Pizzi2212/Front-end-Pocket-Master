@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react'
 import pokedex from '../pokedexReal2.jpeg'
 import { Card, Button } from 'react-bootstrap'
 import { GoStarFill } from 'react-icons/go'
+import Details from './DetailsPokedex'
 
 function Pokedex() {
   const { state } = useLocation()
@@ -32,6 +33,10 @@ function Pokedex() {
     )
   }
 
+  // const nextPokemon = () => {
+  //   navigate('/pokedex', { state: { id: pokemon.id + 1 } })
+  // }
+
   return (
     <div className=" d-flex justify-content-center mt-3">
       <Card
@@ -57,17 +62,20 @@ function Pokedex() {
           <Card.Text>
             <div className="mt-5 ms-2">
               <p>
+                <strong>Type</strong>:{' '}
+                {pokemon.types
+                  .map((typeObj) => typeObj.type.name.toUpperCase())
+                  .join(', ')}
+              </p>
+              <p>
                 <strong>Height:</strong> {pokemon.height / 10} m
               </p>
               <p>
                 <strong>Weight:</strong> {pokemon.weight / 10} kg
               </p>
-              <p>
-                <strong> Abilities</strong>:{' '}
-                {pokemon.abilities.map((a) => a.ability.name).join(', ')}
-              </p>
-              <p>
-                <strong>Description:</strong>{' '}
+
+              <p style={{ fontSize: '0.8em' }}>
+                <strong style={{ fontSize: '1.2em' }}>Description:</strong>{' '}
                 {
                   pokemon.species.flavor_text_entries.find(
                     (entry) => entry.language.name === 'en'
@@ -76,7 +84,13 @@ function Pokedex() {
               </p>
             </div>
           </Card.Text>
-          {/* <Button onClick={() => navigate(-1)}>Go Back</Button> */}
+          <Button
+            className="goBack"
+            style={{ opacity: '0' }}
+            onClick={() => navigate(-1)}
+          ></Button>
+          {/* <Button onClick={nextPokemon}></Button> */}
+          <Details pokemon={pokemon} />
         </Card.Body>
       </Card>
     </div>

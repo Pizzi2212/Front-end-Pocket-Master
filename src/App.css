@@ -309,3 +309,15 @@ body {
   left: 3.3em;
   cursor: pointer;
 }
+
+.goBack {
+  position: relative;
+  top: 7em;
+  left: 23em;
+}
+
+@media (max-width: 768px) {
+  .goBack {
+    left: 21em;
+  }
+}
