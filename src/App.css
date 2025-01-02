@@ -312,12 +312,24 @@ body {
 
 .goBack {
   position: relative;
-  top: 7em;
-  left: 23em;
+  top: 6em;
+  left: 22.6em;
 }
 
 @media (max-width: 768px) {
   .goBack {
-    left: 21em;
+    left: 22em;
+  }
+}
+
+.moreDetails {
+  position: relative;
+  top: 8em;
+  left: 7.2em;
+}
+
+@media (max-width: 768px) {
+  .moreDetails {
+    left: 6em;
   }
 }

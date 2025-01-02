@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Modal, Button, Table, Form, Row, Col, Badge } from 'react-bootstrap'
+import { SiUnacademy } from 'react-icons/si'
 
 function Details({ pokemon }) {
   const [show, setShow] = useState(false)
@@ -22,6 +23,44 @@ function Details({ pokemon }) {
   }
 
   const fetchGamesData = async (pokemonId) => {
+    const gameColors = {
+      red: '#FF0000',
+      blue: '#0000FF',
+      yellow: '#FFFF00',
+      gold: '#A3925A',
+      silver: '#85C1E6',
+      crystal: '#8D9FD6',
+      ruby: '#E0115F',
+      sapphire: '#0F52BA',
+      emerald: '#50C878',
+      firered: '#DD8155',
+      leafgreen: '#7CC446',
+      diamond: '#A8C2D9',
+      pearl: '#E7C4D8',
+      platinum: '#9399AE',
+      heartgold: '#E0B73D',
+      soulsilver: '#D2DADD',
+      black: '#000000',
+      white: '#FFFFFF',
+      'black-2': '#000000',
+      'white-2': '#FFFFFF',
+      x: '#A5DCA3',
+      y: '#343A4C',
+      'omega-ruby': '#E87C01',
+      'alpha-sapphire': '#5CD9ED',
+      sun: '#BE4018',
+      moon: '#283C85',
+      'ultra-sun': '#EF2613',
+      'ultra-moon': '#8E6BAC',
+      'lets-go-pikachu': '#E6AA2A',
+      'lets-go-eevee': '#B75A3D',
+      sword: '#5A8BCC',
+      shield: '#D43790',
+      legends: '#946F3E',
+      scarlet: '#B52139',
+      violet: '#A22896',
+    }
+
     try {
       const response = await fetch(
         `https://pokeapi.co/api/v2/pokemon-species/${pokemonId}`
@@ -29,14 +68,18 @@ function Details({ pokemon }) {
       const data = await response.json()
 
       if (data && data.flavor_text_entries) {
-        const gameVersions = data.flavor_text_entries.map(
-          (entry) => entry.version.name
-        )
-        setGames([...new Set(gameVersions)])
-        //lavorarea su gameversions//
+        const gameVersions = data.flavor_text_entries.map((entry) => ({
+          name: entry.version.name,
+          color: gameColors[entry.version.name] || 'lightgray', // Default color
+        }))
+        const uniqueGames = [
+          ...new Map(gameVersions.map((item) => [item.name, item])).values(),
+        ]
+        setGames(uniqueGames)
+        console.log(gameVersions)
       } else {
         const pokemonName = pokemon.name.toLowerCase()
-        setGames([pokemonName] || [])
+        setGames([{ name: pokemonName, color: 'lightgray' }])
       }
     } catch (error) {
       console.error('Error fetching games data:', error)
@@ -55,7 +98,11 @@ function Details({ pokemon }) {
 
   return (
     <>
-      <Button variant="primary" onClick={handleShow}>
+      <Button
+        style={{ backgroundColor: '#8DC73F', border: '1px solid #8DC73F' }}
+        className="moreDetails"
+        onClick={handleShow}
+      >
         More details
       </Button>
 
@@ -74,7 +121,7 @@ function Details({ pokemon }) {
         </Modal.Header>
         <Modal.Body>
           {/* Sezione dei giochi */}
-          <h5>Available in Games</h5>
+          <h5>Available in Games:</h5>
           <Row>
             {games.length === 0 ? (
               <Col className="text-center">
@@ -82,13 +129,20 @@ function Details({ pokemon }) {
               </Col>
             ) : (
               games.map((game, index) => (
-                <Badge
+                <Button
                   key={index}
-                  variant="info"
-                  className="mr-2 mb-2 bg-danger"
+                  style={{
+                    backgroundColor: game.color,
+                    color: game.color === '#000000' ? 'white' : 'black',
+                    border: `1px solid ${
+                      game.color === '#FFFFFF' ? '#000' : game.color
+                    }`,
+                    cursor: 'default',
+                  }}
+                  className="mr-2 mb-2 p-2"
                 >
-                  {game.toUpperCase()}
-                </Badge>
+                  {game.name.toUpperCase()}
+                </Button>
               ))
             )}
           </Row>

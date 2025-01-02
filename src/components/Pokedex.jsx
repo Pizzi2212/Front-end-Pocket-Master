@@ -85,7 +85,7 @@ function Pokedex() {
             </div>
           </Card.Text>
           <Button
-            className="goBack"
+            className="goBack p-4"
             style={{ opacity: '0' }}
             onClick={() => navigate(-1)}
           ></Button>
