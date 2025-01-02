@@ -33,6 +33,7 @@ function Details({ pokemon }) {
           (entry) => entry.version.name
         )
         setGames([...new Set(gameVersions)])
+        //lavorarea su gameversions//
       } else {
         const pokemonName = pokemon.name.toLowerCase()
         setGames([pokemonName] || [])
@@ -81,7 +82,11 @@ function Details({ pokemon }) {
               </Col>
             ) : (
               games.map((game, index) => (
-                <Badge key={index} variant="info" className="mr-2 mb-2">
+                <Badge
+                  key={index}
+                  variant="info"
+                  className="mr-2 mb-2 bg-danger"
+                >
                   {game.toUpperCase()}
                 </Badge>
               ))
