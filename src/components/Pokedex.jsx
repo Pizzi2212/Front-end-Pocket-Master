@@ -51,7 +51,7 @@ function Pokedex() {
       >
         <Card.Body>
           <Card.Title className="title-pokedex text-center mt-2">
-            {pokemon.name.toUpperCase()}
+            {pokemon.name.toUpperCase() + ' ' + '#' + pokemon.id}
             <GoStarFill className="text-primary star-pokedex" onClick={shiny} />
           </Card.Title>
 
