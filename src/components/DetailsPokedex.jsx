@@ -146,6 +146,43 @@ function Details({ pokemon }) {
               ))
             )}
           </Row>
+          <hr />
+
+          <h5>Base Stats</h5>
+          {pokemon.stats && pokemon.stats.length > 0 ? (
+            <Table striped bordered hover>
+              <thead>
+                <tr>
+                  <th>Stat</th>
+                  <th>Value</th>
+                </tr>
+              </thead>
+              <tbody>
+                {pokemon.stats.map((stat, index) => (
+                  <tr key={index}>
+                    <td>{stat.stat?.name || 'Unknown'}</td>
+                    <td>{stat.base_stat || 0}</td>
+                  </tr>
+                ))}
+                <tr>
+                  <td>
+                    <strong>Total</strong>
+                  </td>
+                  <td>
+                    <strong>
+                      {pokemon.stats.reduce(
+                        (sum, stat) => sum + (stat.base_stat || 0),
+                        0
+                      )}
+                    </strong>
+                  </td>
+                </tr>
+              </tbody>
+            </Table>
+          ) : (
+            <p>No stats available</p>
+          )}
+          <hr />
 
           {/* Campo di ricerca per le mosse */}
           <h5 className="mt-4">Moves</h5>
