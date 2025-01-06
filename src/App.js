@@ -8,6 +8,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 import './App.css'
 import Pokedex from './components/Pokedex'
 import Captured from './components/Captured'
+import MasterTeams from './components/MasterTeams'
 
 export default function App() {
   const [pokemons, setPokemons] = useState(Array(6).fill(null))
@@ -117,6 +118,7 @@ export default function App() {
             <Route path="/box" element={<Box data={allPokemons} />} />{' '}
             <Route path="/pokedex" element={<Pokedex />} />{' '}
             <Route path="/captured" element={<Captured data={allPokemons} />} />{' '}
+            <Route path="/masterTeams" element={<MasterTeams />} />
           </Routes>
         </main>
       </>
