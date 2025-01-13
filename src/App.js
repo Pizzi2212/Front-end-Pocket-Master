@@ -118,7 +118,10 @@ export default function App() {
             <Route path="/box" element={<Box data={allPokemons} />} />{' '}
             <Route path="/pokedex" element={<Pokedex />} />{' '}
             <Route path="/captured" element={<Captured data={allPokemons} />} />{' '}
-            <Route path="/masterTeams" element={<MasterTeams />} />
+            <Route
+              path="/masterTeams"
+              element={<MasterTeams data={allPokemons} />}
+            />
           </Routes>
         </main>
       </>
