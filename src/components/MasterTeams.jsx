@@ -12,6 +12,9 @@ const MasterTeams = ({ data }) => {
     'HC-NZ BW': [],
     'HC-NZ BW2': [],
     'HC-NZ X/Y': [],
+    'HC-NZ OR/AS': [],
+    'HC-NZ SUN/MOON': [],
+    'HC-NZ SWO/SH': [],
   })
   const [selectedOption, setSelectedOption] = useState('HC-NZ RU/SA/EM')
   const [isLoading, setIsLoading] = useState(false)
@@ -34,6 +37,14 @@ const MasterTeams = ({ data }) => {
       'arcanine',
     ],
 
+    'HC-NZ DI/PE/PL': [
+      'empoleon',
+      'luxray',
+      'gengar',
+      'bronzong',
+      'honchkrow',
+      'machamp',
+    ],
     'HC-NZ HG/SS': [
       'feraligatr',
       'heracross',
@@ -49,15 +60,6 @@ const MasterTeams = ({ data }) => {
       'espeon',
       'vaporeon',
       'ampharos',
-    ],
-
-    'HC-NZ DI/PE/PL': [
-      'empoleon',
-      'luxray',
-      'gengar',
-      'bronzong',
-      'honchkrow',
-      'machamp',
     ],
     'HC-NZ BW': [
       'serperior',
@@ -82,6 +84,30 @@ const MasterTeams = ({ data }) => {
       'lucario',
       'sylveon',
       'ampharos',
+    ],
+    'HC-NZ OR/AS': [
+      'swampert',
+      'gardevoir',
+      'flygon',
+      'sableye',
+      'crobat',
+      'camerupt',
+    ],
+    'HC-NZ SUN/MOON': [
+      'decidueye',
+      'salamence',
+      'espeon',
+      'golisopod',
+      'toucannon',
+      'mudsdale',
+    ],
+    'HC-NZ SWO/SH': [
+      'rillaboom',
+      'grimmsnarl',
+      'corviknight',
+      'dragapult',
+      'toxtricity-amped',
+      'lapras',
     ],
   }
 
