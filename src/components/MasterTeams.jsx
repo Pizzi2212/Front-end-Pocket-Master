@@ -15,6 +15,9 @@ const MasterTeams = ({ data }) => {
     'HC-NZ OR/AS': [],
     'HC-NZ SUN/MOON': [],
     'HC-NZ SWO/SH': [],
+    'Monotype Psychic DI/PE/PL': [],
+    'Monotype Normal DI/PE/PL': [],
+    'Monotype Bug DI/PE/PL': [],
   })
   const [selectedOption, setSelectedOption] = useState('HC-NZ RU/SA/EM')
   const [isLoading, setIsLoading] = useState(false)
@@ -108,6 +111,30 @@ const MasterTeams = ({ data }) => {
       'dragapult',
       'toxtricity-amped',
       'lapras',
+    ],
+    'Monotype Psychic DI/PE/PL': [
+      'medicham',
+      'alakazam',
+      'girafarig',
+      'bronzong',
+      'gallade',
+      'gardevoir',
+    ],
+    'Monotype Normal DI/PE/PL': [
+      'staraptor',
+      'bibarel',
+      'lopunny',
+      'blissey',
+      'porygon-z',
+      'snorlax',
+    ],
+    'Monotype Bug DI/PE/PL': [
+      'kricketune',
+      'wormadam-plant',
+      'mothim',
+      'vespiquen',
+      'dustox',
+      'yanmega',
     ],
   }
 
