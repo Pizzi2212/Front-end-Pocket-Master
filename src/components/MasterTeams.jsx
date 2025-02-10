@@ -18,6 +18,12 @@ const MasterTeams = ({ data }) => {
     'Monotype Psychic DI/PE/PL': [],
     'Monotype Normal DI/PE/PL': [],
     'Monotype Bug DI/PE/PL': [],
+    'Monotype Fire BW': [],
+    'Monotype Water BW': [],
+    'Monotype Normal BW': [],
+    'Monotype Fairy X/Y': [],
+    'Monotype Flying X/Y': [],
+    'Monotype Grass X/Y': [],
   })
   const [selectedOption, setSelectedOption] = useState('HC-NZ RU/SA/EM')
   const [isLoading, setIsLoading] = useState(false)
@@ -136,6 +142,53 @@ const MasterTeams = ({ data }) => {
       'dustox',
       'yanmega',
     ],
+    'Monotype Fire BW': [
+      'emboar',
+      'simisear',
+      'chandelure ',
+      'darmanitan-standard',
+      'heatmor',
+    ],
+    'Monotype Water BW': [
+      'samurott',
+      'seismitoad',
+      'basculin-red-striped',
+      'carracosta',
+      'swanna',
+      'jellicent',
+    ],
+    'Monotype Normal BW': [
+      'watchog',
+      'stoutland',
+      'cinccino',
+      'audino',
+      'bouffalant',
+      'braviary',
+    ],
+    'Monotype Fairy X/Y': [
+      'florges',
+      'sylveon',
+      'azumarill',
+      'dedenne',
+      'aromatisse',
+      'granbull',
+    ],
+    'Monotype Flying X/Y': [
+      'talonflame',
+      'vivillon',
+      'hawlucha',
+      'noivern',
+      'crobat',
+      'gyarados',
+    ],
+    'Monotype Grass X/Y': [
+      'chesnaught',
+      'venusaur',
+      'gogoat',
+      'trevenant',
+      'whimsicott',
+      'amoonguss',
+    ],
   }
 
   const fetchPokemonForTeam = async (teamName) => {
@@ -186,7 +239,7 @@ const MasterTeams = ({ data }) => {
       <Form.Select
         value={selectedOption}
         onChange={handleOptionChange}
-        className="mb-3"
+        className="mb-3 mt-3"
       >
         {Object.keys(teamConfigurations).map((option) => (
           <option key={option} value={option}>

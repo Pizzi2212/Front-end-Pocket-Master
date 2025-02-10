@@ -56,7 +56,11 @@ function Pokedex() {
           </Card.Title>
 
           <div className="sprite-pokedex d-flex justify-content-center">
-            <Card.Img src={currentSprite} style={{ width: '200px' }} />
+            <Card.Img
+              src={currentSprite}
+              style={{ width: '200px' }}
+              className="mb-2"
+            />
           </div>
 
           <Card.Text>
