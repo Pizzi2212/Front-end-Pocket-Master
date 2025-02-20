@@ -6,6 +6,14 @@ body {
   background-attachment: fixed;
 }
 
+.welcome {
+  background-image: url(./welcome.jpeg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+}
+
 .navbar {
   background: linear-gradient(135deg, #4e73df, #2c3e91);
   padding: 1rem 2rem;

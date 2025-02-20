@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import { useLocation } from 'react-router-dom'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import MyNav from './components/MyNavComponent'
 import PokemonCard from './components/PokemonCard'
@@ -9,6 +10,7 @@ import './App.css'
 import Pokedex from './components/Pokedex'
 import Captured from './components/Captured'
 import MasterTeams from './components/MasterTeams'
+import WelcomePage from './components/WelcomePage'
 
 export default function App() {
   const [pokemons, setPokemons] = useState(Array(6).fill(null))
@@ -91,7 +93,7 @@ export default function App() {
         <main>
           <Routes>
             <Route
-              path="/"
+              path="/home"
               element={
                 <>
                   <Container>
@@ -115,6 +117,7 @@ export default function App() {
                 </>
               }
             />
+            <Route path="/" element={<WelcomePage />} />{' '}
             <Route path="/box" element={<Box data={allPokemons} />} />{' '}
             <Route path="/pokedex" element={<Pokedex />} />{' '}
             <Route path="/captured" element={<Captured data={allPokemons} />} />{' '}
