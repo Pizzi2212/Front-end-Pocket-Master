@@ -5,6 +5,7 @@ import NavDropdown from 'react-bootstrap/NavDropdown'
 import { Link } from 'react-router-dom'
 import logo from '../logomm.jpg'
 import { useLocation } from 'react-router-dom'
+import user from '../user.webp'
 
 function MyNav() {
   const location = useLocation()
@@ -35,6 +36,19 @@ function MyNav() {
               Captured Pokèmon
             </Navbar.Brand>
           </Nav>
+
+          <NavDropdown
+            title={<img src={user} alt="" />}
+            id="basic-nav-dropdown"
+          >
+            <NavDropdown.Item href="#action/3.1">Settings</NavDropdown.Item>
+            <NavDropdown.Item href="#action/3.2">Assistance</NavDropdown.Item>
+            <NavDropdown.Item href="#action/3.3">Community</NavDropdown.Item>
+            <NavDropdown.Divider />
+            <NavDropdown.Item as={Link} to="/">
+              Log out
+            </NavDropdown.Item>
+          </NavDropdown>
         </Navbar.Collapse>
       </Container>
     </Navbar>
