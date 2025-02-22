@@ -1,22 +1,23 @@
 import React, { useEffect, useState } from 'react'
-import { useLocation } from 'react-router-dom'
+import { useLocation, Route, Routes } from 'react-router-dom'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import MyNav from './components/MyNavComponent'
 import PokemonCard from './components/PokemonCard'
 import Box from './components/Box'
 import { Container, Row, Col } from 'react-bootstrap'
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 import './App.css'
 import Pokedex from './components/Pokedex'
 import Captured from './components/Captured'
 import MasterTeams from './components/MasterTeams'
 import WelcomePage from './components/WelcomePage'
+import { AnimatePresence, motion } from 'framer-motion'
 
 export default function App() {
   const [pokemons, setPokemons] = useState(Array(6).fill(null))
   const [allPokemons, setAllPokemons] = useState([])
   const [searchValues, setSearchValues] = useState(Array(6).fill(''))
 
+  const location = useLocation()
   const fetchPokemon = async (id, index) => {
     try {
       const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}`)
@@ -85,17 +86,23 @@ export default function App() {
   }
 
   return (
-    <Router>
-      <>
-        <header>
-          <MyNav />
-        </header>
-        <main>
-          <Routes>
+    <>
+      <header>
+        <MyNav />
+      </header>
+      <main>
+        <AnimatePresence mode="wait">
+          {' '}
+          <Routes location={location} key={location.pathname}>
             <Route
               path="/home"
               element={
-                <>
+                <motion.div
+                  initial={{ opacity: 0, x: -100 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: 100 }}
+                  transition={{ duration: 0.6, ease: 'easeInOut' }}
+                >
                   <Container>
                     <Row>
                       {pokemons.map((pokemon, index) => (
@@ -114,20 +121,85 @@ export default function App() {
                       ))}
                     </Row>
                   </Container>
-                </>
+                </motion.div>
               }
             />
-            <Route path="/" element={<WelcomePage />} />{' '}
-            <Route path="/box" element={<Box data={allPokemons} />} />{' '}
-            <Route path="/pokedex" element={<Pokedex />} />{' '}
-            <Route path="/captured" element={<Captured data={allPokemons} />} />{' '}
+            <Route
+              path="/"
+              element={
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{
+                    opacity: 1,
+                    scale: 1,
+                    transition: { duration: 0.5 },
+                  }}
+                  exit={{
+                    opacity: 0,
+                    scale: 1.1,
+                    transition: { duration: 0.5 },
+                  }}
+                  transition={{ duration: 0.6, ease: 'easeInOut' }}
+                >
+                  <WelcomePage />
+                </motion.div>
+              }
+            />
+            <Route
+              path="/box"
+              element={
+                <motion.div
+                  initial={{ opacity: 0, x: -100 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: 100 }}
+                  transition={{ duration: 0.6, ease: 'easeInOut' }}
+                >
+                  <Box data={allPokemons} />
+                </motion.div>
+              }
+            />
+            <Route
+              path="/pokedex"
+              element={
+                <motion.div
+                  initial={{ opacity: 0, x: -100 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: 100 }}
+                  transition={{ duration: 0.6, ease: 'easeInOut' }}
+                >
+                  <Pokedex />
+                </motion.div>
+              }
+            />
+            <Route
+              path="/captured"
+              element={
+                <motion.div
+                  initial={{ opacity: 0, x: -100 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: 100 }}
+                  transition={{ duration: 0.6, ease: 'easeInOut' }}
+                >
+                  <Captured data={allPokemons} />
+                </motion.div>
+              }
+            />
             <Route
               path="/masterTeams"
-              element={<MasterTeams data={allPokemons} />}
+              element={
+                <motion.div
+                  initial={{ opacity: 0, x: -100 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: 100 }}
+                  transition={{ duration: 0.6, ease: 'easeInOut' }}
+                >
+                  <MasterTeams data={allPokemons} />
+                </motion.div>
+              }
             />
           </Routes>
-        </main>
-      </>
-    </Router>
+        </AnimatePresence>
+      </main>
+    </>
   )
 }

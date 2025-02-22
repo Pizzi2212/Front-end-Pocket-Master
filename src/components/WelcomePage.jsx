@@ -2,6 +2,9 @@ import React, { useState } from 'react'
 import { useLocation } from 'react-router-dom'
 import welcome from '../welcome.jpeg'
 import logo from '../logomm.jpg'
+import mew from '../mew.gif'
+import mewtwo from '../mewtwo.gif'
+import mewrun from '../mewrun.gif'
 function WelcomePage() {
   const [isLogin, setIsLogin] = useState(false)
   const [email, setEmail] = useState('')
@@ -105,6 +108,11 @@ function WelcomePage() {
                   {isLogin ? 'Register' : 'Sign In'}
                 </button>
               </div>
+              <div className="mew">
+                <img src={mew} width="130px" alt="mew gif" />
+              </div>
+              {/* <img src={mewtwo} width="100px" alt="mewtwo gif" /> */}
+              <div></div>
             </form>
           </div>
         </div>
