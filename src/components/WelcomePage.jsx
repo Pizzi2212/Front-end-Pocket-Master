@@ -111,8 +111,6 @@ function WelcomePage() {
               <div className="mew">
                 <img src={mew} width="130px" alt="mew gif" />
               </div>
-              {/* <img src={mewtwo} width="100px" alt="mewtwo gif" /> */}
-              <div></div>
             </form>
           </div>
         </div>

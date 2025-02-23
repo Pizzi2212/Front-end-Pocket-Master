@@ -11,6 +11,7 @@ import Captured from './components/Captured'
 import MasterTeams from './components/MasterTeams'
 import WelcomePage from './components/WelcomePage'
 import { AnimatePresence, motion } from 'framer-motion'
+import Settings from './components/Settings'
 
 export default function App() {
   const [pokemons, setPokemons] = useState(Array(6).fill(null))
@@ -194,6 +195,19 @@ export default function App() {
                   transition={{ duration: 0.6, ease: 'easeInOut' }}
                 >
                   <MasterTeams data={allPokemons} />
+                </motion.div>
+              }
+            />
+            <Route
+              path="/settings"
+              element={
+                <motion.div
+                  initial={{ opacity: 0, x: -100 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: 100 }}
+                  transition={{ duration: 0.6, ease: 'easeInOut' }}
+                >
+                  <Settings />
                 </motion.div>
               }
             />

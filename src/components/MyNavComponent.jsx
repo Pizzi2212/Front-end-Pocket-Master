@@ -3,10 +3,13 @@ import Nav from 'react-bootstrap/Nav'
 import Navbar from 'react-bootstrap/Navbar'
 import NavDropdown from 'react-bootstrap/NavDropdown'
 import { Link } from 'react-router-dom'
-import logo from '../logomm.jpg'
+import logo from '../logoPocketMaster.png'
 import { useLocation } from 'react-router-dom'
 import user from '../user.webp'
-
+import { CiSettings } from 'react-icons/ci'
+import { FcAssistant } from 'react-icons/fc'
+import { FaPeopleGroup } from 'react-icons/fa6'
+import { CiLogout } from 'react-icons/ci'
 function MyNav() {
   const location = useLocation()
 
@@ -17,7 +20,7 @@ function MyNav() {
     <Navbar expand="lg" className="nav">
       <Container fluid>
         <Navbar.Brand as={Link} to="/home">
-          <img src={logo} width="150px" className="me-3" alt="Logo" />
+          <img src={logo} width="180px" className="me-3" alt="Logo" />
         </Navbar.Brand>
 
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
@@ -38,15 +41,21 @@ function MyNav() {
           </Nav>
 
           <NavDropdown
-            title={<img src={user} alt="" />}
+            title={<img src={user} className="user" width="90px" alt="" />}
             id="basic-nav-dropdown"
           >
-            <NavDropdown.Item href="#action/3.1">Settings</NavDropdown.Item>
-            <NavDropdown.Item href="#action/3.2">Assistance</NavDropdown.Item>
-            <NavDropdown.Item href="#action/3.3">Community</NavDropdown.Item>
+            <NavDropdown.Item as={Link} to="/settings">
+              Settings <CiSettings className="ms-3" />
+            </NavDropdown.Item>
+            <NavDropdown.Item href="#action/3.2">
+              Assistance <FcAssistant />
+            </NavDropdown.Item>
+            <NavDropdown.Item href="#action/3.3">
+              Community <FaPeopleGroup />
+            </NavDropdown.Item>
             <NavDropdown.Divider />
             <NavDropdown.Item as={Link} to="/">
-              Log out
+              Log out <CiLogout className="ms-3" />
             </NavDropdown.Item>
           </NavDropdown>
         </Navbar.Collapse>

@@ -83,15 +83,14 @@ body {
   background-color: rgba(255, 255, 255, 0.2);
 }
 
-.navbar img {
-  width: 140px;
+.user {
   height: auto;
   border-radius: 50%;
   border: 2px solid #3f4faf;
   transition: transform 0.3s ease;
 }
 
-.navbar img:hover {
+.user {
   transform: scale(1.1);
 }
 
@@ -346,4 +345,10 @@ body {
   position: relative;
   top: 3.5em;
   right: 2.8em;
+}
+
+.pen {
+  position: relative;
+  top: 1.5em;
+  right: 1em;
 }
