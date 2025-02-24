@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import mew from '../mew.gif'
+import welcomeBG from '../welcomeBG.webp'
 
 function WelcomePage() {
   const [isLogin, setIsLogin] = useState(false)
@@ -56,8 +57,10 @@ function WelcomePage() {
           style={{
             width: '100%',
             maxWidth: '500px',
-            opacity: '95%',
-            background: 'linear-gradient(135deg, #b2c9e1 30%, #7f9bbd 70%)',
+            opacity: '80%',
+            backgroundImage: `url(${welcomeBG})`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
             borderRadius: '20px',
             boxShadow: '0 4px 20px rgba(0, 0, 0, 0.2)',
             border: '2px solid #5c7b99',
@@ -66,7 +69,10 @@ function WelcomePage() {
           <div className="card-body" style={{ padding: '2rem' }}>
             <form onSubmit={isLogin ? handleLogin : handleRegister}>
               <div className="mb-3">
-                <label htmlFor="exampleInputEmail1" className="form-label">
+                <label
+                  htmlFor="exampleInputEmail1"
+                  className="form-label text-light"
+                >
                   Email address
                 </label>
                 <input
@@ -85,7 +91,10 @@ function WelcomePage() {
                 {emailError && <div className="text-danger">{emailError}</div>}
               </div>
               <div className="mb-3">
-                <label htmlFor="exampleInputPassword1" className="form-label">
+                <label
+                  htmlFor="exampleInputPassword1"
+                  className="form-label text-light"
+                >
                   Password
                 </label>
                 <input
@@ -128,7 +137,7 @@ function WelcomePage() {
                 >
                   {isLogin ? 'Log In' : 'Register'}
                 </button>
-                <h6>
+                <h6 className="text-light">
                   {isLogin
                     ? "Don't have an account?"
                     : 'Already have an account?'}
@@ -138,13 +147,13 @@ function WelcomePage() {
                   type="button"
                   onClick={() => setIsLogin(!isLogin)}
                   style={{
-                    color: '#5c7b99',
+                    color: 'white',
                     fontWeight: 'bold',
                     textDecoration: 'underline',
                     transition: 'color 0.3s ease',
                   }}
-                  onMouseOver={(e) => (e.target.style.color = '#4f6e84')}
-                  onMouseOut={(e) => (e.target.style.color = '#5c7b99')}
+                  onMouseOver={(e) => (e.target.style.color = 'blue')}
+                  onMouseOut={(e) => (e.target.style.color = 'white')}
                 >
                   {isLogin ? 'Register' : 'Sign In'}
                 </button>
