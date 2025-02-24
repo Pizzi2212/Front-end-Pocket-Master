@@ -52,7 +52,7 @@ export default function App() {
     const defaultPokemons = [
       'arceus',
       'mewtwo',
-      'meowscarada',
+      'mew',
       'giratina-origin',
       'darkrai',
       'metagross',

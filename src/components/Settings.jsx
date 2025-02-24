@@ -3,6 +3,7 @@ import { Form, Button, Container, Row, Col, Card } from 'react-bootstrap'
 import { motion } from 'framer-motion'
 import { FaPen } from 'react-icons/fa'
 import user from '../user.webp'
+import klingklang from '../klingklang.png'
 
 const Settings = () => {
   const [formData, setFormData] = useState({
@@ -17,8 +18,8 @@ const Settings = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    console.log('Dati salvati:', formData)
-    alert('Modifiche salvate con successo!')
+    console.log('Saved data:', formData)
+    alert('Changes saved!')
   }
 
   return (
@@ -31,6 +32,11 @@ const Settings = () => {
             transition={{ duration: 0.5 }}
           >
             <Card className="p-4 shadow-lg rounded-4">
+              <div className="position-relative">
+                <div className="position-absolute top-0 start-100 translate-middle">
+                  <img src={klingklang} width="130px" alt="" />
+                </div>
+              </div>
               <div className="text-center mb-3">
                 <div className="position-relative d-inline-block">
                   <img
@@ -41,9 +47,9 @@ const Settings = () => {
                   />
                   <FaPen className="pen-icon pen text-info" />
                 </div>
+
                 <h4 className="mt-3">{formData.username}</h4>
               </div>
-
               <Form onSubmit={handleSubmit}>
                 <Form.Group className="mb-3">
                   <Form.Label>Username</Form.Label>

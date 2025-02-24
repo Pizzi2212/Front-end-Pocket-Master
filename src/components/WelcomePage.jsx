@@ -108,8 +108,10 @@ function WelcomePage() {
                   {isLogin ? 'Register' : 'Sign In'}
                 </button>
               </div>
-              <div className="mew">
-                <img src={mew} width="130px" alt="mew gif" />
+              <div className="position-relative">
+                <div className="position-absolute top-100 start-0 translate-middle">
+                  <img src={mew} width="130px" alt="" />
+                </div>
               </div>
             </form>
           </div>
