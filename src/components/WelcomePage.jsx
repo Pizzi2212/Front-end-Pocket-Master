@@ -1,10 +1,6 @@
 import React, { useState } from 'react'
-import { useLocation } from 'react-router-dom'
-import welcome from '../welcome.jpeg'
-import logo from '../logomm.jpg'
 import mew from '../mew.gif'
-import mewtwo from '../mewtwo.gif'
-import mewrun from '../mewrun.gif'
+
 function WelcomePage() {
   const [isLogin, setIsLogin] = useState(false)
   const [email, setEmail] = useState('')
@@ -55,8 +51,19 @@ function WelcomePage() {
   return (
     <>
       <div className="d-flex justify-content-center align-items-center min-vh-100 welcome">
-        <div className="card" style={{ width: '100%', maxWidth: '500px' }}>
-          <div className="card-body">
+        <div
+          className="card"
+          style={{
+            width: '100%',
+            maxWidth: '500px',
+            opacity: '95%',
+            background: 'linear-gradient(135deg, #b2c9e1 30%, #7f9bbd 70%)',
+            borderRadius: '20px',
+            boxShadow: '0 4px 20px rgba(0, 0, 0, 0.2)',
+            border: '2px solid #5c7b99',
+          }}
+        >
+          <div className="card-body" style={{ padding: '2rem' }}>
             <form onSubmit={isLogin ? handleLogin : handleRegister}>
               <div className="mb-3">
                 <label htmlFor="exampleInputEmail1" className="form-label">
@@ -69,6 +76,11 @@ function WelcomePage() {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   aria-describedby="emailHelp"
+                  style={{
+                    borderColor: '#A3B9D6',
+                    backgroundColor: 'rgba(255, 255, 255, 0.7)',
+                    borderRadius: '10px',
+                  }}
                 />
                 {emailError && <div className="text-danger">{emailError}</div>}
               </div>
@@ -82,6 +94,11 @@ function WelcomePage() {
                   id="exampleInputPassword1"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
+                  style={{
+                    borderColor: '#A3B9D6',
+                    backgroundColor: 'rgba(255, 255, 255, 0.7)',
+                    borderRadius: '10px',
+                  }}
                 />
                 {passwordError && (
                   <div className="text-danger">{passwordError}</div>
@@ -92,6 +109,22 @@ function WelcomePage() {
                   className="btn btn-primary mb-5"
                   type="submit"
                   disabled={!email || !password || emailError || passwordError}
+                  style={{
+                    backgroundColor: '#5c7b99',
+                    borderColor: '#5c7b99',
+                    borderRadius: '10px',
+                    fontWeight: 'bold',
+                    transition:
+                      'background-color 0.3s ease, transform 0.3s ease',
+                  }}
+                  onMouseOver={(e) => {
+                    e.target.style.backgroundColor = '#4f6e84'
+                    e.target.style.transform = 'scale(1.05)'
+                  }}
+                  onMouseOut={(e) => {
+                    e.target.style.backgroundColor = '#5c7b99'
+                    e.target.style.transform = 'scale(1)'
+                  }}
                 >
                   {isLogin ? 'Log In' : 'Register'}
                 </button>
@@ -104,6 +137,14 @@ function WelcomePage() {
                   className="btn btn-link"
                   type="button"
                   onClick={() => setIsLogin(!isLogin)}
+                  style={{
+                    color: '#5c7b99',
+                    fontWeight: 'bold',
+                    textDecoration: 'underline',
+                    transition: 'color 0.3s ease',
+                  }}
+                  onMouseOver={(e) => (e.target.style.color = '#4f6e84')}
+                  onMouseOut={(e) => (e.target.style.color = '#5c7b99')}
                 >
                   {isLogin ? 'Register' : 'Sign In'}
                 </button>
