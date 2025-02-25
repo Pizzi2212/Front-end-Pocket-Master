@@ -52,7 +52,14 @@ function Pokedex() {
         <Card.Body>
           <Card.Title className="title-pokedex text-center mt-2">
             {pokemon.name.toUpperCase() + ' ' + '#' + pokemon.id}
-            <GoStarFill className="text-primary star-pokedex" onClick={shiny} />
+            <div className="position-relative">
+              <div className="position-absolute top-0 end-0">
+                <GoStarFill
+                  className="text-primary star-pokedex"
+                  onClick={shiny}
+                />
+              </div>
+            </div>
           </Card.Title>
 
           <div className="sprite-pokedex d-flex justify-content-center">

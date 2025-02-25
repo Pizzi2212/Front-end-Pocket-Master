@@ -1,23 +1,33 @@
 import React, { useState } from 'react'
+import Swal from 'sweetalert2'
 import mew from '../mew.gif'
 import welcomeBG from '../welcomeBG.webp'
+import mewHello from '../mewHello.png'
 
 function WelcomePage() {
-  const [isLogin, setIsLogin] = useState(false)
+  const [isLogin, setIsLogin] = useState(true)
+  const [username, setUsername] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [usernameError, setUsernameError] = useState('')
   const [emailError, setEmailError] = useState('')
   const [passwordError, setPasswordError] = useState('')
 
   const handleSignInClick = () => {
-    setIsLogin(true)
+    setIsLogin(false)
   }
 
   const validateFields = () => {
     let isValid = true
 
+    setUsernameError('')
     setEmailError('')
     setPasswordError('')
+
+    if (!isLogin && !username.trim()) {
+      setUsernameError('Please enter a username')
+      isValid = false
+    }
 
     if (!email || !/\S+@\S+\.\S+/.test(email)) {
       setEmailError('Please enter a valid email')
@@ -36,8 +46,17 @@ function WelcomePage() {
     e.preventDefault()
 
     if (validateFields()) {
-      console.log('User registered with email:', email)
-      // logica per inviare i dati al server, se necessario
+      console.log('User registered:', { username, email })
+
+      Swal.fire({
+        title: `Welcome, ${username}!`,
+        text: 'Your Pokémon journey begins now!',
+        imageUrl: mewHello,
+        imageAlt: 'Mew Happy',
+        confirmButtonText: 'OK',
+        confirmButtonColor: '#5c7b99',
+        background: '#f8f9fa',
+      })
     }
   }
 
@@ -56,8 +75,9 @@ function WelcomePage() {
           className="card"
           style={{
             width: '100%',
-            maxWidth: '500px',
-            opacity: '80%',
+            maxWidth: '800px',
+            maxHeight: '500px',
+            opacity: '95%',
             backgroundImage: `url(${welcomeBG})`,
             backgroundSize: 'cover',
             backgroundPosition: 'center',
@@ -68,20 +88,41 @@ function WelcomePage() {
         >
           <div className="card-body" style={{ padding: '2rem' }}>
             <form onSubmit={isLogin ? handleLogin : handleRegister}>
+              {!isLogin && (
+                <div className="mb-3">
+                  <label
+                    htmlFor="inputUsername"
+                    className="form-label text-light"
+                  >
+                    Username
+                  </label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    id="inputUsername"
+                    value={username}
+                    onChange={(e) => setUsername(e.target.value)}
+                    style={{
+                      borderColor: '#A3B9D6',
+                      backgroundColor: 'rgba(255, 255, 255, 0.7)',
+                      borderRadius: '10px',
+                    }}
+                  />
+                  {usernameError && (
+                    <div className="text-danger">{usernameError}</div>
+                  )}
+                </div>
+              )}
               <div className="mb-3">
-                <label
-                  htmlFor="exampleInputEmail1"
-                  className="form-label text-light"
-                >
+                <label htmlFor="inputEmail" className="form-label text-light">
                   Email address
                 </label>
                 <input
                   type="email"
                   className="form-control"
-                  id="exampleInputEmail1"
+                  id="inputEmail"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  aria-describedby="emailHelp"
                   style={{
                     borderColor: '#A3B9D6',
                     backgroundColor: 'rgba(255, 255, 255, 0.7)',
@@ -92,7 +133,7 @@ function WelcomePage() {
               </div>
               <div className="mb-3">
                 <label
-                  htmlFor="exampleInputPassword1"
+                  htmlFor="inputPassword"
                   className="form-label text-light"
                 >
                   Password
@@ -100,7 +141,7 @@ function WelcomePage() {
                 <input
                   type="password"
                   className="form-control"
-                  id="exampleInputPassword1"
+                  id="inputPassword"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   style={{
@@ -117,7 +158,13 @@ function WelcomePage() {
                 <button
                   className="btn btn-primary mb-5"
                   type="submit"
-                  disabled={!email || !password || emailError || passwordError}
+                  disabled={
+                    !email ||
+                    !password ||
+                    emailError ||
+                    passwordError ||
+                    (!isLogin && !username)
+                  }
                   style={{
                     backgroundColor: '#5c7b99',
                     borderColor: '#5c7b99',
@@ -137,11 +184,11 @@ function WelcomePage() {
                 >
                   {isLogin ? 'Log In' : 'Register'}
                 </button>
-                <h6 className="text-light">
+                <h4 className="text-light text-center">
                   {isLogin
                     ? "Don't have an account?"
                     : 'Already have an account?'}
-                </h6>
+                </h4>
                 <button
                   className="btn btn-link"
                   type="button"
@@ -160,7 +207,7 @@ function WelcomePage() {
               </div>
               <div className="position-relative">
                 <div className="position-absolute top-100 start-0 translate-middle">
-                  <img src={mew} width="130px" alt="" />
+                  <img src={mew} width="150px" alt="mew" />
                 </div>
               </div>
             </form>
