@@ -3,7 +3,7 @@ import { useLocation, useNavigate } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 import pokedex from '../pokedexReal2.jpeg'
 import { Card, Button } from 'react-bootstrap'
-import { GoStarFill } from 'react-icons/go'
+import shinyStar from '../shiny.png'
 import Details from './DetailsPokedex'
 
 function Pokedex() {
@@ -53,15 +53,17 @@ function Pokedex() {
           <Card.Title className="title-pokedex text-center mt-2">
             {pokemon.name.toUpperCase() + ' ' + '#' + pokemon.id}
             <div className="position-relative">
-              <div className="position-absolute top-0 end-0">
-                <GoStarFill
-                  className="text-primary star-pokedex"
+              <div className="position-absolute top-0 start-100 translate-middle">
+                <img
+                  style={{ cursor: 'pointer' }}
+                  width="100vh"
+                  src={shinyStar}
                   onClick={shiny}
+                  alt=""
                 />
               </div>
             </div>
           </Card.Title>
-
           <div className="sprite-pokedex d-flex justify-content-center">
             <Card.Img
               src={currentSprite}

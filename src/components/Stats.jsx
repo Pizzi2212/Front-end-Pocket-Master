@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Button, Modal } from 'react-bootstrap'
 import { IoDiamondOutline } from 'react-icons/io5'
 
-const Stats = ({ data, teraType, currentTypes }) => {
+const Stats = ({ data, teraType, currentTypes, useLocation }) => {
   const [show, setShow] = useState(false)
 
   const handleClose = () => setShow(false)
@@ -112,7 +112,11 @@ const Stats = ({ data, teraType, currentTypes }) => {
         style={{
           backgroundColor: modalBackgroundColor,
           color: modalBackgroundColor === 'black' ? 'white' : 'dark',
-          border: '1px solid black',
+          border:
+            (data.types && data.types.includes('dark')) || teraType === 'dark'
+              ? '1px solid white'
+              : '1px solid black',
+          marginTop: useLocation === '/masterTeams' ? '4vh' : '0',
         }}
         onClick={handleShow}
       >
@@ -123,7 +127,13 @@ const Stats = ({ data, teraType, currentTypes }) => {
         <Modal.Header
           style={{
             backgroundColor: modalBackgroundColor,
-            color: modalBackgroundColor === 'black' ? 'white' : 'dark',
+            color:
+              modalBackgroundColor === 'black' ||
+              modalBackgroundColor === '#5B0B63' ||
+              modalBackgroundColor === '#4E2093' ||
+              modalBackgroundColor === 'red'
+                ? 'white'
+                : 'dark',
           }}
           closeButton
         >
@@ -136,7 +146,13 @@ const Stats = ({ data, teraType, currentTypes }) => {
         <Modal.Body
           style={{
             backgroundColor: modalBackgroundColor,
-            color: modalBackgroundColor === 'black' ? 'white' : 'dark',
+            color:
+              modalBackgroundColor === 'black' ||
+              modalBackgroundColor === '#5B0B63' ||
+              modalBackgroundColor === '#4E2093' ||
+              modalBackgroundColor === 'red'
+                ? 'white'
+                : 'dark',
           }}
         >
           <strong>
@@ -178,7 +194,13 @@ const Stats = ({ data, teraType, currentTypes }) => {
         <Modal.Footer
           style={{
             backgroundColor: modalBackgroundColor,
-            color: modalBackgroundColor === 'black' ? 'white' : 'dark',
+            color:
+              modalBackgroundColor === 'black' ||
+              modalBackgroundColor === '#5B0B63' ||
+              modalBackgroundColor === '#4E2093' ||
+              modalBackgroundColor === 'red'
+                ? 'white'
+                : 'dark',
           }}
         >
           {' '}

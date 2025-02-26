@@ -173,17 +173,6 @@ body {
   transition: opacity 0.3s ease;
 }
 
-.shiny-star {
-  cursor: pointer;
-}
-
-.star {
-  font-size: 3.1em;
-  position: absolute;
-  right: 6em;
-  bottom: -0.6em;
-  left: -0.7em;
-}
 .caught {
   cursor: pointer;
   position: absolute;
@@ -228,6 +217,10 @@ body {
     violet 100%
   );
 }
+.tera-animation {
+  transition: background-image 0.5s ease-in-out;
+}
+
 .ball {
   width: 100px;
   height: 100px;

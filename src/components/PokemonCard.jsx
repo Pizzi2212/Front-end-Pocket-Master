@@ -21,8 +21,16 @@ import flyCard from '../card-fly.png'
 import MoveSelect from './Moves'
 import { GoStarFill } from 'react-icons/go'
 import { useState, useEffect } from 'react'
+import { useLocation } from 'react-router-dom'
+import shinyStar from '../shiny.png'
 
-const PokemonCard = ({ data, onRandomClick, onSearchPokemon, searchValue }) => {
+const PokemonCard = ({
+  data,
+  onRandomClick,
+  onSearchPokemon,
+  searchValue,
+  useLocation,
+}) => {
   const includesType = (types, targetTypes) =>
     Array.isArray(types) && types.some((type) => targetTypes.includes(type))
 
@@ -182,22 +190,34 @@ const PokemonCard = ({ data, onRandomClick, onSearchPokemon, searchValue }) => {
           backgroundImage: `url(${defaultBackground})`,
           backgroundSize: 'cover',
         }}
-        className="m-3"
+        className={`m-3 ${teraType ? 'tera-animation' : ''}`}
       >
         <Card.Title
           className="text-center mt-4 ms-5 pe-5 fs-5"
           style={{
             color:
-              data.types && data.types.includes('dark') ? 'white' : 'black',
+              (data.types && data.types.includes('dark')) || teraType === 'dark'
+                ? 'white'
+                : 'black',
           }}
         >
           <div className="position-relative">
-            <GoStarFill
-              className="shiny-star text-primary star"
-              onClick={shiny}
-            />
+            <div className="position-absolute top-0 start-0 translate-middle">
+              <img
+                style={{ cursor: 'pointer' }}
+                width="100vh"
+                src={shinyStar}
+                onClick={shiny}
+                alt=""
+              />
+            </div>
           </div>
-          <div className="position-relative">
+          <div
+            className="position-relative"
+            style={{
+              display: useLocation === '/masterTeams' ? 'none' : 'block',
+            }}
+          >
             <Form.Select
               onChange={teraChange}
               value={teraType}
@@ -224,7 +244,12 @@ const PokemonCard = ({ data, onRandomClick, onSearchPokemon, searchValue }) => {
             <Button
               style={{
                 backgroundColor: randomBackgroundColor,
-                border: '1px solid black',
+                border:
+                  (data.types && data.types.includes('dark')) ||
+                  teraType === 'dark'
+                    ? '1px solid white'
+                    : '1px solid black',
+                display: useLocation === '/masterTeams' ? 'none' : 'block',
               }}
               className="mt-4"
               onClick={onRandomClick}
@@ -237,16 +262,20 @@ const PokemonCard = ({ data, onRandomClick, onSearchPokemon, searchValue }) => {
               type="text"
               onChange={(e) => onSearchPokemon(e.target.value)}
               value={searchValue}
+              style={{
+                display: useLocation === '/masterTeams' ? 'none' : 'block',
+              }}
             />
           </div>
           <Card.Text className="text-center mt-4">
             <Stats
               data={data}
+              useLocation={useLocation}
               teraType={teraType}
               currentTypes={currentTypes}
             />
           </Card.Text>
-          <MoveSelect data={data} />
+          <MoveSelect data={data} useLocation={useLocation} />
         </Card.Body>
       </Card>
     </div>

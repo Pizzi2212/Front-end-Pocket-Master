@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Container, Row, Col, Form } from 'react-bootstrap'
 import PokemonCard from './PokemonCard'
+import { useLocation } from 'react-router-dom'
 
 const MasterTeams = ({ data }) => {
   const [teams, setTeams] = useState({
@@ -27,6 +28,7 @@ const MasterTeams = ({ data }) => {
   })
   const [selectedOption, setSelectedOption] = useState('HC-NZ RU/SA/EM')
   const [isLoading, setIsLoading] = useState(false)
+  const location = useLocation()
 
   const teamConfigurations = {
     'HC-NZ RU/SA/EM': [
@@ -259,7 +261,7 @@ const MasterTeams = ({ data }) => {
         <Row>
           {teams[selectedOption].map((pokemon, index) => (
             <Col key={index} xs={12} md={6} lg={4}>
-              <PokemonCard data={pokemon} />
+              <PokemonCard data={pokemon} useLocation={location.pathname} />
             </Col>
           ))}
         </Row>
