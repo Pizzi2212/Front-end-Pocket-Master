@@ -41,30 +41,90 @@ function WelcomePage() {
 
     return isValid
   }
-
-  const handleRegister = (e) => {
+  const handleRegister = async (e) => {
     e.preventDefault()
 
     if (validateFields()) {
-      console.log('User registered:', { username, email })
+      try {
+        const response = await fetch(
+          'http://localhost:8080/api/users/register',
+          {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ username, email, password }),
+          }
+        )
 
-      Swal.fire({
-        title: `Welcome, ${username}!`,
-        text: 'Your Pokémon journey begins now!',
-        imageUrl: mewHello,
-        imageAlt: 'Mew Happy',
-        confirmButtonText: 'OK',
-        confirmButtonColor: '#5c7b99',
-        background: '#f8f9fa',
-      })
+        if (!response.ok) {
+          throw new Error('Registration failed')
+        }
+
+        const data = await response.json()
+
+        Swal.fire({
+          title: `Welcome, ${data.username}!`,
+          text: 'Your Pokémon journey begins now!',
+          imageUrl: mewHello,
+          imageAlt: 'Mew Happy',
+          confirmButtonText: 'OK',
+          confirmButtonColor: '#5c7b99',
+          background: '#f8f9fa',
+        })
+
+        setIsLogin(true)
+      } catch (error) {
+        Swal.fire({
+          title: 'Error!',
+          text: error.message || 'Registration failed. Try again.',
+          icon: 'error',
+          confirmButtonText: 'OK',
+        })
+      }
     }
   }
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault()
 
     if (validateFields()) {
-      console.log('User logged in with email:', email)
+      try {
+        const response = await fetch('http://localhost:8080/api/users/login', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ email, password }),
+        })
+
+        if (!response.ok) {
+          throw new Error('Invalid email or password')
+        }
+
+        const token = await response.text()
+
+        localStorage.setItem('token', token)
+
+        Swal.fire({
+          title: 'Welcome back!',
+          text: 'You are now logged in!',
+          imageUrl: mewHello,
+          imageAlt: 'Mew Happy',
+          confirmButtonText: 'OK',
+          confirmButtonColor: '#5c7b99',
+          background: '#f8f9fa',
+        })
+
+        window.location.href = '/home'
+      } catch (error) {
+        Swal.fire({
+          title: 'Error!',
+          text: error.message || 'Invalid login credentials',
+          icon: 'error',
+          confirmButtonText: 'OK',
+        })
+      }
     }
   }
 
