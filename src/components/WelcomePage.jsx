@@ -100,7 +100,7 @@ function WelcomePage() {
         })
 
         if (!response.ok) {
-          throw new Error('Credenziali non valide')
+          throw new Error('Invalid credentials')
         }
 
         const token = await response.text()
@@ -108,16 +108,16 @@ function WelcomePage() {
         localStorage.setItem('token', token)
 
         Swal.fire({
-          title: 'Accesso riuscito!',
-          text: 'Benvenuto, il tuo viaggio Pokémon inizia ora!',
+          title: 'Login successful!',
+          text: 'Welcome, your Pokémon journey begins now!',
           confirmButtonText: 'OK',
         })
 
         window.location.href = '/home'
       } catch (error) {
         Swal.fire({
-          title: 'Errore!',
-          text: error.message || 'Errore durante il login',
+          title: 'Error!',
+          text: error.message || 'Error logging in',
           icon: 'error',
           confirmButtonText: 'OK',
         })

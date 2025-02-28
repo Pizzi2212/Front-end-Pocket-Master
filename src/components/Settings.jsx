@@ -103,8 +103,8 @@ const Settings = () => {
       }
 
       Swal.fire({
-        title: 'Dati aggiornati!',
-        text: 'Le modifiche sono state salvate con successo.',
+        title: 'Updated data!',
+        text: 'The changes have been saved successfully.',
         imageUrl: 'https://media.tenor.com/Jx41K1VQdJkAAAAj/pikachu-jump.gif',
         confirmButtonText: 'OK',
         confirmButtonColor: '#3085d6',
@@ -117,10 +117,10 @@ const Settings = () => {
         password: '',
       })
     } catch (error) {
-      console.error('Errore nell’aggiornamento dei dati:', error)
+      console.error('Error updating data:', error)
       Swal.fire({
-        title: 'Errore!',
-        text: 'Si è verificato un errore durante il salvataggio.',
+        title: 'Error!',
+        text: 'An error occurred while saving.',
         icon: 'error',
         confirmButtonText: 'OK',
       })
