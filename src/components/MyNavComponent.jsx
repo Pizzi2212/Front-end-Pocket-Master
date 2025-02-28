@@ -5,18 +5,69 @@ import NavDropdown from 'react-bootstrap/NavDropdown'
 import { Link } from 'react-router-dom'
 import logo from '../logoPocketMaster.png'
 import { useLocation } from 'react-router-dom'
-import user from '../user.webp'
+import userIcon from '../user.webp'
 import { CiSettings } from 'react-icons/ci'
 import { FcAssistant } from 'react-icons/fc'
 import { FaPeopleGroup } from 'react-icons/fa6'
 import { CiLogout } from 'react-icons/ci'
 import { div } from 'framer-motion/client'
+import { jwtDecode } from 'jwt-decode'
+import { useState, useEffect } from 'react'
+
 function MyNav() {
   const location = useLocation()
+  const [username, setUsername] = useState('')
+
+  const getUserIdFromToken = () => {
+    const token = localStorage.getItem('token')
+    if (!token) return null
+
+    try {
+      const decodedToken = jwtDecode(token)
+      return decodedToken.id
+    } catch (error) {
+      console.error('Errore nella decodifica del token:', error)
+      return null
+    }
+  }
+
+  const fetchUserData = async () => {
+    const userId = getUserIdFromToken()
+    if (!userId) return
+
+    const token = localStorage.getItem('token')
+
+    try {
+      const response = await fetch(
+        `http://localhost:8080/api/users/${userId}`,
+        {
+          method: 'GET',
+          headers: {
+            Authorization: `Bearer ${token}`,
+            'Content-Type': 'application/json',
+          },
+        }
+      )
+
+      if (!response.ok) {
+        throw new Error("Errore nel recupero dell'utente")
+      }
+
+      const userData = await response.json()
+      setUsername(userData.username)
+    } catch (error) {
+      console.error('Errore nel recupero dati utente:', error)
+    }
+  }
+
+  useEffect(() => {
+    fetchUserData()
+  }, [])
 
   if (location.pathname === '/') {
     return null
   }
+
   return (
     <Navbar expand="lg" className="nav">
       <Container fluid>
@@ -43,9 +94,9 @@ function MyNav() {
 
           <NavDropdown
             title={
-              <div className="d-flex align-items-center">
+              <div className="d-flex flex-column  align-items-center">
                 <img
-                  src={user}
+                  src={userIcon}
                   className="user"
                   width="60px"
                   alt="User"
@@ -56,16 +107,9 @@ function MyNav() {
                     cursor: 'pointer',
                   }}
                 />
-                <span
-                  style={{
-                    color: 'white',
-                    fontWeight: '500',
-                    fontSize: '16px',
-                  }}
-                  className="ms-3"
-                >
-                  ashketchum88
-                </span>
+                <h4 className="mt-3 text-light text-center">
+                  {username ? username : 'Loading...'}
+                </h4>
               </div>
             }
             id="basic-nav-dropdown"
@@ -152,6 +196,7 @@ function MyNav() {
             <NavDropdown.Item
               as={Link}
               to="/"
+              onClick={() => localStorage.removeItem('token')}
               style={{
                 display: 'flex',
                 alignItems: 'center',
@@ -175,14 +220,5 @@ function MyNav() {
     </Navbar>
   )
 }
-
-// const [username, setUsername] = useState(null);
-
-// useEffect(() => {
-// Fai una richiesta alla tua API per ottenere i dati dell'utente
-// fetch("/api/user")
-// .then((response) => response.json())
-//.then((data) => setUsername(data.username)); // Assumendo che l'API ritorni { username: 'Nome Utente' }
-//}, []);
 
 export default MyNav

@@ -3,6 +3,8 @@ import Swal from 'sweetalert2'
 import mew from '../mew.gif'
 import welcomeBG from '../welcomeBG.webp'
 import mewHello from '../mewHello.png'
+import mewError from '../mewError.jpg'
+import jwtDecode from 'jwt-decode'
 
 function WelcomePage() {
   const [isLogin, setIsLogin] = useState(true)
@@ -78,7 +80,8 @@ function WelcomePage() {
         Swal.fire({
           title: 'Error!',
           text: error.message || 'Registration failed. Try again.',
-          icon: 'error',
+          imageUrl: mewError,
+          imageAlt: 'Mew Happy',
           confirmButtonText: 'OK',
         })
       }
@@ -92,14 +95,12 @@ function WelcomePage() {
       try {
         const response = await fetch('http://localhost:8080/api/users/login', {
           method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
+          headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ email, password }),
         })
 
         if (!response.ok) {
-          throw new Error('Invalid email or password')
+          throw new Error('Credenziali non valide')
         }
 
         const token = await response.text()
@@ -107,20 +108,16 @@ function WelcomePage() {
         localStorage.setItem('token', token)
 
         Swal.fire({
-          title: 'Welcome back!',
-          text: 'You are now logged in!',
-          imageUrl: mewHello,
-          imageAlt: 'Mew Happy',
+          title: 'Accesso riuscito!',
+          text: 'Benvenuto, il tuo viaggio Pokémon inizia ora!',
           confirmButtonText: 'OK',
-          confirmButtonColor: '#5c7b99',
-          background: '#f8f9fa',
         })
 
         window.location.href = '/home'
       } catch (error) {
         Swal.fire({
-          title: 'Error!',
-          text: error.message || 'Invalid login credentials',
+          title: 'Errore!',
+          text: error.message || 'Errore durante il login',
           icon: 'error',
           confirmButtonText: 'OK',
         })
