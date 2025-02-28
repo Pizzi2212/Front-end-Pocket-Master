@@ -4,11 +4,11 @@ import mew from '../mew.gif'
 import welcomeBG from '../welcomeBG.webp'
 import mewHello from '../mewHello.png'
 import mewError from '../mewError.jpg'
-import jwtDecode from 'jwt-decode'
+import { jwtDecode } from 'jwt-decode'
 
-function WelcomePage() {
+function WelcomePage({ setUsername }) {
   const [isLogin, setIsLogin] = useState(true)
-  const [username, setUsername] = useState('')
+  const [username, setLocalUsername] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [usernameError, setUsernameError] = useState('')
@@ -43,6 +43,7 @@ function WelcomePage() {
 
     return isValid
   }
+
   const handleRegister = async (e) => {
     e.preventDefault()
 
@@ -64,6 +65,7 @@ function WelcomePage() {
         }
 
         const data = await response.json()
+        setUsername(data.username)
 
         Swal.fire({
           title: `Welcome, ${data.username}!`,
@@ -104,12 +106,32 @@ function WelcomePage() {
         }
 
         const token = await response.text()
-
         localStorage.setItem('token', token)
+
+        const decodedToken = jwtDecode(token)
+        const userId = decodedToken.id
+
+        const userResponse = await fetch(
+          `http://localhost:8080/api/users/${userId}`,
+          {
+            method: 'GET',
+            headers: {
+              Authorization: `Bearer ${token}`,
+              'Content-Type': 'application/json',
+            },
+          }
+        )
+
+        if (!userResponse.ok) {
+          throw new Error('Error retrieving user data')
+        }
+
+        const userData = await userResponse.json()
+        setUsername(userData.username)
 
         Swal.fire({
           title: 'Login successful!',
-          text: 'Welcome, your Pokémon journey begins now!',
+          text: `Welcome, ${userData.username}! Your Pokémon journey begins now!`,
           confirmButtonText: 'OK',
         })
 

@@ -12,12 +12,55 @@ import MasterTeams from './components/MasterTeams'
 import WelcomePage from './components/WelcomePage'
 import { AnimatePresence, motion } from 'framer-motion'
 import Settings from './components/Settings'
+import { jwtDecode } from 'jwt-decode'
 
 export default function App() {
   const [pokemons, setPokemons] = useState(Array(6).fill(null))
   const [allPokemons, setAllPokemons] = useState([])
   const [searchValues, setSearchValues] = useState(Array(6).fill(''))
   const [username, setUsername] = useState('')
+
+  const getUserIdFromToken = () => {
+    const token = localStorage.getItem('token')
+    if (!token) return null
+
+    try {
+      const decodedToken = jwtDecode(token)
+      return decodedToken.id
+    } catch (error) {
+      console.error('Errore nella decodifica del token:', error)
+      return null
+    }
+  }
+
+  const fetchUserData = async () => {
+    const userId = getUserIdFromToken()
+    if (!userId) return
+
+    const token = localStorage.getItem('token')
+
+    try {
+      const response = await fetch(
+        `http://localhost:8080/api/users/${userId}`,
+        {
+          method: 'GET',
+          headers: {
+            Authorization: `Bearer ${token}`,
+            'Content-Type': 'application/json',
+          },
+        }
+      )
+
+      if (!response.ok) {
+        throw new Error("Errore nel recupero dell'utente")
+      }
+
+      const userData = await response.json()
+      setUsername(userData.username)
+    } catch (error) {
+      console.error('Errore nel recupero dati utente:', error)
+    }
+  }
 
   const location = useLocation()
   const fetchPokemon = async (id, index) => {
@@ -61,6 +104,9 @@ export default function App() {
     defaultPokemons.forEach((id, index) => fetchPokemon(id, index))
 
     fetchAllPokemons()
+    if (localStorage.getItem('token')) {
+      fetchUserData()
+    }
   }, [])
 
   const fetchAllPokemons = async () => {
@@ -143,7 +189,7 @@ export default function App() {
                   }}
                   transition={{ duration: 0.6, ease: 'easeInOut' }}
                 >
-                  <WelcomePage />
+                  <WelcomePage setUsername={setUsername} />
                 </motion.div>
               }
             />

@@ -155,13 +155,6 @@ const Captured = () => {
             )
           })}
         </Row>
-        {/* <Row className="mt-4">
-          <Col className="text-center">
-            <Button variant="primary" onClick={handleExport}>
-              Esporta Pokémon
-            </Button>
-          </Col>
-        </Row> */}
       </Container>
     </div>
   )
