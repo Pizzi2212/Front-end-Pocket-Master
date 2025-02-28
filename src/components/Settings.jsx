@@ -9,15 +9,14 @@ import klang from '../klang.png'
 import Swal from 'sweetalert2'
 import { jwtDecode } from 'jwt-decode'
 
-const Settings = () => {
-  const [username, setUsername] = useState('')
+const Settings = ({ setUsername }) => {
   const [password, setPassword] = useState('')
   const [email, setEmail] = useState('')
 
   const [formData, setFormData] = useState({
-    username: username,
-    email: email,
-    password: password,
+    username: '',
+    email: '',
+    password: '',
   })
 
   const getUserIdFromToken = () => {
@@ -111,6 +110,7 @@ const Settings = () => {
         background: '#f8f9fa',
       })
       const updatedUserData = await response.json()
+      setUsername(updatedUserData.username)
       setFormData({
         username: updatedUserData.username,
         email: updatedUserData.email,

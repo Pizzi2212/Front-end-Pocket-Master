@@ -14,9 +14,8 @@ import { div } from 'framer-motion/client'
 import { jwtDecode } from 'jwt-decode'
 import { useState, useEffect } from 'react'
 
-function MyNav() {
+function MyNav({ username }) {
   const location = useLocation()
-  const [username, setUsername] = useState('')
 
   const getUserIdFromToken = () => {
     const token = localStorage.getItem('token')
@@ -54,7 +53,6 @@ function MyNav() {
       }
 
       const userData = await response.json()
-      setUsername(userData.username)
     } catch (error) {
       console.error('Errore nel recupero dati utente:', error)
     }

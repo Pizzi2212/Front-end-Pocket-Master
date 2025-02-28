@@ -17,6 +17,7 @@ export default function App() {
   const [pokemons, setPokemons] = useState(Array(6).fill(null))
   const [allPokemons, setAllPokemons] = useState([])
   const [searchValues, setSearchValues] = useState(Array(6).fill(''))
+  const [username, setUsername] = useState('')
 
   const location = useLocation()
   const fetchPokemon = async (id, index) => {
@@ -89,7 +90,7 @@ export default function App() {
   return (
     <>
       <header>
-        <MyNav />
+        <MyNav username={username} />
       </header>
       <main>
         <AnimatePresence mode="wait">
@@ -207,7 +208,7 @@ export default function App() {
                   exit={{ opacity: 0, x: 100 }}
                   transition={{ duration: 0.6, ease: 'easeInOut' }}
                 >
-                  <Settings />
+                  <Settings setUsername={setUsername} />
                 </motion.div>
               }
             />
