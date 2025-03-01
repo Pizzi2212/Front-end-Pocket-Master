@@ -180,7 +180,7 @@ function WelcomePage({ setUsername }) {
                     className="form-control"
                     id="inputUsername"
                     value={username}
-                    onChange={(e) => setUsername(e.target.value)}
+                    onChange={(e) => setLocalUsername(e.target.value)}
                     style={{
                       borderColor: '#A3B9D6',
                       backgroundColor: 'rgba(255, 255, 255, 0.7)',

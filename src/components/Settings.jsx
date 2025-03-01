@@ -126,6 +126,69 @@ const Settings = ({ setUsername }) => {
       })
     }
   }
+  const deleteProfile = async (e) => {
+    e.preventDefault()
+
+    const sure = await Swal.fire({
+      title: 'Are you sure?',
+      text: 'This action is irreversible. Your account will be permanently deleted!',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#d33',
+      cancelButtonColor: '#3085d6',
+      confirmButtonText: 'Yes, delete it!',
+      cancelButtonText: 'Cancel',
+    })
+
+    if (!sure.isConfirmed) {
+      return
+    }
+
+    const userId = getUserIdFromToken()
+    if (!userId) return
+
+    const token = localStorage.getItem('token')
+
+    try {
+      const response = await fetch(
+        `http://localhost:8080/api/users/${userId}`,
+        {
+          method: 'DELETE',
+          headers: {
+            Authorization: `Bearer ${token}`,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(formData),
+        }
+      )
+
+      if (!response.ok) {
+        throw new Error('Error')
+      }
+
+      localStorage.removeItem('token')
+
+      Swal.fire({
+        title: 'Profile deleted!',
+        text: 'We are sorry to see you go...',
+        imageUrl:
+          'https://preview.redd.it/transparent-gifs-i-made-from-the-pok%C3%A9mon-anime-for-an-v0-1wxi2yjtxb7a1.gif?width=640&crop=smart&auto=webp&s=f1d66edb5e1deb160797b40562caabac8a7aca80',
+        confirmButtonText: 'OK',
+        confirmButtonColor: '#3085d6',
+        background: '#f8f9fa',
+      }).then(() => {
+        window.location.href = '/'
+      })
+    } catch (error) {
+      console.error('Error updating data:', error)
+      Swal.fire({
+        title: 'Error!',
+        text: 'An error occurred while saving.',
+        icon: 'error',
+        confirmButtonText: 'OK',
+      })
+    }
+  }
 
   return (
     <Container className="mt-5">
@@ -205,13 +268,20 @@ const Settings = ({ setUsername }) => {
                     onChange={handleChange}
                   />
                 </Form.Group>
-                <div className="d-flex justify-content-center mt-4">
+                <div className="d-flex justify-content-center justify-content-around mt-4">
                   <Button
                     variant="secondary"
                     className="ps-5 pe-5"
                     type="submit"
                   >
                     Save
+                  </Button>
+                  <Button
+                    onClick={deleteProfile}
+                    variant="danger"
+                    className="ps-5 pe-5"
+                  >
+                    Delete
                   </Button>
                 </div>
               </Form>
