@@ -13,8 +13,14 @@ import WelcomePage from './components/WelcomePage'
 import { AnimatePresence, motion } from 'framer-motion'
 import Settings from './components/Settings'
 import { jwtDecode } from 'jwt-decode'
+import { useDispatch, useSelector } from 'react-redux'
+import { setUser } from './redux/authSlice'
+import { setUser as setCapturedUser } from './redux/capturedSlice'
 
 export default function App() {
+  const dispatch = useDispatch()
+  const userId = useSelector((state) => state.auth.userId)
+
   const [pokemons, setPokemons] = useState(Array(6).fill(null))
   const [allPokemons, setAllPokemons] = useState([])
   const [searchValues, setSearchValues] = useState(Array(6).fill(''))
@@ -57,6 +63,9 @@ export default function App() {
 
       const userData = await response.json()
       setUsername(userData.username)
+
+      dispatch(setUser(userData.id))
+      dispatch(setCapturedUser(userData.id))
     } catch (error) {
       console.error('Errore nel recupero dati utente:', error)
     }

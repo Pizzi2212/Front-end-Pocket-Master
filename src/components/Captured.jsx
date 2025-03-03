@@ -1,6 +1,7 @@
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { Card, Row, Col, Container, Button } from 'react-bootstrap'
 import normalCard from '../card-normal.png'
 import bugCard from '../card-bug.png'
@@ -21,7 +22,7 @@ import fireCard from '../card-fire.png'
 import groundCard from '../card-ground.png'
 import flyCard from '../card-fly.png'
 import leave from '../leave.png'
-import { removeFromCaptured } from '../redux/captured'
+import { removeFromCaptured } from '../redux/capturedSlice'
 import Alert from 'react-bootstrap/Alert'
 import Ngif from '../Ngif.gif'
 
@@ -47,11 +48,13 @@ const Captured = () => {
     flying: flyCard,
   }
 
+  const userId = useSelector((state) => state.auth.userId)
   const capturedPokemons = useSelector(
     (state) => state.captured.capturedPokemons
   )
 
   const dispatch = useDispatch()
+  const navigate = useNavigate()
   const [showAlert, setShowAlert] = useState(false)
   const [removePokemonName, setRemovePokemonName] = useState('')
   const [removePokemonSprite, setRemovePokemonSprite] = useState(null)
@@ -66,18 +69,11 @@ const Captured = () => {
     }, 5000)
   }
 
-  // const handleExport = () => {
-  //   const dataStr = JSON.stringify(capturedPokemons, null, 2)
-  //   const blob = new Blob([dataStr], { type: 'application/json' })
-  //   const url = URL.createObjectURL(blob)
-
-  //   const link = document.createElement('a')
-  //   link.href = url
-  //   link.download = 'capturedPokemons.json'
-  //   document.body.appendChild(link)
-  //   link.click()
-  //   document.body.removeChild(link)
-  // }
+  useEffect(() => {
+    if (!userId) {
+      navigate('/login')
+    }
+  }, [userId])
 
   return (
     <div>

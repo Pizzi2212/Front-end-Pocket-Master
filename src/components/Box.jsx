@@ -21,7 +21,7 @@ import flyCard from '../card-fly.png'
 import iconPokedex from '../iconPokedex.png'
 import caught from '../caught.png'
 import { useDispatch, useSelector } from 'react-redux'
-import { addToCaptured, removeFromCaptured } from '../redux/captured'
+import { addToCaptured, removeFromCaptured } from '../redux/capturedSlice'
 import Ncatch from '../Ncatch.png'
 import { Form } from 'react-bootstrap'
 import { useNavigate } from 'react-router-dom'
@@ -35,6 +35,7 @@ function Box({ data }) {
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
+  const userId = useSelector((state) => state.auth.userId)
   const capturedPokemons = useSelector(
     (state) => state.captured.capturedPokemons
   )
@@ -151,6 +152,10 @@ function Box({ data }) {
     })
 
   const handleCapture = (pokemon) => {
+    if (!userId) {
+      alert('Devi effettuare il login per catturare un Pokémon!')
+      return
+    }
     dispatch(addToCaptured(pokemon))
   }
 
