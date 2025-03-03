@@ -8,10 +8,11 @@ import kling from '../kling.png'
 import klang from '../klang.png'
 import Swal from 'sweetalert2'
 import { jwtDecode } from 'jwt-decode'
+import { useSelector } from 'react-redux'
 
 const Settings = ({ setUsername }) => {
-  const [password, setPassword] = useState('')
-  const [email, setEmail] = useState('')
+  const userId = useSelector((state) => state.auth.userId)
+  const token = localStorage.getItem('token')
 
   const [formData, setFormData] = useState({
     username: '',
@@ -19,58 +20,38 @@ const Settings = ({ setUsername }) => {
     password: '',
   })
 
-  const getUserIdFromToken = () => {
-    const token = localStorage.getItem('token')
-    if (!token) return null
-
-    try {
-      const decodedToken = jwtDecode(token)
-      return decodedToken.id
-    } catch (error) {
-      console.error('Errore nella decodifica del token:', error)
-      return null
-    }
-  }
-
-  const fetchUserData = async () => {
-    const userId = getUserIdFromToken()
-    if (!userId) return
-
-    const token = localStorage.getItem('token')
-
-    try {
-      const response = await fetch(
-        `http://localhost:8080/api/users/${userId}`,
-        {
-          method: 'GET',
-          headers: {
-            Authorization: `Bearer ${token}`,
-            'Content-Type': 'application/json',
-          },
-        }
-      )
-
-      if (!response.ok) {
-        throw new Error('Error')
-      }
-
-      const userData = await response.json()
-      setUsername(userData.username)
-      setEmail(userData.email)
-
-      setFormData({
-        username: userData.username,
-        email: userData.email,
-        password: '',
-      })
-    } catch (error) {
-      console.error('Error retrieving user data:', error)
-    }
-  }
-
   useEffect(() => {
+    const fetchUserData = async () => {
+      if (!userId || !token) return
+
+      try {
+        const response = await fetch(
+          `http://localhost:8080/api/users/${userId}`,
+          {
+            method: 'GET',
+            headers: {
+              Authorization: `Bearer ${token}`,
+              'Content-Type': 'application/json',
+            },
+          }
+        )
+
+        if (!response.ok) throw new Error('Errore nel recupero dati')
+
+        const userData = await response.json()
+        setUsername(userData.username)
+        setFormData({
+          username: userData.username,
+          email: userData.email,
+          password: '',
+        })
+      } catch (error) {
+        console.error('Errore nel recupero dati:', error)
+      }
+    }
+
     fetchUserData()
-  }, [])
+  }, [userId, token, setUsername])
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value })
@@ -79,10 +60,7 @@ const Settings = ({ setUsername }) => {
   const handleSubmit = async (e) => {
     e.preventDefault()
 
-    const userId = getUserIdFromToken()
-    if (!userId) return
-
-    const token = localStorage.getItem('token')
+    if (!userId || !token) return
 
     try {
       const response = await fetch(
@@ -140,14 +118,8 @@ const Settings = ({ setUsername }) => {
       cancelButtonText: 'Cancel',
     })
 
-    if (!sure.isConfirmed) {
-      return
-    }
-
-    const userId = getUserIdFromToken()
-    if (!userId) return
-
-    const token = localStorage.getItem('token')
+    if (!sure.isConfirmed) return
+    if (!userId || !token) return
 
     try {
       const response = await fetch(
