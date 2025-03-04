@@ -14,7 +14,7 @@ import { div } from 'framer-motion/client'
 import { jwtDecode } from 'jwt-decode'
 import { useState, useEffect } from 'react'
 
-function MyNav({ username }) {
+function MyNav({ username, userAvatar }) {
   const location = useLocation()
 
   const getUserIdFromToken = () => {
@@ -59,6 +59,36 @@ function MyNav({ username }) {
   }
 
   useEffect(() => {
+    const fetchUserData = async () => {
+      const userId = getUserIdFromToken()
+      if (!userId) return
+
+      const token = localStorage.getItem('token')
+      if (!token) return
+
+      try {
+        const response = await fetch(
+          `http://localhost:8080/api/users/${userId}`,
+          {
+            method: 'GET',
+            headers: {
+              Authorization: `Bearer ${token}`,
+              'Content-Type': 'application/json',
+            },
+          }
+        )
+
+        if (!response.ok) {
+          throw new Error("Errore nel recupero dell'utente")
+        }
+
+        const userData = await response.json()
+        console.log('Dati utente caricati:', userData)
+      } catch (error) {
+        console.error('Errore nel recupero dati utente:', error)
+      }
+    }
+
     fetchUserData()
   }, [])
 
@@ -94,7 +124,7 @@ function MyNav({ username }) {
             title={
               <div className="d-flex flex-column  align-items-center">
                 <img
-                  src={userIcon}
+                  src={userAvatar}
                   className="user"
                   width="60px"
                   alt="User"

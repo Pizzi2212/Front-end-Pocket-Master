@@ -2,22 +2,66 @@ import { useState, useEffect } from 'react'
 import { Form, Button, Container, Row, Col, Card } from 'react-bootstrap'
 import { motion } from 'framer-motion'
 import { FaPen } from 'react-icons/fa'
-import user from '../user.webp'
 import klingklang from '../klingklang.png'
 import kling from '../kling.png'
 import klang from '../klang.png'
 import Swal from 'sweetalert2'
 import { jwtDecode } from 'jwt-decode'
 import { useSelector } from 'react-redux'
+import avatar1 from '../avatar1.png'
+import avatar2 from '../avatar2.png'
+import avatar3 from '../avatar3.png'
+import avatar4 from '../avatar4.png'
+import avatar5 from '../avatar5.png'
+import avatar6 from '../avatar6.png'
+import avatar7 from '../avatar7.png'
+import avatar8 from '../avatar8.png'
+import avatar9 from '../avatar9.png'
+import avatar10 from '../avatar10.png'
+import avatar11 from '../avatar11.png'
+import avatar12 from '../avatar12.png'
+import avatar13 from '../avatar13.png'
+import avatar14 from '../avatar14.png'
+import avatar15 from '../avatar15.png'
+import avatar16 from '../avatar16.png'
+import avatar17 from '../avatar17.png'
+import avatar18 from '../avatar18.png'
+import avatar19 from '../avatar19.png'
+import avatar20 from '../avatar20.png'
+import { Modal } from 'react-bootstrap'
 
-const Settings = ({ setUsername }) => {
+const Settings = ({ setUsername, setAvatar }) => {
   const userId = useSelector((state) => state.auth.userId)
   const token = localStorage.getItem('token')
+  const avatars = [
+    avatar1,
+    avatar2,
+    avatar3,
+    avatar4,
+    avatar5,
+    avatar6,
+    avatar7,
+    avatar8,
+    avatar9,
+    avatar10,
+    avatar11,
+    avatar12,
+    avatar13,
+    avatar14,
+    avatar15,
+    avatar16,
+    avatar17,
+    avatar18,
+    avatar19,
+    avatar20,
+  ]
+  const [showModal, setShowModal] = useState(false)
 
   const [formData, setFormData] = useState({
     username: '',
     email: '',
     password: '',
+    avatar: avatar1,
   })
 
   useEffect(() => {
@@ -36,17 +80,20 @@ const Settings = ({ setUsername }) => {
           }
         )
 
-        if (!response.ok) throw new Error('Errore nel recupero dati')
+        if (!response.ok) throw new Error('Error fetching user data')
 
         const userData = await response.json()
         setUsername(userData.username)
+
+        const savedAvatar = localStorage.getItem(`avatar_${userId}`)
         setFormData({
           username: userData.username,
           email: userData.email,
           password: '',
+          avatar: savedAvatar || avatars[userData.avatarId] || avatar1,
         })
       } catch (error) {
-        console.error('Errore nel recupero dati:', error)
+        console.error('Error fetching user data:', error)
       }
     }
 
@@ -56,10 +103,17 @@ const Settings = ({ setUsername }) => {
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value })
   }
+  useEffect(() => {
+    if (!userId) return
+
+    const savedAvatar = localStorage.getItem(`avatar_${userId}`)
+    if (savedAvatar) {
+      setFormData((prevData) => ({ ...prevData, avatar: savedAvatar }))
+    }
+  }, [userId])
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-
     if (!userId || !token) return
 
     try {
@@ -71,31 +125,30 @@ const Settings = ({ setUsername }) => {
             Authorization: `Bearer ${token}`,
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify(formData),
+          body: JSON.stringify({
+            username: formData.username,
+            email: formData.email,
+            password: formData.password,
+            avatarId: avatars.indexOf(formData.avatar),
+          }),
         }
       )
 
-      if (!response.ok) {
-        throw new Error('Error')
-      }
+      if (!response.ok) throw new Error('Error updating user data')
+
+      localStorage.setItem(`avatar_${userId}`, formData.avatar)
+
+      setAvatar(formData.avatar)
+      setUsername(formData.username)
 
       Swal.fire({
         title: 'Updated data!',
         text: 'The changes have been saved successfully.',
         imageUrl: 'https://media.tenor.com/Jx41K1VQdJkAAAAj/pikachu-jump.gif',
         confirmButtonText: 'OK',
-        confirmButtonColor: '#3085d6',
-        background: '#f8f9fa',
-      })
-      const updatedUserData = await response.json()
-      setUsername(updatedUserData.username)
-      setFormData({
-        username: updatedUserData.username,
-        email: updatedUserData.email,
-        password: '',
       })
     } catch (error) {
-      console.error('Error updating data:', error)
+      console.error('Errore durante il salvataggio:', error)
       Swal.fire({
         title: 'Error!',
         text: 'An error occurred while saving.',
@@ -104,6 +157,7 @@ const Settings = ({ setUsername }) => {
       })
     }
   }
+
   const deleteProfile = async (e) => {
     e.preventDefault()
 
@@ -197,17 +251,19 @@ const Settings = ({ setUsername }) => {
                   <img src={klingklang} width="180px" alt="kling klang" />
                 </div>
               </div>
-              <div className="text-center mb-3">
-                <div className="position-relative d-inline-block">
+              <div className="text-center mt-4 mb-3">
+                <div
+                  className="position-relative d-inline-block"
+                  onClick={() => setShowModal(true)}
+                >
                   <img
-                    src={user}
+                    src={formData.avatar}
                     className="rounded-circle"
-                    width="130px"
+                    width="140px"
                     alt="User-pic"
                   />
                   <FaPen className="pen-icon pen text-info" />
                 </div>
-
                 <h4 className="mt-3 text-light">{formData.username}</h4>
               </div>
               <Form onSubmit={handleSubmit}>
@@ -261,6 +317,33 @@ const Settings = ({ setUsername }) => {
           </motion.div>
         </Col>
       </Row>
+      <Modal show={showModal} onHide={() => setShowModal(false)} centered>
+        <Modal.Header closeButton>
+          <Modal.Title>Choose Your Avatar</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <div className="d-flex flex-wrap justify-content-center">
+            {avatars.map((avatar, index) => (
+              <img
+                key={index}
+                src={avatar}
+                alt={`Avatar ${index}`}
+                className="rounded-circle m-2"
+                width="80px"
+                style={{
+                  cursor: 'pointer',
+                  border:
+                    formData.avatar === avatar ? '3px solid blue' : 'none',
+                  transition: 'transform 0.2s ease-in-out',
+                }}
+                onClick={() => setFormData({ ...formData, avatar })}
+                onMouseOver={(e) => (e.target.style.transform = 'scale(1.1)')}
+                onMouseOut={(e) => (e.target.style.transform = 'scale(1)')}
+              />
+            ))}
+          </div>
+        </Modal.Body>
+      </Modal>
     </Container>
   )
 }

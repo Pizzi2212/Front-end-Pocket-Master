@@ -25,14 +25,44 @@ export default function App() {
   const [allPokemons, setAllPokemons] = useState([])
   const [searchValues, setSearchValues] = useState(Array(6).fill(''))
   const [username, setUsername] = useState('')
+  const [avatar, setAvatar] = useState('')
+
+  useEffect(() => {
+    const token = localStorage.getItem('token')
+    let userId = null
+
+    if (token) {
+      try {
+        const tokenParts = token.split('.')
+        if (tokenParts.length === 3) {
+          const decodedPayload = JSON.parse(atob(tokenParts[1]))
+          userId = decodedPayload.id
+        }
+      } catch (error) {
+        console.error('Error decoding token:', error)
+      }
+    }
+
+    if (userId) {
+      const savedAvatar = localStorage.getItem(`avatar_${userId}`)
+      if (savedAvatar) {
+        setAvatar(savedAvatar)
+      }
+    }
+  }, [])
 
   const getUserIdFromToken = () => {
     const token = localStorage.getItem('token')
     if (!token) return null
 
     try {
-      const decodedToken = jwtDecode(token)
-      return decodedToken.id
+      const tokenParts = token.split('.')
+      if (tokenParts.length !== 3) {
+        throw new Error('Token non valido')
+      }
+
+      const decodedPayload = JSON.parse(atob(tokenParts[1]))
+      return decodedPayload.id
     } catch (error) {
       console.error('Errore nella decodifica del token:', error)
       return null
@@ -145,7 +175,7 @@ export default function App() {
   return (
     <>
       <header>
-        <MyNav username={username} />
+        <MyNav username={username} userAvatar={avatar} />
       </header>
       <main>
         <AnimatePresence mode="wait">
@@ -263,7 +293,7 @@ export default function App() {
                   exit={{ opacity: 0, x: 100 }}
                   transition={{ duration: 0.6, ease: 'easeInOut' }}
                 >
-                  <Settings setUsername={setUsername} />
+                  <Settings setUsername={setUsername} setAvatar={setAvatar} />
                 </motion.div>
               }
             />
