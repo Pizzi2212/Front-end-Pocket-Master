@@ -13,6 +13,7 @@ import { CiLogout } from 'react-icons/ci'
 import { div } from 'framer-motion/client'
 import { jwtDecode } from 'jwt-decode'
 import { useState, useEffect } from 'react'
+import avatar1 from '../avatar1.png'
 
 function MyNav({ username, userAvatar }) {
   const location = useLocation()
@@ -124,7 +125,7 @@ function MyNav({ username, userAvatar }) {
             title={
               <div className="d-flex flex-column  align-items-center">
                 <img
-                  src={userAvatar}
+                  src={userAvatar || avatar1}
                   className="user"
                   width="60px"
                   alt="User"
