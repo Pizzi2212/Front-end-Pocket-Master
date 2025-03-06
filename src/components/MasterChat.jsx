@@ -7,6 +7,7 @@ import wallpaper2 from '../wallpaper2.jpg'
 import wallpaper3 from '../wallpaper3.jpg'
 import wallpaper4 from '../wallpaper4.jpg'
 import wallpaper5 from '../wallpaper5.jpg'
+import wallpaper6 from '../wallpaper6.jpg'
 import { Modal } from 'react-bootstrap'
 import { div } from 'framer-motion/client'
 import Swal from 'sweetalert2'
@@ -28,6 +29,7 @@ const MasterChat = () => {
     wallpaper3,
     wallpaper4,
     wallpaper5,
+    wallpaper6,
   ]
   const [wallpaper, setWallpaper] = useState(wallpaperDefault)
   const [showModal, setShowModal] = useState(false)
