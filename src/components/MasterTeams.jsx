@@ -2,8 +2,9 @@ import React, { useEffect, useState } from 'react'
 import { Container, Row, Col, Form } from 'react-bootstrap'
 import PokemonCard from './PokemonCard'
 import { useLocation } from 'react-router-dom'
+import TeamComments from './TeamComments'
 
-const MasterTeams = ({ data }) => {
+const MasterTeams = ({ data, userId }) => {
   const [teams, setTeams] = useState({
     'HC-NZ RU/SA/EM': [],
     'HC-NZ DI/PE/PL': [],
@@ -206,7 +207,7 @@ const MasterTeams = ({ data }) => {
       const fetchedPokemons = await Promise.all(promises)
       setTeams((prev) => ({ ...prev, [teamName]: fetchedPokemons }))
     } catch (error) {
-      console.error('Errore durante il fetch dei Pokémon:', error)
+      console.error('Error fetching Pokémon:', error)
     } finally {
       setIsLoading(false)
     }
@@ -266,6 +267,7 @@ const MasterTeams = ({ data }) => {
           ))}
         </Row>
       )}
+      <TeamComments teamName={selectedOption} userId={userId} />
     </Container>
   )
 }

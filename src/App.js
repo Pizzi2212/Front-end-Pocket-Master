@@ -50,21 +50,37 @@ export default function App() {
       }
     }
   }, [])
-
   const getUserIdFromToken = () => {
     const token = localStorage.getItem('token')
-    if (!token) return null
+    if (!token) {
+      console.error('No token found.')
+      return null
+    }
 
     try {
+      console.log('✅ Token recuperato:', token)
+
       const tokenParts = token.split('.')
       if (tokenParts.length !== 3) {
-        throw new Error('Token non valido')
+        console.error('Token not valid.')
+        return null
       }
 
-      const decodedPayload = JSON.parse(atob(tokenParts[1]))
+      const base64Url = tokenParts[1]
+      const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/')
+      const decodedPayload = JSON.parse(atob(base64))
+
+      console.log('✅ Payload JWT :', decodedPayload)
+
+      if (!decodedPayload.id) {
+        console.error('User ID not found in token.')
+        return null
+      }
+
+      console.log('✅ User ID extract from token:', decodedPayload.id)
       return decodedPayload.id
     } catch (error) {
-      console.error('Errore nella decodifica del token:', error)
+      console.error(' Error decoding token:', error)
       return null
     }
   }
@@ -88,7 +104,7 @@ export default function App() {
       )
 
       if (!response.ok) {
-        throw new Error("Errore nel recupero dell'utente")
+        throw new Error('Error fetching user data')
       }
 
       const userData = await response.json()
@@ -97,7 +113,7 @@ export default function App() {
       dispatch(setUser(userData.id))
       dispatch(setCapturedUser(userData.id))
     } catch (error) {
-      console.error('Errore nel recupero dati utente:', error)
+      console.error('Error fetching user data:', error)
     }
   }
 
@@ -111,7 +127,7 @@ export default function App() {
         prev.map((poke, i) => (i === index ? parsedData : poke))
       )
     } catch (error) {
-      console.error('Errore durante il fetch:', error)
+      console.error('Error fetching Pokémon:', error)
     }
   }
 
@@ -156,7 +172,7 @@ export default function App() {
       const data = await response.json()
       setAllPokemons(data.results)
     } catch (error) {
-      console.error('Errore durante il fetch di tutti i Pokémon:', error)
+      console.error('Error fetching all Pokémon:', error)
     }
   }
 
@@ -280,7 +296,7 @@ export default function App() {
                   exit={{ opacity: 0, x: 100 }}
                   transition={{ duration: 0.6, ease: 'easeInOut' }}
                 >
-                  <MasterTeams data={allPokemons} />
+                  <MasterTeams userId={userId} data={allPokemons} />
                 </motion.div>
               }
             />
