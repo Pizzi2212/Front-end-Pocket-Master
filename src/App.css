@@ -339,3 +339,17 @@ body {
   top: 3em;
   right: 1.5em;
 }
+
+*::-webkit-scrollbar {
+  width: 15px;
+}
+
+*::-webkit-scrollbar-track {
+  background: #105589;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: #4f76ee;
+  border-radius: 20px;
+  border: 2px none #ffffff;
+}

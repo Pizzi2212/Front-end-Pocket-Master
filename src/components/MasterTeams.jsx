@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react'
 import { Container, Row, Col, Form } from 'react-bootstrap'
 import PokemonCard from './PokemonCard'
 import { useLocation } from 'react-router-dom'
-import TeamComments from './TeamComments'
 
 const MasterTeams = ({ data, userId }) => {
   const [teams, setTeams] = useState({
@@ -267,7 +266,6 @@ const MasterTeams = ({ data, userId }) => {
           ))}
         </Row>
       )}
-      <TeamComments teamName={selectedOption} userId={userId} />
     </Container>
   )
 }

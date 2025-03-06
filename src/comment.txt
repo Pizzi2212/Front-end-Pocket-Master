@@ -1,0 +1,30 @@
+  return (
+    <div>
+      <h3>Public chat</h3>
+      <ul>
+        {comments.length > 0 ? (
+          comments.map((comment) => (
+            <li key={comment.id}>
+              <strong>{comment.user.username}:</strong> {comment.content}
+              <small> ({new Date(comment.createdAt).toLocaleString()})</small>
+              {comment.user.id === userId && (
+                <button onClick={() => handleDeleteComment(comment.id)}>
+                  Delete
+                </button>
+              )}
+            </li>
+          ))
+        ) : (
+          <p>No comments yet.</p>
+        )}
+      </ul>
+
+      <textarea
+        value={newComment}
+        onChange={(e) => setNewComment(e.target.value)}
+        placeholder="Write your opinions here..."
+      />
+      <button onClick={handleAddComment}>Send</button>
+    </div>
+  )
+}
