@@ -1,12 +1,15 @@
 import { useState, useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import { Card, Button, Form, InputGroup } from 'react-bootstrap'
+import wallpaperDefault from '../wallpaper.jpg'
 import wallpaper1 from '../wallpaper1.jpg'
 import wallpaper2 from '../wallpaper2.jpg'
 import wallpaper3 from '../wallpaper3.jpg'
 import wallpaper4 from '../wallpaper4.jpg'
 import wallpaper5 from '../wallpaper5.jpg'
 import { Modal } from 'react-bootstrap'
+import { div } from 'framer-motion/client'
+import Swal from 'sweetalert2'
 
 const MasterChat = () => {
   const token =
@@ -19,13 +22,14 @@ const MasterChat = () => {
   const bearer =
     'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzdHJpbmciLCJyb2xlcyI6WyJST0xFX0FETUlOIl0sImlhdCI6MTczOTg5MDI5MywiZXhwIjoxNzM5OTc2NjkzfQ.Citpq4uqNjuNbtQBgLcQh-CbSzttjHOlLrVdvsrQO-k'
   const wallpaperChat = [
+    wallpaperDefault,
     wallpaper1,
     wallpaper2,
     wallpaper3,
     wallpaper4,
     wallpaper5,
   ]
-  const [wallpaper, setWallpaper] = useState(wallpaper1)
+  const [wallpaper, setWallpaper] = useState(wallpaperDefault)
   const [showModal, setShowModal] = useState(false)
 
   useEffect(() => {
@@ -103,6 +107,18 @@ const MasterChat = () => {
   }
 
   const handleDeleteComment = async (id) => {
+    const sure = await Swal.fire({
+      title: 'Are you sure?',
+      text: 'This action is irreversible. Your message will be permanently deleted!',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#d33',
+      cancelButtonColor: '#3085d6',
+      confirmButtonText: 'Yes, delete it!',
+      cancelButtonText: 'Cancel',
+    })
+
+    if (!sure.isConfirmed) return
     if (!token) {
       console.error(' Not token found, unable to delete comment.')
       return
@@ -126,6 +142,42 @@ const MasterChat = () => {
       console.log(` Comment with ID ${id} deleted.`)
     } catch (error) {
       console.error('Error deleting comment with ID ${id}`:', error)
+    }
+  }
+
+  const putComment = async (id) => {
+    if (!token) {
+      console.error('Not token found, unable to update comment.')
+      return
+    }
+
+    const updatedContent = prompt('Modifica il tuo commento:', newComment)
+    if (!updatedContent || updatedContent.trim() === '') return
+
+    try {
+      const response = await fetch(`${API_URL}/${id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ content: updatedContent }),
+      })
+
+      if (!response.ok) {
+        throw new Error(
+          `Error ${response.status} updating comment with ID ${id}`
+        )
+      }
+      setComments((prevComments) =>
+        prevComments.map((comment) =>
+          comment.id === id ? { ...comment, content: newComment } : comment
+        )
+      )
+
+      console.log(`✅ Comment with ID ${id} updated successfully.`)
+    } catch (error) {
+      console.error(`Error updating comment with ID ${id}:`, error)
     }
   }
 
@@ -197,7 +249,14 @@ const MasterChat = () => {
                   </div>
                   {comment.user.id === userId && (
                     <Button
-                      style={{ backgroundColor: 'transparent', border: 'none' }}
+                      style={{
+                        backgroundColor: 'transparent',
+                        border: 'none',
+                      }}
+                      disabled={
+                        Date.now() - new Date(comment.createdAt).getTime() >
+                        900000
+                      }
                       className="mt-1"
                       onClick={() => handleDeleteComment(comment.id)}
                     >
@@ -233,14 +292,18 @@ const MasterChat = () => {
             <Modal.Title>Select a wallpaper</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            <div className="d-flex flex-wrap justify-content-center">
+            <div className="wallSelect d-flex flex-wrap justify-content-center">
               {wallpaperChat.map((wp, index) => (
                 <img
                   key={index}
                   src={wp}
                   alt={`Wallpaper ${index}`}
-                  className="m-2 border rounded"
-                  style={{ width: '100px', height: '100px', cursor: 'pointer' }}
+                  className="m-2 border rounded wallpaper"
+                  style={{
+                    width: '100px',
+                    height: '100px',
+                    cursor: 'pointer',
+                  }}
                   onClick={() => wallpaperChange(wp)}
                 />
               ))}

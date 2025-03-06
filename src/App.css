@@ -353,3 +353,15 @@ body {
   border-radius: 20px;
   border: 2px none #ffffff;
 }
+
+.wallpaper {
+  transition: 0.5s ease;
+}
+
+.wallpaper:hover {
+  transform: scale(1.1);
+}
+
+.wallSelect:hover > :not(:hover) {
+  opacity: 0.3;
+}
