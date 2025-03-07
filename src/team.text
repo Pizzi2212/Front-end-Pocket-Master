@@ -1,0 +1,136 @@
+ 'HC-NZ RU/SA/EM': [],
+    'HC-NZ DI/PE/PL': [],
+    'HC-NZ FIRE/LEAF': [],
+    'HC-NZ HG/SS': [],
+    'HC-NZ HG/SS KANTO': [],
+    'HC-NZ BW': [],
+    'HC-NZ BW2': [],
+    'HC-NZ X/Y': [],
+    'HC-NZ OR/AS': [],
+    'HC-NZ SUN/MOON': [],
+    'HC-NZ SWO/SH': [],
+    'Monotype Psychic DI/PE/PL': [],
+    'Monotype Normal DI/PE/PL': [],
+    'Monotype Bug DI/PE/PL': [],
+    'Monotype Fire BW': [],
+    'Monotype Water BW': [],
+    'Monotype Normal BW': [],
+    'Monotype Fairy X/Y': [],
+    'Monotype Flying X/Y': [],
+    'Monotype Grass X/Y': [],
+  })
+ 
+
+  const teamConfigurations = {
+ 
+  
+-- INSERT INTO team_pokemon_names (team_id, pokemon_names) VALUES
+-- ((SELECT id FROM team WHERE name = 'Monotype Bug DI/PE/PL'), 'kricketune'),
+-- ((SELECT id FROM team WHERE name = 'Monotype Bug DI/PE/PL'), 'mothim'),
+-- ((SELECT id FROM team WHERE name = 'Monotype Bug DI/PE/PL'), 'vespiqueen'),
+-- ((SELECT id FROM team WHERE name = 'Monotype Bug DI/PE/PL'), 'dustox'),
+-- ((SELECT id FROM team WHERE name = 'Monotype Bug DI/PE/PL'), 'yanmega'),
+-- ((SELECT id FROM team WHERE name = 'Monotype Bug DI/PE/PL'), 'beautifly');
+
+-- INSERT INTO team (id,name) VALUES
+-- (14,'Monotype Ground DI/PE/PL')
+
+-- DELETE FROM team_pokemon_names WHERE team_id = 14;
+-- DELETE FROM team WHERE id = 14;
+   
+  
+    'HC-NZ OR/AS': [
+      'swampert',
+      'gardevoir',
+      'flygon',
+      'sableye',
+      'crobat',
+      'camerupt',
+    ],
+    'HC-NZ SUN/MOON': [
+      'decidueye',
+      'salamence',
+      'espeon',
+      'golisopod',
+      'toucannon',
+      'mudsdale',
+    ],
+    'HC-NZ SWO/SH': [
+      'rillaboom',
+      'grimmsnarl',
+      'corviknight',
+      'dragapult',
+      'toxtricity-amped',
+      'lapras',
+    ],
+    'Monotype Psychic DI/PE/PL': [
+      'medicham',
+      'alakazam',
+      'girafarig',
+      'bronzong',
+      'gallade',
+      'gardevoir',
+    ],
+    'Monotype Normal DI/PE/PL': [
+      'staraptor',
+      'bibarel',
+      'lopunny',
+      'blissey',
+      'porygon-z',
+      'snorlax',
+    ],
+    'Monotype Bug DI/PE/PL': [
+      'kricketune',
+      'wormadam-plant',
+      'mothim',
+      'vespiquen',
+      'dustox',
+      'yanmega',
+    ],
+    'Monotype Fire BW': [
+      'emboar',
+      'simisear',
+      'chandelure ',
+      'darmanitan-standard',
+      'heatmor',
+    ],
+    'Monotype Water BW': [
+      'samurott',
+      'seismitoad',
+      'basculin-red-striped',
+      'carracosta',
+      'swanna',
+      'jellicent',
+    ],
+    'Monotype Normal BW': [
+      'watchog',
+      'stoutland',
+      'cinccino',
+      'audino',
+      'bouffalant',
+      'braviary',
+    ],
+    'Monotype Fairy X/Y': [
+      'florges',
+      'sylveon',
+      'azumarill',
+      'dedenne',
+      'aromatisse',
+      'granbull',
+    ],
+    'Monotype Flying X/Y': [
+      'talonflame',
+      'vivillon',
+      'hawlucha',
+      'noivern',
+      'crobat',
+      'gyarados',
+    ],
+    'Monotype Grass X/Y': [
+      'chesnaught',
+      'venusaur',
+      'gogoat',
+      'trevenant',
+      'whimsicott',
+      'amoonguss',
+    ],
