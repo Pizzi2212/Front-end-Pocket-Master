@@ -265,7 +265,16 @@ function Box({ data }) {
                 }}
                 className="m-3"
               >
-                <Card.Title className="text-center mt-4">
+                <Card.Title
+                  style={{
+                    color:
+                      pokemon.types &&
+                      pokemon.types.some((type) => type.type.name === 'dark')
+                        ? 'white'
+                        : 'black',
+                  }}
+                  className="text-center mt-4"
+                >
                   <div className="position-relative">
                     <img
                       width="70px"

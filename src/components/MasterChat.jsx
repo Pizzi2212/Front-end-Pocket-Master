@@ -8,6 +8,7 @@ import wallpaper3 from '../wallpaper3.jpg'
 import wallpaper4 from '../wallpaper4.jpg'
 import wallpaper5 from '../wallpaper5.jpg'
 import wallpaper6 from '../wallpaper6.jpg'
+import wallpaper7 from '../wallpaper7.jpg'
 import { Modal } from 'react-bootstrap'
 import { div } from 'framer-motion/client'
 import Swal from 'sweetalert2'
@@ -30,9 +31,30 @@ const MasterChat = () => {
     wallpaper4,
     wallpaper5,
     wallpaper6,
+    wallpaper7,
   ]
+
   const [wallpaper, setWallpaper] = useState(wallpaperDefault)
   const [showModal, setShowModal] = useState(false)
+
+  const colorWallpaper =
+    wallpaper === wallpaperDefault
+      ? '#9CDCFF'
+      : wallpaper === wallpaper1
+      ? '#040309'
+      : wallpaper === wallpaper2
+      ? '#411A1D'
+      : wallpaper === wallpaper3
+      ? '#605A86'
+      : wallpaper === wallpaper4
+      ? '#42515A'
+      : wallpaper === wallpaper5
+      ? '#061824'
+      : wallpaper === wallpaper6
+      ? '#ECEBF0'
+      : wallpaper === wallpaper7
+      ? '#241E2E'
+      : '#9CDCFF'
 
   useEffect(() => {
     const savedWallpaper = localStorage.getItem(`wallpaper_${userId}`)
@@ -198,7 +220,7 @@ const MasterChat = () => {
       >
         <Card.Header
           style={{
-            backgroundColor: '  #a1c6f1',
+            backgroundColor: colorWallpaper,
             borderRadius: '20px 20px 0 0',
           }}
           className="text-white text-center"
@@ -282,7 +304,11 @@ const MasterChat = () => {
               placeholder="Write your message..."
             />
             <Button
-              style={{ backgroundColor: ' #a1c6f1' }}
+              style={{
+                backgroundColor: colorWallpaper,
+                border: 'none',
+                color: wallpaper === wallpaper6 ? 'black' : 'white',
+              }}
               onClick={handleAddComment}
             >
               Send
