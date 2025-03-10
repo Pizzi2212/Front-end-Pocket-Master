@@ -199,7 +199,7 @@ const MasterChat = () => {
         )
       )
 
-      console.log(`✅ Comment with ID ${id} updated successfully.`)
+      console.log(` Comment with ID ${id} updated successfully.`)
     } catch (error) {
       console.error(`Error updating comment with ID ${id}:`, error)
     }
@@ -240,7 +240,14 @@ const MasterChat = () => {
 
         <Card.Body
           className="d-flex flex-column"
-          style={{ flexGrow: 1, overflowY: 'auto' }}
+          style={{
+            flexGrow: 1,
+            overflowY: 'auto',
+            direction: 'column-reverse',
+          }}
+          ref={(el) => {
+            if (el) el.scrollTop = el.scrollHeight
+          }}
         >
           {comments.length > 0 ? (
             <ul className="list-unstyled d-flex flex-column">

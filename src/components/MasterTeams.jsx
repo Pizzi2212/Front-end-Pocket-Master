@@ -105,17 +105,24 @@ const MasterTeams = () => {
 
   return (
     <Container>
-      <Form.Select
-        value={selectedTeam}
-        onChange={handleOptionChange}
-        className="mb-3 mt-3"
-      >
-        {teams.map((team) => (
-          <option key={team.id} value={team.id}>
-            {team.name}
-          </option>
-        ))}
-      </Form.Select>
+      <div className="d-flex align-items-center">
+        <Form.Select
+          value={selectedTeam}
+          onChange={handleOptionChange}
+          className="mb-3 mt-3"
+        >
+          {teams.map((team) => (
+            <option key={team.id} value={team.id}>
+              <div className="d-flex">
+                <div>{team.name}</div>
+              </div>
+            </option>
+          ))}
+        </Form.Select>
+        <div style={{ cursor: 'pointer' }} className="ms-3 fs-4">
+          ℹ️
+        </div>
+      </div>
 
       {isLoading ? (
         <div
