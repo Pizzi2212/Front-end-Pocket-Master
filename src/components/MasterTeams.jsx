@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react'
 import { Container, Row, Col, Form } from 'react-bootstrap'
 import PokemonCard from './PokemonCard'
 import { useLocation } from 'react-router-dom'
+import OverlayTrigger from 'react-bootstrap/OverlayTrigger'
+import Tooltip from 'react-bootstrap/Tooltip'
 
 const MasterTeams = () => {
   const [teams, setTeams] = useState([])
@@ -10,11 +12,12 @@ const MasterTeams = () => {
   const [isLoading, setIsLoading] = useState(false)
   const location = useLocation()
 
+  const currentTeam = teams.find((team) => team.id === parseInt(selectedTeam))
+
   const fetchTeams = async () => {
     try {
       const bearer =
-        'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzdHJpbmciLCJyb2xlcyI6WyJST0xFX0FETUlOIl0sImlhdCI6MTczOTg5MDI5MywiZXhwIjoxNzM5OTc2NjkzfQ.Citpq4uqNjuNbtQBgLcQh-CbSzttjHOlLrVdvsrQO-k' // 🔹 Prende il token JWT dal localStorage
-
+        'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzdHJpbmciLCJyb2xlcyI6WyJST0xFX0FETUlOIl0sImlhdCI6MTczOTg5MDI5MywiZXhwIjoxNzM5OTc2NjkzfQ.Citpq4uqNjuNbtQBgLcQh-CbSzttjHOlLrVdvsrQO-k'
       const response = await fetch('http://localhost:8080/teams', {
         method: 'GET',
         headers: {
@@ -110,6 +113,18 @@ const MasterTeams = () => {
           value={selectedTeam}
           onChange={handleOptionChange}
           className="mb-3 mt-3"
+          style={{
+            backgroundColor: '#D0E9FF',
+            border: '1px solid #80BFFF',
+            color: '#004080',
+            fontSize: '16px',
+            padding: '8px 12px',
+            borderRadius: '60px',
+            cursor: 'pointer',
+            outline: 'none',
+            color: 'black',
+            boxShadow: '0px 2px 5px rgba(0, 0, 0, 0.1)',
+          }}
         >
           {teams.map((team) => (
             <option key={team.id} value={team.id}>
@@ -119,11 +134,22 @@ const MasterTeams = () => {
             </option>
           ))}
         </Form.Select>
-        <div style={{ cursor: 'pointer' }} className="ms-3 fs-4">
-          ℹ️
-        </div>
+        <OverlayTrigger
+          placement="left"
+          overlay={
+            <Tooltip id="tooltip">
+              {currentTeam ? currentTeam.description : 'Select a team'}
+            </Tooltip>
+          }
+        >
+          <div
+            className="ms-2"
+            style={{ cursor: 'pointer', fontSize: '1.5rem' }}
+          >
+            ℹ️
+          </div>
+        </OverlayTrigger>
       </div>
-
       {isLoading ? (
         <div
           className="d-flex justify-content-center align-items-center"
