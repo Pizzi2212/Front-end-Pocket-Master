@@ -136,10 +136,15 @@ const Stats = ({ data, teraType, currentTypes, useLocation }) => {
                 : 'dark',
           }}
           closeButton
+          closeVariant={modalBackgroundColor === 'black' ? 'white' : 'dark'}
         >
           <Modal.Title>
             {' '}
-            <img src={data.spriteStat} alt="" />
+            <img
+              src={data.spriteStat || data.sprite}
+              style={{ width: data.spriteStat ? 'auto' : '90px' }}
+              alt="sprite"
+            />
           </Modal.Title>
           <Modal.Title className="ms-5">{data.name.toUpperCase()}</Modal.Title>
         </Modal.Header>

@@ -11,6 +11,7 @@
 
 -- DELETE FROM team_pokemon_names WHERE team_id = 15;
 -- DELETE FROM team WHERE id = 15;
+-- UPDATE team SET description = '';
 
 -- UPDATE team SET description = 'This team focuses heavily on offense, their motto is "kill before you get killed" and with a wide coverage of types you are almost always covered.' WHERE name = 'HC-NZ RU/SA/EM';
 -- UPDATE team SET description = 'We can call it the apotheosis of the mainstream, but as the saying goes "never change a winning team", and so here we are in the parade of the easiest Pokémon to obtain that will guarantee you a clear victory in the mythological Sinnoh' WHERE name = 'HC-NZ DI/PE/PL';
@@ -29,4 +30,3 @@ UPDATE team SET description = 'We can say that in ORAS we will live a mix of the
 -- UPDATE team SET description = 'How to best inaugurate the insertion of the fairy type if not with a nice challenge. From the start we can understand how the fairy is a game destroyer type but to spend a chill adventure it is perfection' WHERE name = 'Monotype Fairy X/Y';
 -- UPDATE team SET description = 'By now it is understood, the sixth generation has given a wide choice of very strong Pokémon, to make the adventure as fun as possible these are the recommended Pokémon, small note you can safely replace Talonflame with Charizard to make the challenge even easier' WHERE name = 'Monotype Flying X/Y';
 -- UPDATE team SET description = 'The grass type has never enjoyed great fame, but the sixth generation has changed the rules of the game by giving us a lot of choice and diversity of abilities and to destroy the game we will also have mega evolution on our side.' WHERE name = 'Monotype Grass X/Y';
--- UPDATE team SET description = '';

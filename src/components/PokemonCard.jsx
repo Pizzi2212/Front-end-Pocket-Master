@@ -23,6 +23,8 @@ import { GoStarFill } from 'react-icons/go'
 import { useState, useEffect } from 'react'
 import { useLocation } from 'react-router-dom'
 import shinyStar from '../shiny.png'
+import OverlayTrigger from 'react-bootstrap/OverlayTrigger'
+import Tooltip from 'react-bootstrap/Tooltip'
 
 const PokemonCard = ({
   data,
@@ -30,6 +32,7 @@ const PokemonCard = ({
   onSearchPokemon,
   searchValue,
   useLocation,
+  description,
 }) => {
   const includesType = (types, targetTypes) =>
     Array.isArray(types) && types.some((type) => targetTypes.includes(type))
@@ -267,13 +270,33 @@ const PokemonCard = ({
               }}
             />
           </div>
-          <Card.Text className="text-center mt-4">
+          <Card.Text
+            className="text-center"
+            style={{
+              marginTop: useLocation === '/masterTeams' ? '0.1rem' : '1.5rem',
+            }}
+          >
             <Stats
               data={data}
               useLocation={useLocation}
               teraType={teraType}
               currentTypes={currentTypes}
-            />
+            />{' '}
+            <OverlayTrigger
+              placement="bottom"
+              overlay={<Tooltip id="tooltip">{description}</Tooltip>}
+            >
+              <div
+                className="ms-2"
+                style={{
+                  cursor: 'pointer',
+                  fontSize: '1.5rem',
+                  display: useLocation === '/masterTeams' ? 'block' : 'none',
+                }}
+              >
+                ℹ️
+              </div>
+            </OverlayTrigger>
           </Card.Text>
           <MoveSelect data={data} useLocation={useLocation} />
         </Card.Body>
