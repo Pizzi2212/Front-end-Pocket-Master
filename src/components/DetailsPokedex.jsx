@@ -70,7 +70,7 @@ function Details({ pokemon }) {
       if (data && data.flavor_text_entries) {
         const gameVersions = data.flavor_text_entries.map((entry) => ({
           name: entry.version.name,
-          color: gameColors[entry.version.name] || 'lightgray', // Default color
+          color: gameColors[entry.version.name] || 'lightgray',
         }))
         const uniqueGames = [
           ...new Map(gameVersions.map((item) => [item.name, item])).values(),
@@ -120,7 +120,6 @@ function Details({ pokemon }) {
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          {/* Sezione dei giochi */}
           <h5>Available in Games:</h5>
           <Row>
             {games.length === 0 ? (
@@ -147,7 +146,6 @@ function Details({ pokemon }) {
             )}
           </Row>
           <hr />
-
           <h5>Base Stats</h5>
           {pokemon.stats && pokemon.stats.length > 0 ? (
             <Table striped bordered hover>
