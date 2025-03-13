@@ -8,7 +8,7 @@ import CustomTooltip from './CustomTooltip'
 
 const MasterTeams = () => {
   const [teams, setTeams] = useState([])
-  const [selectedTeam, setSelectedTeam] = useState('')
+  const [selectedTeam, setSelectedTeam] = useState()
   const [pokemonList, setPokemonList] = useState([])
   const [isLoading, setIsLoading] = useState(false)
   const location = useLocation()
@@ -32,11 +32,15 @@ const MasterTeams = () => {
       }
 
       const data = await response.json()
-      console.log('Team ricevuti:', data)
-      setTeams(data)
 
-      if (data.length > 0) {
-        setSelectedTeam(data[0].id)
+      const sortedData = data.sort((a, b) => a.id - b.id)
+      setTeams(sortedData)
+
+      const firstTeam = sortedData.find((team) => team.id === 1)
+      if (firstTeam) {
+        setSelectedTeam(firstTeam.id)
+      } else if (sortedData.length > 0) {
+        setSelectedTeam(sortedData[0].id)
       }
     } catch (error) {
       console.error('Error fetching teams:', error)
@@ -114,6 +118,8 @@ const MasterTeams = () => {
   const handleOptionChange = (e) => {
     setSelectedTeam(e.target.value)
   }
+
+  const sortedTeams = [...teams].sort((a, b) => a.id - b.id)
 
   return (
     <Container>
@@ -238,8 +244,6 @@ const MasterTeams = () => {
             backgroundColor: '#D0E9FF',
             border: '1px solid #80BFFF',
             color: '#004080',
-            fontSize: '16px',
-            padding: '8px 12px',
             borderRadius: '60px',
             cursor: 'pointer',
             outline: 'none',
@@ -247,11 +251,9 @@ const MasterTeams = () => {
             boxShadow: '0px 2px 5px rgba(0, 0, 0, 0.1)',
           }}
         >
-          {teams.map((team) => (
+          {sortedTeams.map((team) => (
             <option key={team.id} value={team.id}>
-              <div className="d-flex">
-                <div>{team.name}</div>
-              </div>
+              {team.name}
             </option>
           ))}
         </Form.Select>

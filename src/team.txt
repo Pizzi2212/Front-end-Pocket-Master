@@ -11,12 +11,19 @@
 
 -- DELETE FROM team_pokemon_names WHERE team_id = 15;
 -- DELETE FROM team WHERE id = 15;
--- UPDATE team SET description = '';
+
+
+-- UPDATE team_pokemon_names SET description = '' WHERE pokemon_names = 'whimsicott' AND team_id = 20;
+-- UPDATE team_pokemon_names SET description = '' WHERE pokemon_names = 'trevenant' AND team_id = 20;
+-- UPDATE team_pokemon_names SET description = '' WHERE pokemon_names = 'venusaur' AND team_id = 20
+-- UPDATE team_pokemon_names SET description = '' WHERE pokemon_names = 'amoonguss' AND team_id = 20;
+-- UPDATE team_pokemon_names SET description = '' WHERE pokemon_names = 'gogoat' AND team_id = 20;
+-- UPDATE team_pokemon_names SET description = '' WHERE pokemon_names = 'chesnaught' AND team_id = 20;
 
 -- UPDATE team SET description = 'This team focuses heavily on offense, their motto is "kill before you get killed" and with a wide coverage of types you are almost always covered.' WHERE name = 'HC-NZ RU/SA/EM';
 -- UPDATE team SET description = 'We can call it the apotheosis of the mainstream, but as the saying goes "never change a winning team", and so here we are in the parade of the easiest Pokémon to obtain that will guarantee you a clear victory in the mythological Sinnoh' WHERE name = 'HC-NZ DI/PE/PL';
 -- UPDATE team SET description = 'Fire red and Leaf green are universally recognized by hardcore players as the beginning and to make this beginning even more enjoyable this team is the perfect balance. We will have defense, attack and speed with a wide range of moves ready to pave the way in Kanto' WHERE name = 'HC-NZ ';
-UPDATE team SET description = 'We can say that in ORAS we will live a mix of the experience of the nuzlocke of XY and RU/SA. We will focus a lot on mega evolutions so as to give space to pokemon that would have been difficult to use. Also have fun trying more pokemon thanks to the mechanics of megaevo' WHERE name = 'HC-NZ OR/AS';
+-- UPDATE team SET description = 'We can say that in ORAS we will live a mix of the experience of the nuzlocke of XY and RU/SA. We will focus a lot on mega evolutions so as to give space to pokemon that would have been difficult to use. Also have fun trying more pokemon thanks to the mechanics of megaevo' WHERE name = 'HC-NZ OR/AS';
 -- UPDATE team SET description = 'Here we are with Kanto, the most difficult trance to face not only for the new gyms and the new league but above all for the final boss Red, a tough opponent that this team is ready to defeat everything and everyone.' WHERE name = 'HC-NZ HG/SS KANTO';
 -- UPDATE team SET description = 'With the fifth generation you enter the new world of nuzlocke, new unknown pokèmon and without being able to rely on pokèmon already encountered. The difficulties are many but with this combination of types and pokèmon you will be ready to overcome them' WHERE name = 'HC-NZ BW';
 -- UPDATE team SET description = 'With the sequel to Black and White we return to the old ways, we all know the Pokémon and the strategies but this will not be balanced by the difficulties that the game will present us' WHERE name = 'HC-NZ BW2';

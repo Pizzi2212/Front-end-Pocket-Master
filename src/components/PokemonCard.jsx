@@ -283,7 +283,7 @@ const PokemonCard = ({
               currentTypes={currentTypes}
             />{' '}
             <OverlayTrigger
-              placement="bottom"
+              placement="top"
               overlay={<Tooltip id="tooltip">{description}</Tooltip>}
             >
               <div
