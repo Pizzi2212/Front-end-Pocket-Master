@@ -123,12 +123,25 @@ export default function App() {
     try {
       const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}`)
       const json = await response.json()
-      const parsedData = parsePokeAPIResponse(json)
+      let parsedData = parsePokeAPIResponse(json)
+      const formResponse = await fetch(
+        `https://pokeapi.co/api/v2/pokemon-form/${id}`
+      )
+      if (formResponse.ok) {
+        const formJson = await formResponse.json()
+        parsedData = {
+          ...parsedData,
+          formName: formJson.form_name || null,
+          isDefault: formJson.is_default,
+          formSprites: formJson.sprites.front_default,
+        }
+      }
+
       setPokemons((prev) =>
         prev.map((poke, i) => (i === index ? parsedData : poke))
       )
     } catch (error) {
-      console.error('Error fetching Pokémon:', error)
+      console.error('Error fetching Pokémon or Form:', error)
     }
   }
 
