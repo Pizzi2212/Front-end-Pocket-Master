@@ -124,6 +124,7 @@ export default function App() {
       const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}`)
       const json = await response.json()
       let parsedData = parsePokeAPIResponse(json)
+
       const formResponse = await fetch(
         `https://pokeapi.co/api/v2/pokemon-form/${id}`
       )
@@ -163,12 +164,12 @@ export default function App() {
 
   useEffect(() => {
     const defaultPokemons = [
-      'arceus',
+      'ninetales-alola',
       'mewtwo',
       'roaring-moon',
       'giratina-origin',
       'darkrai',
-      'metagross',
+      'zoroark-hisui',
     ]
     defaultPokemons.forEach((id, index) => fetchPokemon(id, index))
 
