@@ -192,7 +192,7 @@ body {
   cursor: pointer;
   margin-top: 1vh;
   position: absolute;
-  top: 2em;
+  top: 1em;
   left: -4.5em;
   background: linear-gradient(
     90deg,
@@ -209,21 +209,38 @@ body {
   transition: background-image 0.5s ease-in-out;
 }
 
-.gmax {
-  overflow: visible;
-  position: relative;
-  cursor: pointer;
-  position: absolute;
-  top: 8.5em;
-  left: -3.5em;
-}
-
 .mega {
   overflow: visible;
   position: relative;
   cursor: pointer;
   position: absolute;
-  top: 5em;
+  top: 3.5em;
+  left: -3.5em;
+}
+.gmax {
+  overflow: visible;
+  position: relative;
+  cursor: pointer;
+  position: absolute;
+  top: 6.5em;
+  left: -3.5em;
+}
+
+.alola {
+  overflow: visible;
+  position: relative;
+  cursor: pointer;
+  position: absolute;
+  top: 8.7em;
+  left: -3.5em;
+}
+
+.hisui {
+  overflow: visible;
+  position: relative;
+  cursor: pointer;
+  position: absolute;
+  top: 11.4em;
   left: -3.5em;
 }
 
@@ -249,6 +266,14 @@ body {
   animation: pulse 2.5s infinite;
 }
 .gmax:hover {
+  animation: pulse 2.5s infinite;
+}
+
+.alola:hover {
+  animation: pulse 2.5s infinite;
+}
+
+.hisui:hover {
   animation: pulse 2.5s infinite;
 }
 

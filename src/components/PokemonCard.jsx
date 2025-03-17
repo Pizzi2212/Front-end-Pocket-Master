@@ -27,6 +27,8 @@ import OverlayTrigger from 'react-bootstrap/OverlayTrigger'
 import Tooltip from 'react-bootstrap/Tooltip'
 import megaEvo from '../Megaevo.webp'
 import gmax from '../gmax.webp'
+import alola from '../alola.png'
+import hisui from '../hisui.png'
 
 const PokemonCard = ({
   data,
@@ -186,7 +188,7 @@ const PokemonCard = ({
     }
   }
 
-  const megaChange = (e) => {
+  const megaChange = () => {
     const form = searchValue + '-mega'
     onSearchPokemon(form)
 
@@ -215,7 +217,7 @@ const PokemonCard = ({
     }
   }
 
-  const gmaxChange = (e) => {
+  const gmaxChange = () => {
     const form = searchValue + '-gmax'
     onSearchPokemon(form)
 
@@ -225,6 +227,62 @@ const PokemonCard = ({
 
     if (searchValue.includes('-gmax')) {
       onSearchPokemon(data.name.replace('-gmax', ''))
+    }
+  }
+
+  const alolaChange = () => {
+    const form = searchValue + '-alola'
+    onSearchPokemon(form)
+
+    if (searchValue === '') {
+      onSearchPokemon(data.name + '-alola')
+    }
+
+    if (searchValue.includes('-alola')) {
+      onSearchPokemon(data.name.replace('-alola', ''))
+    }
+  }
+
+  const hisuiChange = () => {
+    const form = searchValue + '-hisui'
+    onSearchPokemon(form)
+
+    if (searchValue === '') {
+      onSearchPokemon(data.name + '-hisui')
+    }
+
+    if (searchValue.includes('-hisui')) {
+      onSearchPokemon(data.name.replace('-hisui', ''))
+    }
+
+    if (searchValue === 'palkia' || data.name === 'palkia') {
+      onSearchPokemon(data.name + '-origin')
+    } else if (
+      searchValue === 'palkia-origin' ||
+      data.name === 'palkia-origin'
+    ) {
+      onSearchPokemon(data.name.replace('-origin', ''))
+    }
+
+    if (searchValue === 'dialga' || data.name === 'dialga') {
+      onSearchPokemon(data.name + '-origin')
+    } else if (
+      searchValue === 'dialga-origin' ||
+      data.name === 'dialga-origin'
+    ) {
+      onSearchPokemon(data.name.replace('-origin', ''))
+    }
+
+    if (
+      searchValue === 'giratina-altered' ||
+      data.name === 'giratina-altered'
+    ) {
+      onSearchPokemon(data.name.replace('-altered', '-origin'))
+    } else if (
+      searchValue === 'giratina-origin' ||
+      data.name === 'giratina-origin'
+    ) {
+      onSearchPokemon(data.name.replace('-origin', '-altered'))
     }
   }
 
@@ -290,6 +348,20 @@ const PokemonCard = ({
               width="60px"
               className="gmax"
               src={gmax}
+              alt=""
+            />
+            <img
+              onClick={alolaChange}
+              className="alola"
+              src={alola}
+              width="60px"
+              alt=""
+            />
+            <img
+              onClick={hisuiChange}
+              className="hisui"
+              src={hisui}
+              width="60px"
               alt=""
             />
           </div>

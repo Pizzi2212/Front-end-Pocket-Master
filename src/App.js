@@ -164,12 +164,12 @@ export default function App() {
 
   useEffect(() => {
     const defaultPokemons = [
-      'ninetales-alola',
+      'ninetales',
       'charizard',
-      'lucario',
-      'giratina-origin',
+      'zoroark',
+      'giratina-altered',
       'darkrai',
-      'zoroark-hisui',
+      'lucario',
     ]
     defaultPokemons.forEach((id, index) => fetchPokemon(id, index))
 
