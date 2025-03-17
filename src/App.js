@@ -165,8 +165,8 @@ export default function App() {
   useEffect(() => {
     const defaultPokemons = [
       'ninetales-alola',
-      'mewtwo',
-      'roaring-moon',
+      'charizard',
+      'lucario',
       'giratina-origin',
       'darkrai',
       'zoroark-hisui',

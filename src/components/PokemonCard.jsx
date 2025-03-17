@@ -25,6 +25,8 @@ import { useLocation } from 'react-router-dom'
 import shinyStar from '../shiny.png'
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger'
 import Tooltip from 'react-bootstrap/Tooltip'
+import megaEvo from '../Megaevo.webp'
+import gmax from '../gmax.webp'
 
 const PokemonCard = ({
   data,
@@ -184,6 +186,48 @@ const PokemonCard = ({
     }
   }
 
+  const megaChange = (e) => {
+    const form = searchValue + '-mega'
+    onSearchPokemon(form)
+
+    if (searchValue === '') {
+      onSearchPokemon(data.name + '-mega')
+    }
+
+    if (searchValue.includes('-mega')) {
+      onSearchPokemon(data.name.replace('-mega', ''))
+    }
+
+    if (searchValue === 'charizard' || data.name === 'charizard') {
+      onSearchPokemon(data.name + '-mega-y')
+    } else if (searchValue === 'charizard-mega-y') {
+      onSearchPokemon('charizard' + '-mega-x')
+    } else if (searchValue === 'charizard-mega-x') {
+      onSearchPokemon(data.name.replace('-mega-x', ''))
+    }
+
+    if (searchValue === 'mewtwo' || data.name === 'mewtwo') {
+      onSearchPokemon(data.name + '-mega-x')
+    } else if (searchValue === 'mewtwo-mega-x') {
+      onSearchPokemon('mewtwo' + '-mega-y')
+    } else if (searchValue === 'mewtwo-mega-y') {
+      onSearchPokemon(data.name.replace('-mega-y', ''))
+    }
+  }
+
+  const gmaxChange = (e) => {
+    const form = searchValue + '-gmax'
+    onSearchPokemon(form)
+
+    if (searchValue === '') {
+      onSearchPokemon(data.name + '-gmax')
+    }
+
+    if (searchValue.includes('-gmax')) {
+      onSearchPokemon(data.name.replace('-gmax', ''))
+    }
+  }
+
   return (
     <div>
       <Card
@@ -234,6 +278,20 @@ const PokemonCard = ({
                 </option>
               ))}
             </Form.Select>
+            <img
+              onClick={megaChange}
+              width="60px"
+              className="mega"
+              src={megaEvo}
+              alt=""
+            />
+            <img
+              onClick={gmaxChange}
+              width="60px"
+              className="gmax"
+              src={gmax}
+              alt=""
+            />
           </div>
           {data.name.toUpperCase()}
         </Card.Title>

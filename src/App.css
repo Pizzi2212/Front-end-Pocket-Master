@@ -193,7 +193,7 @@ body {
   margin-top: 1vh;
   position: absolute;
   top: 2em;
-  left: -4em;
+  left: -4.5em;
   background: linear-gradient(
     90deg,
     red 0%,
@@ -207,6 +207,49 @@ body {
 }
 .tera-animation {
   transition: background-image 0.5s ease-in-out;
+}
+
+.gmax {
+  overflow: visible;
+  position: relative;
+  cursor: pointer;
+  position: absolute;
+  top: 8.5em;
+  left: -3.5em;
+}
+
+.mega {
+  overflow: visible;
+  position: relative;
+  cursor: pointer;
+  position: absolute;
+  top: 5em;
+  left: -3.5em;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  25% {
+    transform: scale(1.2);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  75% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.mega:hover {
+  animation: pulse 2.5s infinite;
+}
+.gmax:hover {
+  animation: pulse 2.5s infinite;
 }
 
 .ball {
