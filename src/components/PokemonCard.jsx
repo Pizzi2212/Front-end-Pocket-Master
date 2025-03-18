@@ -49,6 +49,8 @@ import teraFairy from '../teraFairy.png'
 import teraNormal from '../teraNormal.png'
 import teraDragon from '../teraDragon.png'
 import teraFlying from '../teraFlying.png'
+import megaAnimate from '../megaAnimate.png'
+import gmaxAnimate from '../gmaxAnimate.png'
 
 const PokemonCard = ({
   data,
@@ -64,6 +66,8 @@ const PokemonCard = ({
   const [currentSprite, setCurrentSprite] = useState(data.sprite)
   const [teraType, setTeraType] = useState('')
   const [currentTypes, setCurrentTypes] = useState(data.types)
+  const [isMegaAnimating, setIsMegaAnimating] = useState(false)
+  const [isGmaxAnimating, setIsGmaxAnimating] = useState(false)
 
   const psychic = includesType(data.types, ['psychic'])
   const ghost = includesType(data.types, ['ghost'])
@@ -229,6 +233,10 @@ const PokemonCard = ({
   }
 
   const megaChange = () => {
+    setIsMegaAnimating(true)
+    setTimeout(() => {
+      setIsMegaAnimating(false)
+    }, 1000)
     const form = searchValue + '-mega'
     onSearchPokemon(form)
 
@@ -264,6 +272,10 @@ const PokemonCard = ({
   }
 
   const gmaxChange = () => {
+    setIsGmaxAnimating(true)
+    setTimeout(() => {
+      setIsGmaxAnimating(false)
+    }, 1000)
     const form = searchValue + '-gmax'
     onSearchPokemon(form)
 
@@ -273,6 +285,15 @@ const PokemonCard = ({
 
     if (searchValue.includes('-gmax')) {
       onSearchPokemon(data.name.replace('-gmax', ''))
+    }
+
+    if (searchValue === 'eternatus' || data.name === 'eternatus') {
+      onSearchPokemon(data.name + '-eternamax')
+    } else if (
+      searchValue === 'eternatus-eternamax' ||
+      data.name === 'eternatus-eternamax'
+    ) {
+      onSearchPokemon(data.name.replace('-eternamax', ''))
     }
   }
 
@@ -424,6 +445,13 @@ const PokemonCard = ({
             <img
               onClick={megaChange}
               width="60px"
+              className={`mega-animation ${isMegaAnimating ? 'active' : ''}`}
+              src={megaAnimate}
+              alt=""
+            />
+            <img
+              onClick={megaChange}
+              width="60px"
               className="mega"
               src={megaEvo}
               alt=""
@@ -433,6 +461,13 @@ const PokemonCard = ({
               width="60px"
               className="gmax"
               src={gmax}
+              alt=""
+            />
+            <img
+              onClick={gmaxChange}
+              width="60px"
+              className={`gmax-animation ${isGmaxAnimating ? 'active' : ''}`}
+              src={gmaxAnimate}
               alt=""
             />
             <img
@@ -450,6 +485,7 @@ const PokemonCard = ({
               alt=""
             />
           </div>
+
           {data.name.toUpperCase()}
         </Card.Title>
         <Card.Img
@@ -457,6 +493,7 @@ const PokemonCard = ({
           variant="top"
           src={currentSprite}
         />
+
         <Card.Body className="cardBody">
           <div className="d-flex">
             <Button

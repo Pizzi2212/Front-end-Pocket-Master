@@ -168,7 +168,7 @@ export default function App() {
       'charizard',
       'zoroark',
       'giratina-altered',
-      'darkrai',
+      'eternatus',
       'lucario',
     ]
     defaultPokemons.forEach((id, index) => fetchPokemon(id, index))
