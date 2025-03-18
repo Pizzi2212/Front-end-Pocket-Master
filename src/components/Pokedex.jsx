@@ -33,10 +33,6 @@ function Pokedex() {
     )
   }
 
-  // const nextPokemon = () => {
-  //   navigate('/pokedex', { state: { id: pokemon.id + 1 } })
-  // }
-
   return (
     <div className=" d-flex justify-content-center mt-3">
       <Card
@@ -89,11 +85,11 @@ function Pokedex() {
 
               <p style={{ fontSize: '0.8em' }}>
                 <strong style={{ fontSize: '1.2em' }}>Description:</strong>{' '}
-                {
+                {(
                   pokemon.species.flavor_text_entries.find(
                     (entry) => entry.language.name === 'en'
-                  ).flavor_text
-                }
+                  )?.flavor_text || ''
+                ).replace(/\f/g, ' ')}
               </p>
             </div>
           </Card.Text>
@@ -102,7 +98,6 @@ function Pokedex() {
             style={{ opacity: '0' }}
             onClick={() => navigate(-1)}
           ></Button>
-          {/* <Button onClick={nextPokemon}></Button> */}
           <Details pokemon={pokemon} />
         </Card.Body>
       </Card>

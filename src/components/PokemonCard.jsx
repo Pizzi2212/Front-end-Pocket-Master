@@ -242,18 +242,24 @@ const PokemonCard = ({
 
     if (searchValue === 'charizard' || data.name === 'charizard') {
       onSearchPokemon(data.name + '-mega-y')
-    } else if (searchValue === 'charizard-mega-y') {
+    } else if (
+      searchValue === 'charizard-mega-y' ||
+      data.name === 'charizard-mega-y'
+    ) {
       onSearchPokemon('charizard' + '-mega-x')
-    } else if (searchValue === 'charizard-mega-x') {
+    } else if (
+      searchValue === 'charizard-mega-x' ||
+      data.name === 'charizard-mega-x'
+    ) {
       onSearchPokemon(data.name.replace('-mega-x', ''))
     }
 
     if (searchValue === 'mewtwo' || data.name === 'mewtwo') {
-      onSearchPokemon(data.name + '-mega-x')
-    } else if (searchValue === 'mewtwo-mega-x') {
-      onSearchPokemon('mewtwo' + '-mega-y')
+      onSearchPokemon(data.name + '-mega-y')
     } else if (searchValue === 'mewtwo-mega-y') {
-      onSearchPokemon(data.name.replace('-mega-y', ''))
+      onSearchPokemon('mewtwo' + '-mega-x')
+    } else if (searchValue === 'mewtwo-mega-x') {
+      onSearchPokemon(data.name.replace('-mega-x', '')) && onSearchPokemon('')
     }
   }
 
@@ -329,6 +335,7 @@ const PokemonCard = ({
   return (
     <div>
       <Card
+        key={teraType}
         style={{
           width: '25rem',
           height: '35rem',
