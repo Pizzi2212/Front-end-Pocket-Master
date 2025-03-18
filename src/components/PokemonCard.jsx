@@ -29,6 +29,26 @@ import megaEvo from '../Megaevo.webp'
 import gmax from '../gmax.webp'
 import alola from '../alola.png'
 import hisui from '../hisui.png'
+import { Dropdown } from 'react-bootstrap'
+import tera from '../tera.png'
+import teraSteel from '../teraSteel.png'
+import teraPsychic from '../teraPsychic.png'
+import teraGhost from '../teraGhost.png'
+import teraFire from '../teraFire.png'
+import teraIce from '../teraIce.png'
+import teraWater from '../teraWater.png'
+import teraElectric from '../teraElectric.png'
+import teraFighting from '../teraFighting.png'
+import teraGround from '../teraGround.png'
+import teraPoison from '../teraPoison.png'
+import teraGrass from '../teraGrass.png'
+import teraRock from '../teraRock.png'
+import teraBug from '../teraBug.png'
+import teraDark from '../teraDark.png'
+import teraFairy from '../teraFairy.png'
+import teraNormal from '../teraNormal.png'
+import teraDragon from '../teraDragon.png'
+import teraFlying from '../teraFlying.png'
 
 const PokemonCard = ({
   data,
@@ -83,6 +103,26 @@ const PokemonCard = ({
     normal: normalCard,
     dragon: dragonCard,
     flying: flyCard,
+  }
+  const typeToTera = {
+    steel: teraSteel,
+    psychic: teraPsychic,
+    ghost: teraGhost,
+    fire: teraFire,
+    ice: teraIce,
+    water: teraWater,
+    electric: teraElectric,
+    fighting: teraFighting,
+    ground: teraGround,
+    poison: teraPoison,
+    grass: teraGrass,
+    rock: teraRock,
+    bug: teraBug,
+    dark: teraDark,
+    fairy: teraFairy,
+    normal: teraNormal,
+    dragon: teraDragon,
+    flying: teraFlying,
   }
 
   const randomBackgroundColor = teraType
@@ -323,19 +363,57 @@ const PokemonCard = ({
               display: useLocation === '/masterTeams' ? 'none' : 'block',
             }}
           >
-            <Form.Select
-              onChange={teraChange}
-              value={teraType}
-              className="tera"
-              style={{ width: '5em', borderRadius: '20px' }}
-            >
-              <option value="">Tera</option>
-              {Object.keys(typeToBackground).map((type) => (
-                <option key={type} value={type}>
-                  {type.charAt(0).toUpperCase() + type.slice(1)}
-                </option>
-              ))}
-            </Form.Select>
+            <Dropdown className="tera">
+              <Dropdown.Toggle
+                style={{
+                  width: '5em',
+                  borderRadius: '20px',
+                  backgroundColor: 'transparent',
+                  border: 'none',
+                }}
+                id="tera-dropdown"
+              >
+                {teraType ? (
+                  <>
+                    <img
+                      src={typeToTera[teraType]}
+                      alt={teraType}
+                      style={{ width: '70px', marginRight: '5px' }}
+                    />
+                    {teraType.charAt(0).toUpperCase() + teraType.slice(1)}
+                  </>
+                ) : (
+                  <img width="70px" src={tera} alt="" />
+                )}
+              </Dropdown.Toggle>
+
+              <Dropdown.Menu>
+                <Dropdown.Item
+                  onClick={() => teraChange({ target: { value: '' } })}
+                >
+                  <img
+                    onClick={() => teraChange({ target: { value: '' } })}
+                    width="25px"
+                    src={tera}
+                    alt=""
+                  />{' '}
+                  Tera
+                </Dropdown.Item>
+                {Object.keys(typeToTera).map((type) => (
+                  <Dropdown.Item
+                    key={type}
+                    onClick={() => teraChange({ target: { value: type } })}
+                  >
+                    <img
+                      src={typeToTera[type]}
+                      alt={type}
+                      style={{ width: '25px', marginRight: '5px' }}
+                    />
+                    {type.charAt(0).toUpperCase() + type.slice(1)}
+                  </Dropdown.Item>
+                ))}
+              </Dropdown.Menu>
+            </Dropdown>
             <img
               onClick={megaChange}
               width="60px"

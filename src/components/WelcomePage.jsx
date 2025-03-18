@@ -149,14 +149,14 @@ function WelcomePage({ setUsername }) {
 
   return (
     <>
-      <div className="d-flex justify-content-center align-items-center min-vh-100 welcome">
+      <div className="d-flex align-items-center justify-content-center min-vh-100 welcome">
         <div
           className="card"
           style={{
             width: '100%',
             maxWidth: '800px',
             maxHeight: '500px',
-            opacity: '95%',
+            opacity: '90%',
             backgroundImage: `url(${welcomeBG})`,
             backgroundSize: 'cover',
             backgroundPosition: 'center',
