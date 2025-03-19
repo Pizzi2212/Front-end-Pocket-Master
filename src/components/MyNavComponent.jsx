@@ -7,7 +7,7 @@ import logo from '../logoPocketMaster.png'
 import { useLocation } from 'react-router-dom'
 import userIcon from '../user.webp'
 import { CiSettings } from 'react-icons/ci'
-import { FcAssistant } from 'react-icons/fc'
+import { FaQuestion } from 'react-icons/fa'
 import { FaPeopleGroup } from 'react-icons/fa6'
 import { CiLogout } from 'react-icons/ci'
 import { div } from 'framer-motion/client'
@@ -177,7 +177,8 @@ function MyNav({ username, userAvatar }) {
             </NavDropdown.Item>
 
             <NavDropdown.Item
-              href="#action/3.2"
+              as={Link}
+              to="/QnA"
               style={{
                 display: 'flex',
                 alignItems: 'center',
@@ -192,12 +193,13 @@ function MyNav({ username, userAvatar }) {
               }
               onMouseLeave={(e) => (e.target.style.background = 'transparent')}
             >
-              <FcAssistant style={{ marginRight: '10px', fontSize: '18px' }} />
-              Assistance
+              <FaQuestion style={{ marginRight: '10px', fontSize: '18px' }} />
+              Q&A
             </NavDropdown.Item>
 
             <NavDropdown.Item
-              href="#action/3.3"
+              as={Link}
+              to="/community"
               style={{
                 display: 'flex',
                 alignItems: 'center',

@@ -223,12 +223,12 @@ body {
 
 .mega-animation.active {
   opacity: 1;
-  animation: megaEffect 1.4s ease-out forwards;
+  animation: megaEffect 2s ease-out forwards;
 }
 
 @keyframes megaEffect {
   0% {
-    transform: scale(6);
+    transform: scale(7);
     opacity: 1;
   }
   100% {
@@ -247,7 +247,7 @@ body {
 
 .gmax-animation.active {
   opacity: 1;
-  animation: gmaxEffect 1.4s ease-out forwards;
+  animation: gmaxEffect 2s ease-out forwards;
 }
 
 @keyframes gmaxEffect {

@@ -17,6 +17,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import { setUser } from './redux/authSlice'
 import { setUser as setCapturedUser } from './redux/capturedSlice'
 import MasterChat from './components/MasterChat'
+import Community from './components/Community'
+import QnA from './components/QnA'
 
 export default function App() {
   const dispatch = useDispatch()
@@ -338,6 +340,32 @@ export default function App() {
                   transition={{ duration: 0.6, ease: 'easeInOut' }}
                 >
                   <Settings setUsername={setUsername} setAvatar={setAvatar} />
+                </motion.div>
+              }
+            />
+            <Route
+              path="/QnA"
+              element={
+                <motion.div
+                  initial={{ opacity: 0, x: -100 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: 100 }}
+                  transition={{ duration: 0.6, ease: 'easeInOut' }}
+                >
+                  <QnA />
+                </motion.div>
+              }
+            />
+            <Route
+              path="/community"
+              element={
+                <motion.div
+                  initial={{ opacity: 0, x: -100 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: 100 }}
+                  transition={{ duration: 0.6, ease: 'easeInOut' }}
+                >
+                  <Community />
                 </motion.div>
               }
             />
