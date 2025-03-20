@@ -51,6 +51,7 @@ import teraDragon from '../teraDragon.png'
 import teraFlying from '../teraFlying.png'
 import megaAnimate from '../megaAnimate.png'
 import gmaxAnimate from '../gmaxAnimate.png'
+import hisuiAnimate from '../hisuiAnimate.png'
 
 const PokemonCard = ({
   data,
@@ -68,6 +69,8 @@ const PokemonCard = ({
   const [currentTypes, setCurrentTypes] = useState(data.types)
   const [isMegaAnimating, setIsMegaAnimating] = useState(false)
   const [isGmaxAnimating, setIsGmaxAnimating] = useState(false)
+  const [isAlolaAnimating, setIsAlolaAnimating] = useState(false)
+  const [isHisuiAnimating, setIsHisuiAnimating] = useState(false)
 
   const psychic = includesType(data.types, ['psychic'])
   const ghost = includesType(data.types, ['ghost'])
@@ -298,6 +301,10 @@ const PokemonCard = ({
   }
 
   const alolaChange = () => {
+    setIsAlolaAnimating(true)
+    setTimeout(() => {
+      setIsAlolaAnimating(false)
+    }, 1000)
     const form = searchValue + '-alola'
     onSearchPokemon(form)
 
@@ -311,6 +318,10 @@ const PokemonCard = ({
   }
 
   const hisuiChange = () => {
+    setIsHisuiAnimating(true)
+    setTimeout(() => {
+      setIsHisuiAnimating(false)
+    }, 1000)
     const form = searchValue + '-hisui'
     onSearchPokemon(form)
 
@@ -366,7 +377,7 @@ const PokemonCard = ({
         className={`m-3 ${teraType ? 'tera-animation' : ''}`}
       >
         <Card.Title
-          className="text-center mt-4 ms-5 pe-5 fs-5"
+          className="text-center fs-5 ms-5 mt-4 pe-5"
           style={{
             color:
               (data.types && data.types.includes('dark')) || teraType === 'dark'
@@ -375,7 +386,7 @@ const PokemonCard = ({
           }}
         >
           <div className="position-relative">
-            <div className="position-absolute top-0 start-0 translate-middle">
+            <div className="position-absolute start-0 top-0 translate-middle">
               <img
                 style={{ cursor: 'pointer' }}
                 width="100vh"
@@ -414,7 +425,6 @@ const PokemonCard = ({
                   <img width="70px" src={tera} alt="" />
                 )}
               </Dropdown.Toggle>
-
               <Dropdown.Menu>
                 <Dropdown.Item
                   onClick={() => teraChange({ target: { value: '' } })}
@@ -478,6 +488,20 @@ const PokemonCard = ({
               alt=""
             />
             <img
+              onClick={alolaChange}
+              className={`alola-animation ${isAlolaAnimating ? 'active' : ''}`}
+              src={alola}
+              width="60px"
+              alt=""
+            />
+            <img
+              onClick={hisuiChange}
+              className={`hisui-animation ${isHisuiAnimating ? 'active' : ''}`}
+              src={hisuiAnimate}
+              width="60px"
+              alt=""
+            />
+            <img
               onClick={hisuiChange}
               className="hisui"
               src={hisui}
@@ -485,7 +509,6 @@ const PokemonCard = ({
               alt=""
             />
           </div>
-
           {data.name.toUpperCase()}
         </Card.Title>
         <Card.Img

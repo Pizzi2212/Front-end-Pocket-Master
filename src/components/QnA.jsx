@@ -1,16 +1,25 @@
 import React from 'react'
-import { Card } from 'react-bootstrap'
+import { Card, Accordion } from 'react-bootstrap'
 import professorOak from '../professorOak.png'
+import { FaZ } from 'react-icons/fa6'
+import { useEffect } from 'react'
 
 const QnA = () => {
+  const [faqData, setFaqData] = React.useState([])
+
+  useEffect(() => {
+    fetch('http://localhost:8080/api/faq')
+      .then((response) => response.json())
+      .then((data) => setFaqData(data))
+      .catch((error) => console.error('Error fetching FAQs:', error))
+  }, [])
   return (
     <div className="d-flex justify-content-center mt-4">
       <Card
         className="shadow-lg"
         style={{
           maxWidth: '1100px',
-          maxHeight: '700px',
-          minHeight: '500px',
+          maxHeight: '500px',
           width: '100%',
           backgroundSize: 'cover',
           backgroundPosition: 'center',
@@ -31,11 +40,18 @@ const QnA = () => {
             flexGrow: 1,
             overflowY: 'auto',
             direction: 'column-reverse',
+            zIndex: 0,
           }}
-          ref={(el) => {
-            if (el) el.scrollTop = el.scrollHeight
-          }}
-        ></Card.Body>
+        >
+          <Accordion>
+            {faqData.map((item, index) => (
+              <Accordion.Item eventKey={index.toString()} key={index}>
+                <Accordion.Header>{item.question}</Accordion.Header>
+                <Accordion.Body>{item.answer}</Accordion.Body>
+              </Accordion.Item>
+            ))}
+          </Accordion>
+        </Card.Body>
 
         <Card.Footer>
           <div className="position-relative">
