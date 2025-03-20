@@ -29,6 +29,7 @@ export default function App() {
   const [searchValues, setSearchValues] = useState(Array(6).fill(''))
   const [username, setUsername] = useState('')
   const [avatar, setAvatar] = useState('')
+  const [allUsers, setAllUsers] = useState([])
 
   useEffect(() => {
     const token = localStorage.getItem('token')
@@ -181,6 +182,20 @@ export default function App() {
     }
   }, [])
 
+  const fetchAllUsers = async () => {
+    try {
+      const response = await fetch(`http://localhost:8080/api/users`)
+      const userData = await response.json()
+      setAllUsers(userData)
+      console.log(userData)
+    } catch (error) {
+      console.error('Error fetching user data:', error)
+    }
+  }
+
+  useEffect(() => {
+    fetchAllUsers()
+  }, [])
   const fetchAllPokemons = async () => {
     try {
       const response = await fetch(
@@ -365,7 +380,7 @@ export default function App() {
                   exit={{ opacity: 0, x: 100 }}
                   transition={{ duration: 0.6, ease: 'easeInOut' }}
                 >
-                  <Community />
+                  <Community allUsers={allUsers} />
                 </motion.div>
               }
             />

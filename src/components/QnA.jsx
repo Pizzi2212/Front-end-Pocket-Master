@@ -20,7 +20,7 @@ const QnA = () => {
           style={{
             borderRadius: '20px 20px 0 0',
           }}
-          className="text-white text-center"
+          className="text-center"
         >
           <h2 className="mb-0">Q&A</h2>
         </Card.Header>
@@ -39,7 +39,7 @@ const QnA = () => {
 
         <Card.Footer>
           <div className="position-relative">
-            <div className="position-absolute top-50 start-100 translate-middle">
+            <div className="d-lg-block d-none position-absolute start-100 top-50 translate-middle">
               <img width="250px" src={professorOak} alt="" />
             </div>
           </div>

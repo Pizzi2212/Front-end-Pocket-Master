@@ -92,7 +92,6 @@ function WelcomePage({ setUsername }) {
 
   const handleLogin = async (e) => {
     e.preventDefault()
-
     if (validateFields()) {
       try {
         const response = await fetch('http://localhost:8080/api/users/login', {
