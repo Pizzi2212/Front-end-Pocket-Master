@@ -113,7 +113,7 @@ function Box({ data }) {
   useEffect(() => {
     const fetchDetails = async () => {
       try {
-        const details = await fetchDetailsInBatches(data, 50)
+        const details = await fetchDetailsInBatches(data, 200)
         setDetailedPokemons(details)
       } catch (error) {
         console.error('Errore durante il fetch:', error.message)
@@ -130,7 +130,7 @@ function Box({ data }) {
   if (loading) {
     return (
       <div
-        className="d-flex justify-content-center align-items-center"
+        className="d-flex align-items-center justify-content-center"
         style={{ height: '100vh' }}
       >
         <div className="ball"></div>
