@@ -226,7 +226,7 @@ const Settings = ({ setUsername, setAvatar }) => {
             transition={{ duration: 0.5 }}
           >
             <Card
-              className="p-4 shadow-lg rounded-4"
+              className="p-4 rounded-4 shadow-lg"
               style={{
                 backgroundSize: 'cover',
                 backgroundPosition: 'center',
@@ -237,23 +237,23 @@ const Settings = ({ setUsername, setAvatar }) => {
               }}
             >
               <div className="position-relativa">
-                <div className="position-absolute top-0 start-0 translate-middle">
+                <div className="position-absolute start-0 top-0 translate-middle">
                   <img width="100px" src={kling} alt="kling" />
                 </div>
               </div>
               <div className="position-relativa">
-                <div className="position-absolute top-0 start-50 translate-middle">
+                <div className="position-absolute start-50 top-0 translate-middle">
                   <img width="100px" src={klang} alt="klang" />
                 </div>
               </div>
               <div className="position-relative">
-                <div className="position-absolute top-0 start-100 translate-middle">
+                <div className="position-absolute start-100 top-0 translate-middle">
                   <img src={klingklang} width="180px" alt="kling klang" />
                 </div>
               </div>
-              <div className="text-center mt-4 mb-3">
+              <div className="text-center mb-3 mt-4">
                 <div
-                  className="position-relative d-inline-block"
+                  className="d-inline-block position-relative"
                   onClick={() => setShowModal(true)}
                 >
                   <img
@@ -262,9 +262,9 @@ const Settings = ({ setUsername, setAvatar }) => {
                     width="140px"
                     alt="User-pic"
                   />
-                  <FaPen className="pen-icon pen text-info" />
+                  <FaPen className="text-info pen pen-icon" />
                 </div>
-                <h4 className="mt-3 text-light">{formData.username}</h4>
+                <h4 className="text-light mt-3">{formData.username}</h4>
               </div>
               <Form onSubmit={handleSubmit}>
                 <Form.Group className="mb-3">
@@ -296,10 +296,10 @@ const Settings = ({ setUsername, setAvatar }) => {
                     onChange={handleChange}
                   />
                 </Form.Group>
-                <div className="d-flex justify-content-center justify-content-around mt-4">
+                <div className="d-flex justify-content-around justify-content-center mt-4">
                   <Button
                     variant="secondary"
-                    className="ps-5 pe-5"
+                    className="pe-5 ps-5"
                     type="submit"
                   >
                     Save
@@ -307,7 +307,7 @@ const Settings = ({ setUsername, setAvatar }) => {
                   <Button
                     onClick={deleteProfile}
                     variant="danger"
-                    className="ps-5 pe-5"
+                    className="pe-5 ps-5"
                   >
                     Delete
                   </Button>
@@ -328,7 +328,7 @@ const Settings = ({ setUsername, setAvatar }) => {
                 key={index}
                 src={avatar}
                 alt={`Avatar ${index}`}
-                className="rounded-circle m-2"
+                className="m-2 rounded-circle"
                 width="80px"
                 style={{
                   cursor: 'pointer',

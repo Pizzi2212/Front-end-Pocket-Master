@@ -14,6 +14,7 @@ import { div } from 'framer-motion/client'
 import { jwtDecode } from 'jwt-decode'
 import { useState, useEffect } from 'react'
 import avatar1 from '../avatar1.png'
+import Music from './Music'
 
 function MyNav({ username, userAvatar }) {
   const location = useLocation()
@@ -98,7 +99,7 @@ function MyNav({ username, userAvatar }) {
   }
 
   return (
-    <Navbar expand="lg" className="nav">
+    <Navbar expand="xxl" className="nav">
       <Container fluid>
         <Navbar.Brand as={Link} to="/home">
           <img src={logo} width="180px" className="me-3" alt="Logo" />
@@ -122,11 +123,16 @@ function MyNav({ username, userAvatar }) {
             <Navbar.Brand as={Link} to="/captured">
               Captured Pokèmon
             </Navbar.Brand>
+            <NavDropdown title="Music" id="music-dropdown">
+              <NavDropdown.Item className="music" as="div">
+                <Music />
+              </NavDropdown.Item>
+            </NavDropdown>
           </Nav>
 
           <NavDropdown
             title={
-              <div className="d-flex flex-column  align-items-center">
+              <div className="d-flex flex-column align-items-center">
                 <img
                   src={userAvatar || avatar1}
                   className="user"
@@ -139,7 +145,7 @@ function MyNav({ username, userAvatar }) {
                     cursor: 'pointer',
                   }}
                 />
-                <h4 className="mt-3 text-light text-center">
+                <h4 className="text-center text-light mt-3">
                   {username ? username : 'Loading...'}
                 </h4>
               </div>
