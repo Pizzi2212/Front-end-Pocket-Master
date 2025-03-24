@@ -123,13 +123,16 @@ function MyNav({ username, userAvatar }) {
             <Navbar.Brand as={Link} to="/captured">
               Captured Pokèmon
             </Navbar.Brand>
-            <NavDropdown title="Music" id="music-dropdown">
+            <NavDropdown
+              className="align-items-center mt-1"
+              title="🎵Music"
+              id="music-dropdown"
+            >
               <NavDropdown.Item className="music" as="div">
                 <Music />
               </NavDropdown.Item>
             </NavDropdown>
           </Nav>
-
           <NavDropdown
             title={
               <div className="d-flex flex-column align-items-center">

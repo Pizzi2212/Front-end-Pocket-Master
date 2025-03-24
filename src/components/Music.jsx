@@ -17,7 +17,7 @@ const Music = () => {
           <li className="list-group-item" key={music.id}>
             <div className="d-flex align-items-center mt-3">
               <iframe src={music.src} title={music.title}></iframe>
-              <p className="ms-2">{music.title}</p>
+              <p className="ms-2 fs-6">{music.title}</p>
             </div>
           </li>
         ))}
