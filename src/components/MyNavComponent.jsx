@@ -81,13 +81,13 @@ function MyNav({ username, userAvatar }) {
         )
 
         if (!response.ok) {
-          throw new Error("Errore nel recupero dell'utente")
+          throw new Error('Error fetching user data')
         }
 
         const userData = await response.json()
-        console.log('Dati utente caricati:', userData)
+        console.log('Data fetched:', userData)
       } catch (error) {
-        console.error('Errore nel recupero dati utente:', error)
+        console.error('Error fetching user data:', error)
       }
     }
 
