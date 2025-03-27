@@ -47,7 +47,9 @@ const QnA = () => {
             {faqData.map((item, index) => (
               <Accordion.Item eventKey={index.toString()} key={index}>
                 <Accordion.Header>{item.question}</Accordion.Header>
-                <Accordion.Body>{item.answer}</Accordion.Body>
+                <Accordion.Body>
+                  <div dangerouslySetInnerHTML={{ __html: item.answer }} />
+                </Accordion.Body>
               </Accordion.Item>
             ))}
           </Accordion>

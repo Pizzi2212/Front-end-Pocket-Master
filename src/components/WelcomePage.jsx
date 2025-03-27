@@ -14,6 +14,7 @@ function WelcomePage({ setUsername }) {
   const [usernameError, setUsernameError] = useState('')
   const [emailError, setEmailError] = useState('')
   const [passwordError, setPasswordError] = useState('')
+  const [showPassword, setShowPassword] = useState(false)
 
   const handleSignInClick = () => {
     setIsLogin(false)
@@ -216,18 +217,32 @@ function WelcomePage({ setUsername }) {
                 >
                   Password
                 </label>
-                <input
-                  type="password"
-                  className="form-control"
-                  id="inputPassword"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  style={{
-                    borderColor: '#A3B9D6',
-                    backgroundColor: 'rgba(255, 255, 255, 0.7)',
-                    borderRadius: '10px',
-                  }}
-                />
+                <div className="input-group">
+                  <input
+                    type={showPassword ? 'text' : 'password'}
+                    className="form-control"
+                    id="inputPassword"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    style={{
+                      borderColor: '#A3B9D6',
+                      backgroundColor: 'rgba(255, 255, 255, 0.7)',
+                      borderRadius: '10px 0 0 10px',
+                    }}
+                  />
+                  <button
+                    type="button"
+                    className="btn btn-outline-secondary"
+                    onClick={() => setShowPassword(!showPassword)}
+                    style={{
+                      borderColor: '#A3B9D6',
+                      backgroundColor: 'rgba(255,255,255,0.7)',
+                      borderRadius: '0 10px 10px 0',
+                    }}
+                  >
+                    {showPassword ? '🙈' : '👁'}
+                  </button>
+                </div>
                 {passwordError && (
                   <div className="text-danger">{passwordError}</div>
                 )}
